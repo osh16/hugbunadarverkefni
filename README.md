@@ -8,19 +8,19 @@
 Viktor is a bulletin board website
 
 Major features include:
-	* sign up and log in
-	* create, read, update and delete threads/comments
-	* send messages to other users
-	* view post history of other users
-	* upvote/downvote content
-	* create your own communities (maybe)
+* sign up and log in
+* create, read, update and delete threads/comments
+* send messages to other users
+* view post history of other users
+* upvote/downvote content
+* create your own communities (maybe)
 
 We require a large and vibrant userbase which views this website as its default
 
 We can monetize the website through:
-	* frivolous cosmetics for donators (e.g. avatars, colored name, etc)
-	* users can award others for their contributions (e.g. reddit gold)
-	* general e-begging (we say its for server costs)
+* frivolous cosmetics for donators (e.g. avatars, colored name, etc)
+* users can award others for their contributions (e.g. reddit gold)
+* general e-begging (we say its for server costs)
 
 ## Vision and Scope Document
 1. **Business requirements**
