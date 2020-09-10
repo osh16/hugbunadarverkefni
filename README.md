@@ -3,8 +3,9 @@
 # ░░▀░░▀▀▀░▀░▀░░▀░░▀▀▀░▀░▀
 # Spjallborð alþýðunnar
 
-Viktor is a bulletin board website  
-Major features include:  
+Viktor is a bulletin board website
+
+Major features include:
 	* sign up and log in
 	* create, read, update and delete threads/comments
 	* send messages to other users
@@ -12,8 +13,9 @@ Major features include:
 	* upvote/downvote content
 	* create your own communities (maybe)
 
-We require a large and vibrant userbase which views this website as its default  
-We can monetize the website through:  
+We require a large and vibrant userbase which views this website as its default
+
+We can monetize the website through:
 	* frivolous cosmetics for donators (e.g. avatars, colored name, etc)
 	* users can award others for their contributions (e.g. reddit gold)
 	* general e-begging (we say its for server costs)
