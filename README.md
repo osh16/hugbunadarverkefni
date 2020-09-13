@@ -22,8 +22,8 @@ We can monetize the website through:
 **Unlike** *Hugi*   
 **our product** will give everyone a platform express their views, share common interests and have conversations with people around the world.  
 
-### 1.2 Background - Óskar þú vilt kannski skrifa eitthvað annað hér?
-Our product comes from the idea of the easy to use and generally non-cosmetic forums of old. Unlike successful platforms that have sprouted up in recent our idea is to create a forum like social platform without a special news feed where
+### 1.2 Background
+Our product comes from the idea of the easy to use and generally non-cosmetic forums of old. Unlike successful platforms that have sprouted up in recent years our idea is to create a forum like social platform without a special news feed so as to not clutter the view with irrelevant information to the user.
 
 ### 1.3 Major features
 Major features include a sign up and login process and a way for users to customise their profile. Creating, reading, updating and deleting of posts and commenting in threads. Message sending and recieving to/from other users on the platform. Veiwing of post history of other users. Upvoting and downvoting content through the click of a button. Last but not least, creating of communities or groups.
