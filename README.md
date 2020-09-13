@@ -31,7 +31,7 @@ Major features include a sign up and login process and a way for users to custom
 ## 2 The Initial Use Case Document
 
 ### 2.1 Use Case 1
-A teen is really passionate about assembling and painting miniature planes. His close group of friends shows little interest in his hobby though and it is getting hard to get a reaction out of them other than "that looks good". Enter Kosmósinn, the teen finds a community on Kosmósinn full of miniature plane enthusiasts sharing their creations with eachother and recieving constructive feedback and critisism.
+A teen is really passionate about assembling and painting miniature planes. His close group of friends shows little interest in his hobby though and it is getting hard to get a reaction out of them other than "that looks good". Enter Kosmósinn, the teen finds a community on Viktor full of miniature plane enthusiasts sharing their creations with eachother and recieving constructive feedback and criticism. After logging in the teen can post pictures, recieve comments and feedback in threads.
 
 ### 2.2 Use Case 2
 A man is surfing Kosmósinn and sees a post he doesn't agree with. He logs into the website with username and password. Then he presses the downvote button next to the post to express his opinion of the post.
