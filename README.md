@@ -37,5 +37,5 @@ A teen is really passionate about assembling and painting miniature planes. His 
 A man is surfing Kosmósinn and sees a post he doesn't agree with. He logs into the website with username and password. Then he presses the downvote button next to the post to express his opinion of the post.
 
 ### 2.3 Use Case 3
-A woman wants advice on what stocks she should invest in. She enters the websites stock market community and creates a post seeking advice. Other users knowledgeable in the area answer the post and give her advice to her question.
+A woman wants advice on what stocks she should invest in. She enters the websites stock market community and creates a post seeking advice. Other users knowledgeable in the field answer the post and give her advice to her question.
 
