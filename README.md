@@ -3,7 +3,7 @@
 # **Kosmósinn**  
 **Spjallborð alþýðunnar**
 
-Viktor is a bulletin board website
+Kosmósinn is a bulletin board website
 
 We require a large and vibrant userbase which views this website as its default
 
@@ -17,7 +17,7 @@ We can monetize the website through:
 ### 1.1 Vision Statement
 **For** people  
 **who** want to meet new people and start a conversation about their interests.  
-**The** *Viktor* is a social platform/forum.  
+**The** *Kosmósinn* is a social platform/forum.  
 **that** makes it easy to find friends who share common interests.  
 **Unlike** *Hugi*   
 **our product** will give everyone a platform express their views, share common interests and have conversations with people around the world.  
@@ -31,5 +31,11 @@ Major features include a sign up and login process and a way for users to custom
 ## 2 The Initial Use Case Document
 
 ### 2.1 Use Case 1
-A teen is really passionate about assembling and painting miniature planes. His close group of friends shows little interest in his hobby though and it is getting hard to get a reaction out of them other than "that looks good". Enter The Viktor, the teen finds a community on Viktor full of miniature plane enthusiasts sharing their creations with eachother and recieving constructive feedback and critisism.
+A teen is really passionate about assembling and painting miniature planes. His close group of friends shows little interest in his hobby though and it is getting hard to get a reaction out of them other than "that looks good". Enter Kosmósinn, the teen finds a community on Kosmósinn full of miniature plane enthusiasts sharing their creations with eachother and recieving constructive feedback and critisism.
+
+### 2.2 Use Case 2
+A man is surfing Kosmósinn and sees a post he doesn't agree with. He logs into the website with username and password. Then he presses the downvote button next to the post to express his opinion of the post.
+
+### 2.3 Use Case 3
+A woman wants advice on what stocks she should invest in. She enters the websites stock market community and creates a post seeking advice. Other users knowledgeable in the area answer the post and give her advice to her question.
 
