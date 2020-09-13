@@ -33,4 +33,5 @@ Major features include a sign up and login process and a way for users to custom
 ## 2 The Initial Use Case Document
 
 ### 2.1 Use Case 1
+A teen is really passionate about assembling and painting miniature planes. His close group of friends shows little interest in his hobby though and it is getting hard to get a reaction out of them other than "that looks good". Enter The Viktor, the teen finds a community on Viktor full of miniature plane enthusiasts sharing their creations with eachother and recieving constructive feedback and critisism.
 
