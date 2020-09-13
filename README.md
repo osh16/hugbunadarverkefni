@@ -17,12 +17,12 @@ We can monetize the website through:
 ## 1 The Vision and Scope document
 
 ### 1.1 Vision Statement
-**For** people 
-**who** want to meet new people and start a conversation about their interests.
-**The** *Viktor* is a social platform/forum.
-**that** makes it easy to find friends who share common interests.
-**Unlike** *Hugi* 
-**our product** will give everyone a platform express their views, share common interests and have conversations with people around the world.
+**For** people  
+**who** want to meet new people and start a conversation about their interests.  
+**The** *Viktor* is a social platform/forum.  
+**that** makes it easy to find friends who share common interests.  
+**Unlike** *Hugi*   
+**our product** will give everyone a platform express their views, share common interests and have conversations with people around the world.  
 
 ### 1.2 Background - Óskar þú vilt kannski skrifa eitthvað annað hér?
 Our product comes from the idea of the easy to use and generally non-cosmetic forums of old. Unlike successful platforms that have sprouted up in recent our idea is to create a forum like social platform without a special news feed where
