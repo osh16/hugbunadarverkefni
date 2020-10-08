@@ -17,10 +17,10 @@ While in the directory Kosmosinn
 
 To run:
 
-	./mvnw spring-boot:run
+	$ Kosmosinn/mvnw spring-boot:run
 
 In development process, to compile:
 
-	mvn compile 
+	Kosmosinn/mvn compile 
 
 
