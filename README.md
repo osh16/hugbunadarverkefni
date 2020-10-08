@@ -16,9 +16,11 @@ We can monetize the website through:
 While in the directory Kosmosinn
 
 To run:
+
 	./mvnw spring-boot:run
 
 In development process, to compile:
+
 	mvn compile 
 
 
