@@ -21,6 +21,6 @@ To run:
 
 In development process, to compile:
 
-	Kosmosinn/mvn compile 
+	$ Kosmosinn/mvn compile 
 
 
