@@ -13,14 +13,13 @@ We can monetize the website through:
 * general e-begging (we say its for server costs)
 
 # Usage
-While in the directory Kosmosinn
-
 To run:
 
-	$ Kosmosinn/mvnw spring-boot:run
+	$ cd Kosmosinn
+	$ mvnw spring-boot:run
 
 In development process, to compile:
 
-	$ Kosmosinn/mvn compile 
+	$ mvn compile 
 
 
