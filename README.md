@@ -21,3 +21,13 @@ To run:
 In development process, to compile:
 
 	$ mvn compile 
+
+# Important directories
+Java:
+
+	Kosmosinn/src/main/java/is/hi/hbv501g/kosmosinn/Kosmosinn/
+
+HTML:
+
+	Kosmosinn/src/main/resources/templates
+
