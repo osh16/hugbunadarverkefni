@@ -34,8 +34,8 @@ public class HomeController {
 		    System.out.println("adduser post error");
 			return "add-user";
 		}
-		model.addAttribute("users", userService.findAll());
 		userService.save(user);
+		model.addAttribute("users", userService.findAll());
 		System.out.println("adduser post");
 		return "Velkominn";
 	}

@@ -6,22 +6,13 @@
 </head>
 <body>
 <form action="#" th:action="@{/adduser}" th:object="${user}"  method="post">
-    <input type="text" name="username" id="username" th:field="*{username}"/>
+    <label for="username">Username</label>
+    <input type="text" th:field="*{username}" name="username" id="username"/>
     <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-    <input type="text" name="password" id="password" th:value="*{password}"/>
-    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-    <input type="submit" value="Sign up"/>
-</form>
-
-<!-- <form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="name">
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     <label for="password">Password</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="password">
+    <input type="text" th:value="*{password}" name="password" id="password"/>
     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-    <input type="submit" value="Add user">
+    <input type="submit" value="Add user"/>
 </form>
--->
 </body>
 </html>

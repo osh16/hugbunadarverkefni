@@ -3,7 +3,6 @@ package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USER")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +29,8 @@ public class User {
 		this.password = password;
 	}
 
+	public User() {}
+
 	public long getId() {
 		return id;
 	}
@@ -37,4 +38,12 @@ public class User {
 		return username;
 	}
 	public String getPassword() { return password; }
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
