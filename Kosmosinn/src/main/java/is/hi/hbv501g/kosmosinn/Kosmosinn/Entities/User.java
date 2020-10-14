@@ -13,7 +13,9 @@ public class User {
 	private long id;
 
 	private String name;
-	private String password;
+
+	// Viljum ad thetta se hashad einhvernveginn
+	// * private String password;
 
 	// Viljum ad thetta se sql date format
 	// * private Date signupdate;
@@ -25,9 +27,15 @@ public class User {
 	// * private Comments comments
 	// * private Threads threads
 
-	public User(String name, String password) {
+	public User(long id, String name)  {
+		this.id = id;
 		this.name = name;
-		this.password = password;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
 }
