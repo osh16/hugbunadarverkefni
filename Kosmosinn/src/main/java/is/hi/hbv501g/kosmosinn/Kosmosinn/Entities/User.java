@@ -1,18 +1,16 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "USER")
 public class User {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String name;
+	private String username;
+	private String password;
 
 	// Viljum ad thetta se hashad einhvernveginn
 	// * private String password;
@@ -27,15 +25,16 @@ public class User {
 	// * private Comments comments
 	// * private Threads threads
 
-	public User(long id, String name)  {
-		this.id = id;
-		this.name = name;
+	public User(String username, String password)  {
+		this.username = username;
+		this.password = password;
 	}
 
 	public long getId() {
 		return id;
 	}
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
+	public String getPassword() { return password; }
 }

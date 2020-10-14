@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>Velkominn</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-	<h1>Fkn teitur</h1>
-	<p>Óbærileg framkoma frá honum</p>
+<div th:switch="${users}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/adduser">Add a new user</a></p>
+</div>
 </body>
 </html>
