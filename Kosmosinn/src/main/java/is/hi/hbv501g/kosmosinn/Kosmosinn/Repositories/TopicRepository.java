@@ -10,4 +10,5 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
     Topic save(Topic topic);
     void delete(Topic topic);
     List<Topic> findAll();
+    Optional<Topic> findById(long id);
 }

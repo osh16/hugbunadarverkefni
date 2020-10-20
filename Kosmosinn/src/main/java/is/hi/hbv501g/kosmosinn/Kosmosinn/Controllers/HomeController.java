@@ -2,6 +2,8 @@ package is.hi.hbv501g.kosmosinn.Kosmosinn.Controllers;
 
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +18,24 @@ import javax.validation.Valid;
 public class HomeController {
 
 	private UserService userService;
+	private TopicService topicService;
 
 	@Autowired
-	public HomeController(UserService userService) {
+	public HomeController(UserService userService, TopicService topicService) {
 		this.userService = userService;
+		this.topicService = topicService;
 	}
 
 	@RequestMapping("/")
 	public String Home(Model model) {
 		model.addAttribute("users",userService.findAll());
+		//model.addAttribute("topics",topicService.findAll());
 		return "Velkominn";
 	}
+
+	//
+	// USER DRASL
+	//
 
 	@RequestMapping(value="/adduser", method = RequestMethod.POST)
     public String addUser(@Valid User user, BindingResult result, Model model) {
@@ -46,7 +55,7 @@ public class HomeController {
 		return "add-user";
 	}
 
-	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/rimOskar/{id}", method = RequestMethod.GET)
 	public String deleteUser(@PathVariable("id") long id, Model model) {
 		User user = userService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
 		userService.delete(user);
@@ -58,4 +67,37 @@ public class HomeController {
 	public String Login() {
 		return "Login";
 	}
+
+
+	//
+	// TOPIC DRASL
+	//
+
+	@RequestMapping(value="/createtopic", method = RequestMethod.POST)
+	public String addUser(@Valid Topic topic, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			System.out.println("createtopic post error");
+			return "create-topic";
+		}
+		topicService.save(topic);
+		model.addAttribute("topics", topicService.findAll());
+		System.out.println("createtopic post");
+		return "Velkominn";
+	}
+
+	@RequestMapping(value="/createtopic", method = RequestMethod.GET)
+	public String createTopicForm(Topic topic) {
+		System.out.println("createtopic get");
+		return "create-topic";
+	}
+
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	public String deleteTopic(@PathVariable("id") long id, Model model) {
+		Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
+		topicService.delete(topic);
+		model.addAttribute("topics", topicService.findAll());
+		return "Velkominn";
+	}
+
+
 }

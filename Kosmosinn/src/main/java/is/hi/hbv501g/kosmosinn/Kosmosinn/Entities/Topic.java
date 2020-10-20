@@ -22,6 +22,10 @@ public class Topic{
         this.topicContent = topicContent;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getTopicName() {
         return topicName;
     }

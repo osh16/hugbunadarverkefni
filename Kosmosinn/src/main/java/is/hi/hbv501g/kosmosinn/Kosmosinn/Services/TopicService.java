@@ -8,4 +8,5 @@ public interface TopicService {
     Topic save(Topic topic);
     void delete(Topic topic);
     List<Topic> findAll();
+    Optional<Topic> findById(long id);
 }

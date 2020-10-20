@@ -27,5 +27,27 @@
     </div>
     <p><a href="/adduser">Add a new user</a></p>
 </div>
+<div th:switch="${topics}">
+    <h2 th:case="null">No topics what the fuck!</h2>
+    <div th:case="*">
+        <h2>Topics</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>topicName</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="topic : ${topics}">
+                <td th:text="${topic.id}"></td>
+                <td th:text="${topic.topicName}"></td>
+                <td><a th:href="@{/delete/{id}(id=${topic.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/createtopic">Create a topic</a></p>
+</div>
 </body>
 </html>

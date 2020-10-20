@@ -31,4 +31,9 @@ public class TopicServiceImplementation implements TopicService {
     public List<Topic> findAll() {
         return repository.findAll();
     }
+
+    @Override
+    public Optional<Topic> findById(long id) {
+        return repository.findById(id);
+    }
 }
