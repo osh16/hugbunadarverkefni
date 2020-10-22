@@ -55,7 +55,7 @@ public class HomeController {
 		return "add-user";
 	}
 
-	@RequestMapping(value="/rimOskar/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/deleteuser/{id}", method = RequestMethod.GET)
 	public String deleteUser(@PathVariable("id") long id, Model model) {
 		User user = userService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
 		userService.delete(user);
@@ -91,7 +91,13 @@ public class HomeController {
 		return "create-topic";
 	}
 
-	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/topic", method = RequestMethod.GET)
+	public String viewTopicContent(Topic topic) {
+		System.out.println("view topic");
+		return "topic-content";
+	}
+
+	@RequestMapping(value="/deletetopic/{id}", method = RequestMethod.GET)
 	public String deleteTopic(@PathVariable("id") long id, Model model) {
 		Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
 		topicService.delete(topic);
