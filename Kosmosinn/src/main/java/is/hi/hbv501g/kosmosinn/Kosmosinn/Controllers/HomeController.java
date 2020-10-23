@@ -29,8 +29,8 @@ public class HomeController {
 	@RequestMapping("/")
 	public String Home(Model model) {
 		model.addAttribute("users",userService.findAll());
-		model.addAttribute("topics",topicService.findAll());
-		return "Velkominn";
+		//model.addAttribute("topics",topicService.findAll());
+		return "Welcome";
 	}
 
 	//
@@ -47,7 +47,7 @@ public class HomeController {
 		model.addAttribute("users", userService.findAll());
 		model.addAttribute("topics", topicService.findAll());
 		System.out.println("adduser post");
-		return "Velkominn";
+		return "Welcome";
 	}
 
 	@RequestMapping(value="/adduser", method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class HomeController {
 		User user = userService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
 		userService.delete(user);
 		model.addAttribute("users", userService.findAll());
-		return "Velkominn";
+		return "Welcome";
 	}
 
 	@RequestMapping("login") 
@@ -84,7 +84,7 @@ public class HomeController {
 		model.addAttribute("topics", topicService.findAll());
 		model.addAttribute("users", userService.findAll());
 		System.out.println("createtopic post");
-		return "Velkominn";
+		return "Welcome";
 	}
 
 	@RequestMapping(value="/createtopic", method = RequestMethod.GET)
@@ -115,6 +115,6 @@ public class HomeController {
 		Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
 		topicService.delete(topic);
 		model.addAttribute("topics", topicService.findAll());
-		return "Velkominn";
+		return "Welcome";
 	}
 }
