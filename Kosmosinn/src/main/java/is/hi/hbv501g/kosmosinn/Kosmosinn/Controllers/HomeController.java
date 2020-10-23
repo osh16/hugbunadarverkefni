@@ -29,7 +29,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String Home(Model model) {
 		model.addAttribute("users",userService.findAll());
-		//model.addAttribute("topics",topicService.findAll());
+		model.addAttribute("topics",topicService.findAll());
 		return "Velkominn";
 	}
 
@@ -45,6 +45,7 @@ public class HomeController {
 		}
 		userService.save(user);
 		model.addAttribute("users", userService.findAll());
+		model.addAttribute("topics", topicService.findAll());
 		System.out.println("adduser post");
 		return "Velkominn";
 	}
@@ -74,13 +75,14 @@ public class HomeController {
 	//
 
 	@RequestMapping(value="/createtopic", method = RequestMethod.POST)
-	public String addUser(@Valid Topic topic, BindingResult result, Model model) {
+	public String createTopic(@Valid Topic topic, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			System.out.println("createtopic post error");
 			return "create-topic";
 		}
 		topicService.save(topic);
 		model.addAttribute("topics", topicService.findAll());
+		model.addAttribute("users", userService.findAll());
 		System.out.println("createtopic post");
 		return "Velkominn";
 	}
@@ -91,9 +93,20 @@ public class HomeController {
 		return "create-topic";
 	}
 
+	/*
 	@RequestMapping(value="/topic", method = RequestMethod.GET)
-	public String viewTopicContent(Topic topic) {
+	public String viewTopicContent(Topic topic, Model model) {
 		System.out.println("view topic");
+		model.addAttribute("topics", topicService.findAll());
+		return "topic-content";
+	}
+	*/
+	@RequestMapping(value="/topic/{id}", method = RequestMethod.GET)
+	public String viewTopicContent(@PathVariable("id") long id, Model model) {
+		System.out.println("view topic");
+		//Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
+		model.addAttribute("topic", topicService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid ID")));
+		//model.addAttribute("topics", topicService.findAll());
 		return "topic-content";
 	}
 
@@ -104,6 +117,4 @@ public class HomeController {
 		model.addAttribute("topics", topicService.findAll());
 		return "Velkominn";
 	}
-
-
 }

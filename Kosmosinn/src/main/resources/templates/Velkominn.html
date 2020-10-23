@@ -41,8 +41,8 @@
             <tbody>
             <tr th:each="topic : ${topics}">
                 <td th:text="${topic.topicPoints}"></td>
-                <td><a href="/topic"><p th:text="${topic.topicName}"></p></a></td>
-                <td><a th:href="@{/delete/{id}(id=${topic.id})}">Delete</a></td>
+                <td><a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"></a></td>
+                <td><a th:href="@{/deletetopic/{id}(id=${topic.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>

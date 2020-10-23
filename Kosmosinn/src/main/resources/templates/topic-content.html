@@ -5,12 +5,18 @@
     <title>Title</title>
 </head>
 <body>
+<h2 th:text="${topic.topicName}"></h2>
+<p th:text="${topic.topicContent}"></p>
+<!--
 <div th:switch="${topics}">
     <h2 th:case="null">HEHE</h2>
     <div th:case="*">
-        <h2>Topic Name</h2>
-        <p th:text="${topic.topicContent}"></p>
+        <tr th:each="topic: ${topics}">
+            <h2 th:text="${topic.topicName}"></h2>
+            <p th:text="${topic.topicContent}"></p>
+        </tr>
     </div>
 </div>
+-->
 </body>
 </html>
