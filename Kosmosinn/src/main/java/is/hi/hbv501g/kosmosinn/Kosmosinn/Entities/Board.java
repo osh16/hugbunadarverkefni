@@ -12,12 +12,12 @@ public class Board{
     private String boardName;
     private int boardFollowers;
     private String boardInformation;
-    private Topic[] boardTopics;
+    private List<Topic> boardTopics;
 
     public Board() {
     }
 
-    public Board(String boardName, int boardFollowers, String boardInformation, Topic[] boardTopics) {
+    public Board(String boardName, int boardFollowers, String boardInformation, List<Topic> boardTopics) {
         this.boardName = boardName;
         this.boardFollowers = boardFollowers;
         this.boardInformation = boardInformation;
@@ -52,11 +52,11 @@ public class Board{
         this.boardInformation = boardInformation;
     }
 
-    public Topic[] getBoardTopics() {
+    public List<Topic> getBoardTopics() {
         return boardTopics;
     }
     
-    public void setBoardTopics(Topic[] boardTopics) {
+    public void setBoardTopics(List<Topic> boardTopics) {
         this.boardTopics = boardTopics;
     }
 }
