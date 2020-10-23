@@ -8,8 +8,8 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String username;
-	private String password;
+	public String username;
+	public String password;
 
 	// Viljum ad thetta se hashad einhvernveginn
 	// * private String password;
@@ -23,6 +23,7 @@ public class User {
 	// * private Friends friends
 	// * private Comments comments
 	// * private Threads threads
+
 
 	public User(String username, String password)  {
 		this.username = username;

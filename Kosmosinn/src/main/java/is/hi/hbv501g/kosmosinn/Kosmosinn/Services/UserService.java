@@ -8,6 +8,7 @@ public interface UserService {
 	User save(User user);
 	void delete(User user);
 	List<User> findAll();
-	List<User> findByUserame(String username);
+	User findByUserame(String username);
 	Optional<User> findById(long id);
+	User login(User user);
 }
