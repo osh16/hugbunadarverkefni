@@ -33,7 +33,7 @@ public class BoardServiceImplementation implements BoardService {
     }
 
     @Override
-	public List<User> findByBoardname(Board boardname) {
+	public List<Board> findByBoardname(String boardname) {
 		return repository.findByBoardname(boardname);
 	}
 

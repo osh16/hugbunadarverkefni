@@ -10,6 +10,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Board save(Board board);
     void delete(Board board);
     List<Board> findAll();
-    List<Board> findByBoardname(Board boardname);
+    List<Board> findByBoardname(String boardname);
     Optional<Board> findById(long id);
 }

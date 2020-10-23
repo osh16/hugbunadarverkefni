@@ -8,5 +8,6 @@ public interface BoardService {
     Board save(Board board);
     void delete(Board board);
     List<Board> findAll();
+    List<Board> findByBoardname(String boardname);
     Optional<Board> findById(long id);
 }

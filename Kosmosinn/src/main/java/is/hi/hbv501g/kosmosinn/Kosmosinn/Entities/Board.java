@@ -10,7 +10,7 @@ public class Board{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String boardName;
+    private String boardname;
     private int boardFollowers;
     private String boardInformation;
     private List<Topic> boardTopics;
@@ -18,8 +18,8 @@ public class Board{
     public Board() {
     }
 
-    public Board(String boardName, int boardFollowers, String boardInformation, List<Topic> boardTopics) {
-        this.boardName = boardName;
+    public Board(String boardname, int boardFollowers, String boardInformation, List<Topic> boardTopics) {
+        this.boardname = boardname;
         this.boardFollowers = boardFollowers;
         this.boardInformation = boardInformation;
         this.boardTopics = boardTopics;
@@ -30,11 +30,11 @@ public class Board{
     }
 
     public String getBoardName() {
-        return boardName;
+        return boardname;
     }
 
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
+    public void setBoardName(String boardname) {
+        this.boardname = boardname;
     }
 
     public int getBoardFollowers() {
