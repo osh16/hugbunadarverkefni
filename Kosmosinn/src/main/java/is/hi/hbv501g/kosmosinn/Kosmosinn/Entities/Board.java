@@ -1,5 +1,6 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
