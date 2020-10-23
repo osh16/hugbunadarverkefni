@@ -1,6 +1,7 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Board{
