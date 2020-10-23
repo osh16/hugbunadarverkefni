@@ -33,12 +33,23 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public List<User> findByUserame(String username) {
-		return repository.findByUsername(username);
+	public User findByUserame(String username) {
+	    return repository.findByUsername(username);
 	}
 
 	@Override
 	public Optional<User> findById(long id) {
 		return repository.findById(id);
+	}
+
+	@Override
+	public User login(User user) {
+		User exists = findByUserame(user.username);
+		if (exists != null) {
+			if (exists.getPassword().equals(user.password)) {
+				return user;
+			}
+		}
+		return null;
 	}
 }

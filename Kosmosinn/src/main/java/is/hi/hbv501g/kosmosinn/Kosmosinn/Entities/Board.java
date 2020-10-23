@@ -1,63 +1,47 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
-import java.util.List;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Board{
-
+public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id;
 
-    private String boardname;
-    private int boardFollowers;
-    private String boardInformation;
-    private List<Topic> boardTopics;
+    private String name;
+    private String description;
 
     public Board() {
     }
 
-    public Board(String boardname, int boardFollowers, String boardInformation, List<Topic> boardTopics) {
-        this.boardname = boardname;
-        this.boardFollowers = boardFollowers;
-        this.boardInformation = boardInformation;
-        this.boardTopics = boardTopics;
+    public Board(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getBoardName() {
-        return boardname;
+    public String getName() {
+        return name;
     }
 
-    public void setBoardName(String boardname) {
-        this.boardname = boardname;
+    public String getDescription() {
+        return description;
     }
 
-    public int getBoardFollowers() {
-        return boardFollowers;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setBoardFollowers(int boardFollowers) {
-        this.boardFollowers = boardFollowers;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBoardInformation() {
-        return boardInformation;
-    }
-
-    public void setBoardInformation(String boardInformation) {
-        this.boardInformation = boardInformation;
-    }
-
-    public List<Topic> getBoardTopics() {
-        return boardTopics;
-    }
-    
-    public void setBoardTopics(List<Topic> boardTopics) {
-        this.boardTopics = boardTopics;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
