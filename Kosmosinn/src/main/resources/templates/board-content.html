@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:switch="${topics}">
+    <h2 th:case="null">no topic</h2>
+    <div th:case="*">
+        <h2 th:text="${topic.topicName}"></h2>
+        <p th:text="${topic.topicContent}"></p>
+    </div>
+    <p><a th:href="createtopic">Add topic</a></p>
+</div>
+</body>
+</html>

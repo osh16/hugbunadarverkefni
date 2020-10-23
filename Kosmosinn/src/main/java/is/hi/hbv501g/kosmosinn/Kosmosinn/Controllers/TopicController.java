@@ -28,14 +28,9 @@ public class TopicController {
     @RequestMapping(value="createtopic", method = RequestMethod.POST)
     public String createTopic(@Valid Topic topic, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            System.out.println("createtopic post error");
             return "create-topic";
         }
         topicService.save(topic);
-        model.addAttribute("topics", topicService.findAll());
-        model.addAttribute("users", userService.findAll());
-        System.out.println("createtopic post");
-
         return "redirect:/";
     }
 
@@ -45,14 +40,6 @@ public class TopicController {
         return "create-topic";
     }
 
-    /*
-    @RequestMapping(value="/topic", method = RequestMethod.GET)
-    public String viewTopicContent(Topic topic, Model model) {
-        System.out.println("view topic");
-        model.addAttribute("topics", topicService.findAll());
-        return "topic-content";
-    }
-    */
     @RequestMapping(value="topic/{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model) {
         System.out.println("view topic");
