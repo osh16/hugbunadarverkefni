@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="userlist" th:switch="${users}" class="userlist">
+<div th:fragment="user-list" th:switch="${users}" class="user-list">
     <h2 th:case="null">No users yet!</h2>
     <div th:case="*">
         <h2>Users</h2>

@@ -5,17 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<div th:switch="${session.loggedinuser}">
-    <div th:case="null">
-        <a th:href="@{/login}">Login</a>
-        <a th:href="@{/signup}">Signup</a>
-    </div>
-    <div th:case="*">
-        <a th:text="${session.loggedinuser.username}"></a>
-        <a th:href="@{/signout}">Signout</a>
-    </div>
-</div>
-<div th:insert="userlist::userlist"/>
+<div th:insert="login-header::login-header"/>
+<div th:insert="user-list::user-list"/>
+<div th:insert="board-list::board-list"/>
 <div th:switch="${topics}">
     <h2 th:case="null">No topics</h2>
     <div th:case="*">

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="board-list" th:switch="${boards}" class="board-list">
+    <div th:each="board : ${boards}">
+        <a th:href="@(/board/} + ${board.id}" th:text="${board.name}"/>
+        <p th:text="${board.description}"></p>
+    </div>
+</div>
+<p><a th:href="@(/addboard)">Add board</a></p>
+</body>
+</html>

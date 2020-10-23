@@ -10,8 +10,14 @@ public class Board {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column
     private String description;
+
+    @OneToMany(mappedBy = "board")
+    private List<Topic> topics = new ArrayList<>();
 
     public Board() {
     }
@@ -33,8 +39,8 @@ public class Board {
         return description;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public List<Topic> getTopics() {
+        return topics;
     }
 
     public void setName(String name) {
@@ -43,5 +49,9 @@ public class Board {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 }

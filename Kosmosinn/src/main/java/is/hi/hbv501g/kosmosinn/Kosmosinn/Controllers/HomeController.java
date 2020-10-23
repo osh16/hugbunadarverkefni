@@ -1,6 +1,7 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Controllers;
 
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.BoardService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
@@ -19,17 +20,20 @@ public class HomeController {
 
 	private UserService userService;
 	private TopicService topicService;
+	private BoardService boardService;
 
 	@Autowired
-	public HomeController(UserService userService, TopicService topicService) {
+	public HomeController(UserService userService, TopicService topicService, BoardService boardService) {
 		this.userService = userService;
 		this.topicService = topicService;
+		this.boardService = boardService;
 	}
 
 	@RequestMapping("/")
 	public String Home(Model model) {
 		model.addAttribute("users",userService.findAll());
 		model.addAttribute("topics",topicService.findAll());
-		return "Velkominn";
+		model.addAttribute("boards", boardService.findAll());
+		return "welcome";
 	}
 }
