@@ -45,14 +45,14 @@ public class TopicController {
         return "create-topic";
     }
 
-    /*
+
     @RequestMapping(value="/topic", method = RequestMethod.GET)
     public String viewTopicContent(Topic topic, Model model) {
         System.out.println("view topic");
         model.addAttribute("topics", topicService.findAll());
         return "topic-content";
     }
-    */
+
     @RequestMapping(value="topic/{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model) {
         System.out.println("view topic");
