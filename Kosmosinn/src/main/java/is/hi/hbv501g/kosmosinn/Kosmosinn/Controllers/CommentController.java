@@ -26,7 +26,7 @@ public class CommentController {
         this.topicService = topicService;
     }
 
-    @RequestMapping(value="addcomment", method = RequestMethod.POST)
+    @RequestMapping(value="/addcomment", method = RequestMethod.POST)
     public String createComment(@Valid Comment comment, BindingResult result, Model model, long id) {
         if (result.hasErrors()) {
             System.out.println("createcomment post error");
@@ -42,7 +42,7 @@ public class CommentController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="addcomment", method = RequestMethod.GET)
+    @RequestMapping(value="/addcomment", method = RequestMethod.GET)
     public String createCommentForm(Comment comment) {
         System.out.println("createcomment get");
         return "topic-content";
