@@ -1,5 +1,8 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Repositories;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Board;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Comment;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,4 +14,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     void delete(Comment comment);
     List<Comment> findAll();
     Optional<Comment> findById(long id);
+    Topic findByTopic(long id);
+    User findByUser(long id);
 }

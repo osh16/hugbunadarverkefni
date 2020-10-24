@@ -1,5 +1,8 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Services.Implementations;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Board;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Comment;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Repositories.CommentRepository;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +38,15 @@ public class CommentServiceImplementation implements CommentService {
     @Override
     public Optional<Comment> findById(long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public Topic findByTopic(long id) {
+        return repository.findByTopic(id);
+    }
+
+    @Override
+    public User findByUser(long id) {
+        return repository.findByUser(id);
     }
 }

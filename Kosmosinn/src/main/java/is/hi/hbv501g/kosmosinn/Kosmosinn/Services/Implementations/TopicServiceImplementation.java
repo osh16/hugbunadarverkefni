@@ -1,5 +1,7 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Services.Implementations;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Board;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Repositories.TopicRepository;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +37,15 @@ public class TopicServiceImplementation implements TopicService {
     @Override
     public Optional<Topic> findById(long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public Board findByBoard(long id) {
+        return repository.findByBoard(id);
+    }
+
+    @Override
+    public User findByUser(long id) {
+        return repository.findByUser(id);
     }
 }

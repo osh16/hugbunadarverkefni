@@ -1,6 +1,8 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -8,21 +10,17 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String username;
-	private String password;
+	@Column(nullable = false, unique = true)
+	public String username;
 
-	// Viljum ad thetta se hashad einhvernveginn
-	// * private String password;
+	@Column(nullable = false, unique = true)
+	public String password;
 
-	// Viljum ad thetta se sql date format
-	// * private Date signupdate;
-	// * private Date lastonline;
+	@OneToMany(mappedBy = "user")
+	private List<Topic> topics = new ArrayList<>();
 
-	// Viljum bua til eh eins og:
-	// * private Messages messages
-	// * private Friends friends
-	// * private Comments comments
-	// * private Threads threads
+	@OneToMany(mappedBy = "user")
+	private List<Comment> comments = new ArrayList<>();
 
 	public User(String username, String password)  {
 		this.username = username;
@@ -38,12 +36,23 @@ public class User {
 		return username;
 	}
 	public String getPassword() { return password; }
+	public List<Topic> getTopics() {
+		return topics;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 }

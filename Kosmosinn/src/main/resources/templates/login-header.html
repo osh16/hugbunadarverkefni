@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="login-header" th:switch="${session.loggedinuser}" class="login-header">
+    <div th:case="null">
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/signup}">Signup</a>
+    </div>
+    <div th:case="*">
+        <a th:text="${session.loggedinuser.username}"></a>
+        <a th:href="@{/signout}">Signout</a>
+    </div>
+</div>
+</body>
+</html>

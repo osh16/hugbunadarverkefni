@@ -1,63 +1,57 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Board{
-
+public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id;
 
-    private String boardName;
-    private int boardFollowers;
-    private String boardInformation;
-    private List<Topic> boardTopics;
+    @Column(nullable = false)
+    private String name;
+
+    @Column
+    private String description;
+
+    @OneToMany(mappedBy = "board")
+    private List<Topic> topics = new ArrayList<>();
 
     public Board() {
     }
 
-    public Board(String boardName, int boardFollowers, String boardInformation, List<Topic> boardTopics) {
-        this.boardName = boardName;
-        this.boardFollowers = boardFollowers;
-        this.boardInformation = boardInformation;
-        this.boardTopics = boardTopics;
+    public Board(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getBoardName() {
-        return boardName;
+    public String getName() {
+        return name;
     }
 
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
+    public String getDescription() {
+        return description;
     }
 
-    public int getBoardFollowers() {
-        return boardFollowers;
+    public List<Topic> getTopics() {
+        return topics;
     }
 
-    public void setBoardFollowers(int boardFollowers) {
-        this.boardFollowers = boardFollowers;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBoardInformation() {
-        return boardInformation;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setBoardInformation(String boardInformation) {
-        this.boardInformation = boardInformation;
-    }
-
-    public List<Topic> getBoardTopics() {
-        return boardTopics;
-    }
-    
-    public void setBoardTopics(List<Topic> boardTopics) {
-        this.boardTopics = boardTopics;
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 }
