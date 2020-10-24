@@ -22,9 +22,11 @@ public class Comment{
     public Comment(String commentText) {
         this.commentText = commentText;
     }
+
     public long getId() {
         return id;
     }
+
     public String getCommentText() {
         return commentText;
     }

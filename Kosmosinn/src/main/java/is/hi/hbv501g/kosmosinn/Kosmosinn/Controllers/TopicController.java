@@ -1,6 +1,8 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Controllers;
 
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Comment;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.CommentService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,13 @@ public class TopicController {
     private HomeController homeController;
     private TopicService topicService;
     private UserService userService;
+    private CommentService commentService;
 
     @Autowired
-    public TopicController(UserService userService, TopicService topicService) {
+    public TopicController(UserService userService, TopicService topicService, CommentService commentService) {
         this.userService = userService;
         this.topicService = topicService;
+        this.commentService = commentService;
     }
 
     @RequestMapping(value="createtopic", method = RequestMethod.POST)
@@ -45,7 +49,6 @@ public class TopicController {
         return "create-topic";
     }
 
-
     @RequestMapping(value="/topic", method = RequestMethod.GET)
     public String viewTopicContent(Topic topic, Model model) {
         System.out.println("view topic");
@@ -56,9 +59,14 @@ public class TopicController {
     @RequestMapping(value="topic/{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model) {
         System.out.println("view topic");
+        /*Comment comment = new Comment("halló");
+        commentService.save(comment);
+        model.addAttribute("comments", commentService.findAll());
+        System.out.println(commentService.findAll());*/
+
         //Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
         model.addAttribute("topic", topicService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid ID")));
-        //model.addAttribute("topics", topicService.findAll());
+        model.addAttribute("comments", commentService.findAll());
         return "topic-content";
     }
 

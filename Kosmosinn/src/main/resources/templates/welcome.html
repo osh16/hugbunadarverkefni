@@ -30,5 +30,14 @@
     </div>
     <p><a href="/createtopic">Create a topic</a></p>
 </div>
+
+<!--
+<form action="#" th:action="@{/topic/{id}" th:object="${comment}"  method="post">
+    <label for="commentText">bla</label>
+    <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
+    <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
+    <input type="submit" value="Comment"/>
+</form> -->
+
 </body>
 </html>

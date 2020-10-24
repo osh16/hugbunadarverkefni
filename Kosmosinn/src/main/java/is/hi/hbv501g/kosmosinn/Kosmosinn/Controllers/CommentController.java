@@ -20,30 +20,33 @@ public class CommentController {
     private CommentService commentService;
 
     @Autowired
-    public CommentController(UserService userService, TopicService topicService) {
-        this.userService = userService;
-        this.topicService = topicService;
+    public CommentController(CommentService commentService/*, UserService userService, TopicService topicService*/) {
+        this.commentService = commentService;
+        //this.userService = userService;
+        //this.topicService = topicService;
     }
-
+    /*
     @RequestMapping(value="createcomment", method = RequestMethod.POST)
-    public String createComment(@Valid Comment comment, BindingResult result, Model model) {
+    public String createComment(@Valid Comment comment, BindingResult result, Model model, long id) {
         if (result.hasErrors()) {
             System.out.println("createcomment post error");
             return "topic-content";
         }
-        commentService.save(comment);
-        model.addAttribute("comments", commentService.findAll());
+        //commentService.save(comment);
+        //model.addAttribute("comments", commentService.findAll());
         //model.addAttribute("users", userService.findAll());
-        //model.addAttribute("topics",topicService.findAll());
+        //model.addAttribute("topics",topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid id")));
+
         System.out.println("createcomment post");
 
-        return "redirect:/";
+
+        return "welcome";
     }
 
     @RequestMapping(value="createcomment", method = RequestMethod.GET)
     public String createCommentForm(Comment comment) {
         System.out.println("createcomment get");
         return "topic-content";
-    }
+    }*/
 
 }

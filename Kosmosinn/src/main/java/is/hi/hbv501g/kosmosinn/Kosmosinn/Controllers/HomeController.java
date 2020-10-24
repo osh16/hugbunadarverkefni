@@ -1,7 +1,9 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Controllers;
 
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Comment;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.BoardService;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.CommentService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
@@ -21,12 +23,14 @@ public class HomeController {
 	private UserService userService;
 	private TopicService topicService;
 	private BoardService boardService;
+	private CommentService commentService;
 
 	@Autowired
-	public HomeController(UserService userService, TopicService topicService, BoardService boardService) {
+	public HomeController(UserService userService, TopicService topicService, BoardService boardService, CommentService commentService) {
 		this.userService = userService;
 		this.topicService = topicService;
 		this.boardService = boardService;
+		this.commentService = commentService;
 	}
 
 	@RequestMapping("/")
@@ -34,6 +38,15 @@ public class HomeController {
 		model.addAttribute("users",userService.findAll());
 		model.addAttribute("topics",topicService.findAll());
 		model.addAttribute("boards", boardService.findAll());
+		model.addAttribute("comments", commentService.findAll());
+		return "welcome";
+	}
+
+	@RequestMapping("/makecomment")
+	public String makeComment(Model model) {
+		this.commentService.save(new Comment("hæhæ"));
+		model.addAttribute("comments", commentService.findAll());
+		System.out.println("comment saved");
 		return "welcome";
 	}
 }
