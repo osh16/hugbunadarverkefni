@@ -25,7 +25,7 @@ public class TopicController {
         this.topicService = topicService;
     }
 
-    @RequestMapping(value="/createtopic", method = RequestMethod.POST)
+    @RequestMapping(value="createtopic", method = RequestMethod.POST)
     public String createTopic(@Valid Topic topic, BindingResult result, Model model) {
         if (result.hasErrors()) {
             System.out.println("createtopic post error");
@@ -39,7 +39,7 @@ public class TopicController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="/createtopic", method = RequestMethod.GET)
+    @RequestMapping(value="createtopic", method = RequestMethod.GET)
     public String createTopicForm(Topic topic) {
         System.out.println("createtopic get");
         return "create-topic";
@@ -53,7 +53,7 @@ public class TopicController {
         return "topic-content";
     }
     */
-    @RequestMapping(value="/topic/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="topic/{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model) {
         System.out.println("view topic");
         //Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
@@ -62,7 +62,7 @@ public class TopicController {
         return "topic-content";
     }
 
-    @RequestMapping(value="/deletetopic/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="deletetopic/{id}", method = RequestMethod.GET)
     public String deleteTopic(@PathVariable("id") long id, Model model) {
         Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
         topicService.delete(topic);

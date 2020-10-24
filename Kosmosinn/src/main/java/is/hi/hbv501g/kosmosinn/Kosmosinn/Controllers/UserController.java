@@ -35,7 +35,7 @@ public class UserController {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("topics", topicService.findAll());
         System.out.println("adduser post");
-        return "Velkominn";
+        return "welcome";
     }
 
     @RequestMapping(value="/adduser", method = RequestMethod.GET)
@@ -70,4 +70,26 @@ public class UserController {
         }
         return "redirect:/";
     }
+
+    /*
+    VANTAR LOGOUT POST
+     */
+
+    @RequestMapping(value="/signup", method = RequestMethod.GET)
+    public String signupForm(User user) {
+        return "signup";
+    }
+
+    @RequestMapping(value="/signup", method = RequestMethod.POST)
+    public String signup(@Valid User user, BindingResult result, Model model, HttpSession session) {
+        if (result.hasErrors()) {
+            return "signup";
+        }
+        session.setAttribute("loggedinuser", user);
+        userService.save(user);
+        return "redirect:/";
+    }
+
+
+
 }
