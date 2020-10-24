@@ -71,9 +71,15 @@ public class UserController {
         return "redirect:/";
     }
 
-    /*
-    VANTAR LOGOUT POST
-     */
+    @RequestMapping(value="/signout", method=RequestMethod.GET)
+    public String logout(@Valid User user, BindingResult result, Model model, HttpSession session) {
+        if (result.hasErrors()) {
+            System.out.println("error logout");
+            return "redirect:/";
+        }
+        session.removeAttribute( "loggedinuser");
+        return "redirect:/";
+    }
 
     @RequestMapping(value="/signup", method = RequestMethod.GET)
     public String signupForm(User user) {
