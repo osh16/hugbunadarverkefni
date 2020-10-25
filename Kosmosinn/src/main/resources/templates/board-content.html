@@ -6,11 +6,14 @@
 </head>
 <body>
 <div th:object="${topics}">
+    <!-- list of topics -->
     <div th:each="topic : ${topics}">
         <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/>
-        <p th:text="${topic.topicContent}"></p>
+        <div th:text="${topic.topicContent}"/>
         <hr>
     </div>
+
+    <!-- add topic -->
     <div th:switch="${session.loggedinuser}">
         <div th:case="null"/>
         <div th:case="*">

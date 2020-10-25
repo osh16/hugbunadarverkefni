@@ -14,7 +14,7 @@
 <div th:object="${comments}">
     <div th:each="comment : ${comments}">
         <div th:text="${comment.user}"></div><br>
-        <div th:text="${comment.commentText}"></div><br><br>
+        <div th:text="${comment.commentText}"></div>
         <hr>
     </div>
 </div>
