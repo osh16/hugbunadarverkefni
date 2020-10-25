@@ -5,11 +5,29 @@
     <title>Title</title>
 </head>
 <body>
+<div th:fragment="add-comment" class="add-comment">
+    <form action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
+        <input type="text" th:field="*{commentText}" name="commentText" id="commentText"></textarea>
+        <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
+        <input type="submit" value="Comment"/>
+    </form>
+</div>
+<!--
+<form action="#" th:action="@{/board/addboard}" th:object="${board}"  method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" name="name" id="name"/>
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" name="description" id="description"/>
+    <input type="submit" value="Add board"/>
+</form>
+-->
+<!--
 <form action="#" th:action="@{/addcomment" th:object="${comment}"  method="post">
     <label for="commentText">bla</label>
     <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
     <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
     <input type="submit" value="Comment"/>
 </form>
+-->
 </body>
 </html>

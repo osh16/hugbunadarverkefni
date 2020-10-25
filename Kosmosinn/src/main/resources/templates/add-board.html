@@ -5,13 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/addboard}" th:object="${board}"  method="post">
+<form action="#" th:action="@{/board/addboard}" th:object="${board}"  method="post">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" name="name" id="name"/>
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     <label for="description">Description</label>
-    <input type="description" th:value="*{description}" name="description" id="description"/>
-    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+    <input type="text" th:field="*{description}" name="description" id="description"/>
     <input type="submit" value="Add board"/>
 </form>
 </body>

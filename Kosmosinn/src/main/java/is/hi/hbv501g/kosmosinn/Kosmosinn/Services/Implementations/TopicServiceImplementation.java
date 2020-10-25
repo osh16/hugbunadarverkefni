@@ -7,6 +7,9 @@ import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +50,17 @@ public class TopicServiceImplementation implements TopicService {
     @Override
     public User findByUser(long id) {
         return repository.findByUser(id);
+    }
+
+    @Override
+    public List<Topic> findAllByBoardId(long id) {
+        List<Topic> topics = repository.findAll();
+        List<Topic> topicsByBoardId = new ArrayList<Topic>();
+        for(Topic t : topics) {
+            if (t.getBoard().getId() == id) {
+               topicsByBoardId.add(t);
+            }
+        }
+        return topicsByBoardId;
     }
 }

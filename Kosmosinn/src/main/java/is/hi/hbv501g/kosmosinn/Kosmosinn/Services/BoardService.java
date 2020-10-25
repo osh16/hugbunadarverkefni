@@ -1,6 +1,7 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Services;
 
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Board;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
 
 import java.util.List;
 import java.util.Optional;

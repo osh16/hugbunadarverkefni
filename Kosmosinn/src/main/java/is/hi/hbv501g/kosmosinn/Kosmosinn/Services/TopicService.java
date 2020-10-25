@@ -13,4 +13,5 @@ public interface TopicService {
     Optional<Topic> findById(long id);
     Board findByBoard(long id);
     User findByUser(long id);// thread creator
+    List<Topic> findAllByBoardId(long id);
 }
