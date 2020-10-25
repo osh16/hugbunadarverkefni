@@ -62,7 +62,8 @@ public class TopicController {
         //topic.setBoard(boardService.findById(board.getId()).get());
         topic.setBoard(boardService.findById(1).get());
         topicService.save(topic);
-        return "redirect:/board/" + topic.getBoard().getId();
+        Board currentBoard = topic.getBoard();
+        return "redirect:/board/" + currentBoard.getId();
 
     }
 
