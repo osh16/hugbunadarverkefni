@@ -8,10 +8,10 @@
 <h2>Boards</h2>
 <div th:fragment="board-list" th:switch="${boards}" class="board-list">
     <div th:each="board : ${boards}">
-        <a th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.name}"/>
+        <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}"/>
         <p th:text="${board.description}"></p>
     </div>
-    <p><a href="/addboard">Add board</a></p>
+    <p><a href="/board/addboard">Add board</a></p>
     <!--<td><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>-->
 </div>
 </body>

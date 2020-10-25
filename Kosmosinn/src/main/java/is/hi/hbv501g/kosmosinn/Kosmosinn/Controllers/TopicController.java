@@ -1,6 +1,9 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Controllers;
 
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Board;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.BoardService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,43 +14,55 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
+@RequestMapping("/topic/")
 public class TopicController {
-    private HomeController homeController;
     private TopicService topicService;
     private UserService userService;
+    private BoardService boardService;
 
     @Autowired
-    public TopicController(UserService userService, TopicService topicService) {
+    public TopicController(UserService userService, TopicService topicService, BoardService boardService) {
         this.userService = userService;
         this.topicService = topicService;
-    }
-
-    @RequestMapping(value="createtopic", method = RequestMethod.POST)
-    public String createTopic(@Valid Topic topic, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "create-topic";
-        }
-        topicService.save(topic);
-        return "redirect:/";
+        this.boardService = boardService;
     }
 
     @RequestMapping(value="createtopic", method = RequestMethod.GET)
     public String createTopicForm(Topic topic) {
-        System.out.println("createtopic get");
-        return "create-topic";
+        //model.addAttribute()
+        return "add-topic";
+    }
+    @RequestMapping(value="createtopic", method = RequestMethod.POST)
+    public String createTopic(@Valid Topic topic, BindingResult result, Model model, HttpSession session) {
+        if (result.hasErrors()) {
+            return "add-topic";
+        }
+        model.addAttribute("topics", topicService.findAll());
+        model.addAttribute("users", userService.findAll());
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+
+
+        Optional<Board> board = boardService.findById(1);
+        topic.setUser(sessionUser);
+        topic.setBoard(board.get());
+        topicService.save(topic);
+        return "redirect:/board/" + topic.getBoard().getId();
+
     }
 
-    @RequestMapping(value="topic/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model) {
         System.out.println("view topic");
-        //Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
         model.addAttribute("topic", topicService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid ID")));
-        //model.addAttribute("topics", topicService.findAll());
         return "topic-content";
     }
+
+
 
     @RequestMapping(value="deletetopic/{id}", method = RequestMethod.GET)
     public String deleteTopic(@PathVariable("id") long id, Model model) {

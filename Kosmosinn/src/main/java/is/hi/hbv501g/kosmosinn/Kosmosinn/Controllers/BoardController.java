@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
+@RequestMapping("/board/")
 public class BoardController {
     private UserService userService;
     private TopicService topicService;
@@ -29,12 +31,12 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @RequestMapping(value="/addboard", method = RequestMethod.GET)
+    @RequestMapping(value="addboard", method = RequestMethod.GET)
     public String addBoardForm(Board board) {
         return "add-board";
     }
 
-    @RequestMapping(value="/addboard", method = RequestMethod.POST)
+    @RequestMapping(value="addboard", method = RequestMethod.POST)
     public String addBoard(@Valid Board board, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-board";
@@ -43,10 +45,29 @@ public class BoardController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="/boards/{id}")
+    @RequestMapping(value="{id}")
     public String viewBoard(@PathVariable("id") long id, Model model) {
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
+        System.out.println(id);
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
-        model.addAttribute("topic",topicService.findByBoard(id));
+        System.out.println("viktor");
+        if (topicService.findAllByBoardId(id) != null) {
+            System.out.println("stradi");
+           //model.addAttribute("topics", topicService.findAllByBoardId(id));
+        }
+        /*
+        if (topicService.findAll() != null) {
+            model.addAttribute("topics", topicService.findAll());
+        }
+         */
         return "board-content";
     };
 }

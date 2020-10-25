@@ -8,10 +8,15 @@
 <div th:switch="${topics}">
     <h2 th:case="null">no topic</h2>
     <div th:case="*">
+        <div th:each="topic:${topics}">
         <h2 th:text="${topic.topicName}"></h2>
         <p th:text="${topic.topicContent}"></p>
+        </div>
     </div>
-    <p><a th:href="createtopic">Add topic</a></p>
+    <p><a th:href="@{/topic/createtopic}">Add topic</a></p>
+    <!--<p><a th:href="@{{id}/createtopic(id=${board.id})}">Add topic</a></p>-->
+    <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}"/>
+    @{/createcomment/{id}(id=$topic.id)}
 </div>
 </body>
 </html>
