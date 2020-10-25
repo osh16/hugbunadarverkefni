@@ -1,15 +1,9 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Controllers;
 
-<<<<<<< HEAD
-import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Comment;
-import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
-import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.CommentService;
-=======
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Board;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.User;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.BoardService;
->>>>>>> oskar_branch
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.TopicService;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +43,20 @@ public class TopicController {
         model.addAttribute("topics", topicService.findAll());
         model.addAttribute("users", userService.findAll());
         User sessionUser = (User) session.getAttribute("loggedinuser");
-        Board board = boardService.findById((long) session.getAttribute("currentboardid")).get();
+
+
+        System.out.println("================================");
+        //System.out.println(board);
+        //System.out.println(board.getId());
+        //System.out.println(board.getName());
+        //System.out.println(board.getDescription());
+        //System.out.println("================================");
+        //Optional<Board> board = boardService.findById((long) session.getAttribute("currentboardid"));
         topic.setUser(sessionUser);
-        topic.setBoard(board);
-        //topic.setBoard(boardService.findById(1).get());
+        //topic.setBoard(boardService.findById(board.getId()).get());
+        topic.setBoard(boardService.findById(1).get());
         topicService.save(topic);
-        Board currentBoard = topic.getBoard();
-        return "redirect:/board/" + currentBoard.getId();
+        return "redirect:/board/" + topic.getBoard().getId();
 
     }
 
