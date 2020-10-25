@@ -43,18 +43,10 @@ public class TopicController {
         model.addAttribute("topics", topicService.findAll());
         model.addAttribute("users", userService.findAll());
         User sessionUser = (User) session.getAttribute("loggedinuser");
-
-
-        System.out.println("================================");
-        //System.out.println(board);
-        //System.out.println(board.getId());
-        //System.out.println(board.getName());
-        //System.out.println(board.getDescription());
-        //System.out.println("================================");
-        //Optional<Board> board = boardService.findById((long) session.getAttribute("currentboardid"));
+        Board board = boardService.findById((long) session.getAttribute("currentboardid")).get();
         topic.setUser(sessionUser);
-        //topic.setBoard(boardService.findById(board.getId()).get());
-        topic.setBoard(boardService.findById(1).get());
+        topic.setBoard(board);
+        //topic.setBoard(boardService.findById(1).get());
         topicService.save(topic);
         return "redirect:/board/" + topic.getBoard().getId();
 
