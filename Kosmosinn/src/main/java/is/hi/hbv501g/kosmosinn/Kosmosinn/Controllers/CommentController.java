@@ -44,8 +44,8 @@ public class CommentController {
         return "redirect://topic/{id}(id=${topic.id})}";
     }
 
-    @RequestMapping(value="@{/topic/{id}(id=${topic.id})}", method = RequestMethod.GET)
-    public String createCommentForm(Comment comment, @PathVariable long topicId) {
+    @RequestMapping(value="@{/topic/{id}}", method = RequestMethod.GET)
+    public String createCommentForm(Comment comment) {
         System.out.println("createcomment get");
         return "topic-content";
     }
