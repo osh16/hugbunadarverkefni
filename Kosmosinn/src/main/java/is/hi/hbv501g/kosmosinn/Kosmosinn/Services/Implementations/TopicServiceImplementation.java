@@ -54,15 +54,23 @@ public class TopicServiceImplementation implements TopicService {
 
     @Override
     public List<Topic> findAllByBoardId(long id) {
-        Board board = repository.findByBoard(id);
+        //Board board = repository.findByBoard(id);
         List<Topic> topics = repository.findAll();
-        List<Topic> topicsByBoardId = new ArrayList<>();
+        List<Topic> topicsByBoardId = new ArrayList<Topic>();
+        for(Topic t : topics) {
+            if (t.getBoard().getId() == id) {
+               topicsByBoardId.add(t);
+            }
+        }
 
+        /*
         for (int i = 0; i < topics.size(); i++) {
             if (topics.get(i).getBoard() == board) {
                 topicsByBoardId.add(topics.get(i));
             }
         }
+         */
+
         return topicsByBoardId;
     }
 }

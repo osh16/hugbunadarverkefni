@@ -48,26 +48,10 @@ public class BoardController {
     @RequestMapping(value="{id}")
     public String viewBoard(@PathVariable("id") long id, Model model) {
         System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
-        System.out.println(id);
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
-        System.out.println("viktor");
         if (topicService.findAllByBoardId(id) != null) {
-            System.out.println("stradi");
-           //model.addAttribute("topics", topicService.findAllByBoardId(id));
+            model.addAttribute("topics", topicService.findAllByBoardId(id));
         }
-        /*
-        if (topicService.findAll() != null) {
-            model.addAttribute("topics", topicService.findAll());
-        }
-         */
         return "board-content";
     };
 }

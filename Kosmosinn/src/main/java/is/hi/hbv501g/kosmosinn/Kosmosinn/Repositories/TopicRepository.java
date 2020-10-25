@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 //public interface TopicRepository extends JpaRepository<Topic, Long> {
-public interface TopicRepository extends CrudRepository<Topic, Long> {
+public interface TopicRepository extends JpaRepository<Topic, Long> {
     Topic save(Topic topic);
     void delete(Topic topic);
     List<Topic> findAll();

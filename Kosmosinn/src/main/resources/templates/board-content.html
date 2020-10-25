@@ -13,10 +13,9 @@
         <p th:text="${topic.topicContent}"></p>
         </div>
     </div>
-    <p><a th:href="@{/topic/createtopic}">Add topic</a></p>
+    <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
     <!--<p><a th:href="@{{id}/createtopic(id=${board.id})}">Add topic</a></p>-->
-    <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}"/>
-    @{/createcomment/{id}(id=$topic.id)}
+    <!--<a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}"/>-->
 </div>
 </body>
 </html>

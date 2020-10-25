@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -47,9 +45,16 @@ public class TopicController {
         User sessionUser = (User) session.getAttribute("loggedinuser");
 
 
-        Optional<Board> board = boardService.findById(1);
+        System.out.println("================================");
+        //System.out.println(board);
+        //System.out.println(board.getId());
+        //System.out.println(board.getName());
+        //System.out.println(board.getDescription());
+        //System.out.println("================================");
+        //Optional<Board> board = boardService.findById((long) session.getAttribute("currentboardid"));
         topic.setUser(sessionUser);
-        topic.setBoard(board.get());
+        //topic.setBoard(boardService.findById(board.getId()).get());
+        topic.setBoard(boardService.findById(1).get());
         topicService.save(topic);
         return "redirect:/board/" + topic.getBoard().getId();
 

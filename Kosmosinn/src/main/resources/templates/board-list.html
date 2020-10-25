@@ -8,7 +8,7 @@
 <h2>Boards</h2>
 <div th:fragment="board-list" th:switch="${boards}" class="board-list">
     <div th:each="board : ${boards}">
-        <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}"/>
+        <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/>
         <p th:text="${board.description}"></p>
     </div>
     <p><a href="/board/addboard">Add board</a></p>
