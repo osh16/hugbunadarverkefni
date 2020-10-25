@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -45,10 +46,18 @@ public class BoardController {
         return "redirect:/";
     }
 
+   /* User exists = userService.login(user);
+        if (exists != null) {
+        session.setAttribute("loggedinuser", user);
+        return "redirect:/";
+    }
+    */
     @RequestMapping(value="{id}")
-    public String viewBoard(@PathVariable("id") long id, Model model) {
+    public String viewBoard(@PathVariable("id") long id, Model model, HttpSession session) {
         System.out.println(id);
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
+        session.setAttribute("currentboardid", id);
+
         if (topicService.findAllByBoardId(id) != null) {
             model.addAttribute("topics", topicService.findAllByBoardId(id));
         }
