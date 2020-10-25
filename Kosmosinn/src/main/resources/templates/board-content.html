@@ -5,13 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<div th:switch="${topics}">
+<div th:object="${topics}">
     <div th:each="topic : ${topics}">
         <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/>
         <p th:text="${topic.topicContent}"></p>
         <hr>
     </div>
-    <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
+    <div th:switch="${session.loggedinuser}">
+        <div th:case="null"/>
+        <div th:case="*">
+            <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
+        </div>
+    </div>
     <!--<p><a th:href="@{{id}/createtopic(id=${board.id})}">Add topic</a></p>-->
     <!--<a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}"/>-->
 </div>
