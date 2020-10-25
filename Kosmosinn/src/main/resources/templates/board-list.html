@@ -11,7 +11,12 @@
         <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/>
         <p th:text="${board.description}"></p>
     </div>
-    <p><a href="/board/addboard">Add board</a></p>
+    <div th:switch="${session.loggedinuser}">
+        <div th:case="null"/>
+        <div th:case="*">
+            <p><a href="/board/addboard">Add board</a></p>
+        </div>
+    </div>
     <!--<td><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>-->
 </div>
 </body>

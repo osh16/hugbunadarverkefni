@@ -46,12 +46,6 @@ public class BoardController {
         return "redirect:/";
     }
 
-   /* User exists = userService.login(user);
-        if (exists != null) {
-        session.setAttribute("loggedinuser", user);
-        return "redirect:/";
-    }
-    */
     @RequestMapping(value="{id}")
     public String viewBoard(@PathVariable("id") long id, Model model, HttpSession session) {
         System.out.println(id);
