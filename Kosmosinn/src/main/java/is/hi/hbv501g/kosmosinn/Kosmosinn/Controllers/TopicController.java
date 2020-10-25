@@ -56,21 +56,21 @@ public class TopicController {
         return "topic-content";
     }
 
-    @RequestMapping(value="topic/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/topic/{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model) {
         System.out.println("view topic");
         /*Comment comment = new Comment("halló");
         commentService.save(comment);
-        model.addAttribute("comments", commentService.findAll());
         System.out.println(commentService.findAll());*/
-
+        
+        model.addAttribute("comment", new Comment());
         //Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
         model.addAttribute("topic", topicService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid ID")));
         model.addAttribute("comments", commentService.findAll());
         return "topic-content";
     }
 
-    @RequestMapping(value="deletetopic/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/deletetopic/{id}", method = RequestMethod.GET)
     public String deleteTopic(@PathVariable("id") long id, Model model) {
         Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
         topicService.delete(topic);

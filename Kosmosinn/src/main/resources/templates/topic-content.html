@@ -17,14 +17,12 @@
     </div>
 </div>
 
-<p><a href="/addcomment">Add comment</a></p>
-<!--
-<form action="#" th:action="@{/topic/{id}" th:object="${comment}"  method="post">
+<form action="#" th:action="@{/createcomment}" th:object="${comment}"  method="post">
     <label for="commentText">bla</label>
     <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
     <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
-    <input type="submit" value="Comment"/>
-</form> -->
+    <input type="submit" value="Comment"/> 
+</form> 
 
 </body>
 </html>
