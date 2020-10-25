@@ -5,12 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="add-comment" class="add-comment">
-    <form action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
-        <input type="text" th:field="*{commentText}" name="commentText" id="commentText"></textarea>
-        <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
-        <input type="submit" value="Comment"/>
-    </form>
+<div th:switch="${session.loggedinuser}">
+    <div th:case="null"/>
+    <div th:case="*">
+        <div th:fragment="add-comment" class="add-comment">
+            <form action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
+                <input type="text" th:field="*{commentText}" name="commentText" id="commentText"></textarea>
+                <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
+                <input type="submit" value="Comment"/>
+            </form>
+        </div>
+    </div>
 </div>
 <!--
 <form action="#" th:action="@{/board/addboard}" th:object="${board}"  method="post">
