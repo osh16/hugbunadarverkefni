@@ -32,7 +32,7 @@ public class CommentController {
     public String createComment(@Valid Comment comment, BindingResult result, Model model, long id) {
         if (result.hasErrors()) {
             System.out.println("createcomment post error");
-            return "redirect:/topic/";
+            return "redirect:/";
         }
         commentService.save(comment);
         //model.addAttribute("comments", commentService.findAll());
