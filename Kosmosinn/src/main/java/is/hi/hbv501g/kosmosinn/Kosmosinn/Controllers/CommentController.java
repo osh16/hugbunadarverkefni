@@ -47,10 +47,8 @@ public class CommentController {
         //model.addAttribute("comments", commentService.findAll());
         //model.addAttribute("users", userService.findAll());
         //model.addAttribute("topics",topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid id")));
-
         System.out.println("createcomment post");
-        Topic currentTopic = comment.getTopic();
-        return "redirect:/topic/" + currentTopic.getId();
+        return "redirect://topic/{id}(id=${topic.id})}";
     }
      */
 

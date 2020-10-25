@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+
+<p href="/board-content"></p>
+
 <div th:object="${topic}">
     <h2 th:text="${topic.topicName}"></h2>
     <p th:text="${topic.topicContent}"></p>
@@ -35,7 +38,7 @@
 <form action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
     <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
     <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
-    <input type="submit" value="Comment"/> 
+    <input type="submit" value="Comment"/>
 </form>
 -->
 <!--
