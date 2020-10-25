@@ -32,10 +32,15 @@ public class CommentController {
     public String createComment(@Valid Comment comment, BindingResult result, Model model, long id) {
         if (result.hasErrors()) {
             System.out.println("createcomment post error");
+            System.out.println("createcomment post error");
+            System.out.println("createcomment post error");
+            System.out.println("createcomment post error");
+            System.out.println("createcomment post error");
+            System.out.println("createcomment post error");
             return "redirect:/topic/{id}(id=${topic.id})}";
         }
         commentService.save(comment);
-        //model.addAttribute("comments", commentService.findAll());
+        model.addAttribute("comments", commentService.findAll());
         //model.addAttribute("users", userService.findAll());
         //model.addAttribute("topics",topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid id")));
 
