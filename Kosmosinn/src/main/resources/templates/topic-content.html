@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<form action="#" th:action="@{{topicId}(topicId=${topic.id})/createcomment}" th:object="${comment}"  method="post">
+<form action="#" th:action="@{/createcomment}" th:object="${comment}"  method="post">
     <label for="commentText">bla</label>
     <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
     <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
