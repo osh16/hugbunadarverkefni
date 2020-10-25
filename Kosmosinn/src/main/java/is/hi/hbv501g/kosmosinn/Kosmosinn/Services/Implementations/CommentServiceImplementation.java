@@ -8,6 +8,7 @@ import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +49,17 @@ public class CommentServiceImplementation implements CommentService {
     @Override
     public User findByUser(long id) {
         return repository.findByUser(id);
+    }
+
+    @Override
+    public List<Comment> findAllByTopicId(long id) {
+        List<Comment> comments = repository.findAll();
+        List<Comment> commentsByTopicId = new ArrayList<Comment>();
+        for (Comment c : comments) {
+            if (c.getTopic().getId() == id)  {
+                commentsByTopicId.add(c);
+            }
+        }
+        return commentsByTopicId;
     }
 }

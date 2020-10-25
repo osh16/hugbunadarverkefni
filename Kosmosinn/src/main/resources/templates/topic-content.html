@@ -16,12 +16,24 @@
         </tr>
     </div>
 </div>
+<div th:insert="add-comment::add-comment"/>
 
+<!--
 <form action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
     <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
     <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
     <input type="submit" value="Comment"/> 
-</form> 
+</form>
+-->
+<!--
+<form action="#" th:action="@{/board/addboard}" th:object="${board}"  method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" name="name" id="name"/>
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" name="description" id="description"/>
+    <input type="submit" value="Add board"/>
+</form>
+-->
 
 </body>
 </html>
