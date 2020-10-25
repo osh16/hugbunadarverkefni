@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import javax.validation.Valid;
 
@@ -26,14 +28,14 @@ public class CommentController {
         this.topicService = topicService;
     }
 
-    @RequestMapping(value="addcomment", method = RequestMethod.POST)
+    @RequestMapping(value="/createcomment", method = RequestMethod.POST)
     public String createComment(@Valid Comment comment, BindingResult result, Model model, long id) {
         if (result.hasErrors()) {
             System.out.println("createcomment post error");
-            return "redirect:/";
+            return "redirect:/topic/"+topicId;
         }
         commentService.save(comment);
-        model.addAttribute("comments", commentService.findAll());
+        //model.addAttribute("comments", commentService.findAll());
         //model.addAttribute("users", userService.findAll());
         //model.addAttribute("topics",topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid id")));
 
@@ -42,8 +44,8 @@ public class CommentController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="addcomment", method = RequestMethod.GET)
-    public String createCommentForm(Comment comment) {
+    @RequestMapping(value="/createcomment", method = RequestMethod.GET)
+    public String createCommentForm(Comment comment, @PathVariable long topicId) {
         System.out.println("createcomment get");
         return "topic-content";
     }
