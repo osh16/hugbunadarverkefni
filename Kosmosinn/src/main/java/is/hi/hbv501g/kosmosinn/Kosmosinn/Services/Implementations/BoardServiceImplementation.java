@@ -1,6 +1,7 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Services.Implementations;
 
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Board;
+import is.hi.hbv501g.kosmosinn.Kosmosinn.Entities.Topic;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Repositories.BoardRepository;
 import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;

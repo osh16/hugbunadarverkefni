@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/createtopic}" th:object="${topic}"  method="post">
+<form action="#" th:action="@{/topic/createtopic}" th:object="${topic}"  method="post">
     <label for="topicName">Topic Name</label>
     <input type="text" th:field="*{topicName}" name="topicName" id="topicName"/>
     <span th:if="${#fields.hasErrors('topicName')}" th:errors="*{topicName}"></span>
