@@ -8,36 +8,7 @@
 <div th:insert="login-header::login-header"/>
 <div th:insert="user-list::user-list"/>
 <div th:insert="board-list::board-list"/>
-<div th:switch="${topics}">
-    <h2 th:case="null">No topics</h2>
-    <div th:case="*">
-        <h2>Topics</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Upvotes</th>
-                <th>Topic name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="topic : ${topics}">
-                <td th:text="${topic.topicPoints}"></td>
-                <td><a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"></a></td>
-                <td><a th:href="@{/deletetopic/{id}(id=${topic.id})}">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <p><a href="/topic/createtopic">Create a topic</a></p>
 </div>
-
-<!--
-<form action="#" th:action="@{/topic/{id}" th:object="${comment}"  method="post">
-    <label for="commentText">bla</label>
-    <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
-    <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
-    <input type="submit" value="Comment"/>
-</form> -->
 
 </body>
 </html>

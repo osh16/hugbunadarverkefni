@@ -6,12 +6,10 @@
 </head>
 <body>
 <div th:switch="${topics}">
-    <h2 th:case="null">no topic</h2>
-    <div th:case="*">
-        <div th:each="topic:${topics}">
-        <h2 th:text="${topic.topicName}"></h2>
+    <div th:each="topic : ${topics}">
+        <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/>
         <p th:text="${topic.topicContent}"></p>
-        </div>
+        <hr>
     </div>
     <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
     <!--<p><a th:href="@{{id}/createtopic(id=${board.id})}">Add topic</a></p>-->

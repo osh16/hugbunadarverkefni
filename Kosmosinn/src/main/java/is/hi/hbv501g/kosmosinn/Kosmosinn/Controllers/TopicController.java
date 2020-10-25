@@ -63,6 +63,8 @@ public class TopicController {
         Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
         topicService.delete(topic);
         model.addAttribute("topics", topicService.findAll());
+        Comment comment = new Comment();
+        model.addAttribute("comment", comment);
         return "redirect:/";
     }
 
@@ -70,7 +72,15 @@ public class TopicController {
     public String viewTopicContent(@PathVariable("id") long id, Model model, HttpSession session) {
         session.setAttribute("currenttopicid", id);
         model.addAttribute("topic", topicService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid ID")));
-        model.addAttribute("comments", commentService.findAllByTopicId(id));
+        if (commentService.findAllByTopicId(id) != null) {
+            model.addAttribute("comments", commentService.findAllByTopicId(id));
+        }
+        model.addAttribute("comment", new Comment());
+
+        System.out.println("==================");
+        System.out.println("id:" + id);
+        System.out.println("topic id:" + topicService.findById(id));
+        System.out.println("==================");
         return "topic-content";
     }
 
