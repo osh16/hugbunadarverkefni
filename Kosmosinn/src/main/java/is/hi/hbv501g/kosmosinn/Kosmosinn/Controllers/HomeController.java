@@ -18,7 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
-
+/**
+ * This is the controller for the Home page.
+ * The page shows you a login and signup buttons,
+ * a user list and a button to add new users manually,
+ * a list of all boards and, IF you are logged in, a button to add new boards.
+ */
 @Controller
 public class HomeController {
 
@@ -44,6 +49,11 @@ public class HomeController {
 		return "welcome";
 	}
 
+	/**
+	 * Function makeComment, testing function to create comments.
+	 * Not in use but included for debugging purposes.
+	 * Creates a static comment "hæhæ" and saves it.
+	 */
 	@RequestMapping("/makecomment")
 	public String makeComment(Model model) {
 		this.commentService.save(new Comment("hæhæ"));

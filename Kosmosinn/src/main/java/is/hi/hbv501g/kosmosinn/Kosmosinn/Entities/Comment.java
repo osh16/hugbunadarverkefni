@@ -2,6 +2,11 @@ package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
 
+/**
+ * Comment Entity, an entity for the many comments of Kosmosinn.
+ * A Comment has an id (long), a designated user (User Entity), a designated Topic (Topic Entity)
+ * and comment text (String).
+ */
 @Entity
 public class Comment{
 

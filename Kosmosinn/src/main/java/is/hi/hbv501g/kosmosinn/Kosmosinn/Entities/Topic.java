@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Topic Entity, an entity for the many topics of Kosmosinn.
+ * A Topic has an id (long), an ArrayList of Comments (Comment Entities),
+ * a designated Board (Board Entitiy), a designated User (User Entity), 
+ * a topicName (String), a topicContent (String) and topicPoints (int) currently not implemented fully.
+ */
 @Entity
 public class Topic{
 

@@ -29,22 +29,31 @@ public class UserController {
         this.topicService = topicService;
     }
 
+    /**
+     * Function addUser, this function creates a new user and redirects you back to
+     * the Welcome page.
+     */
     @RequestMapping(value="/adduser", method = RequestMethod.POST)
     public String addUser(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            System.out.println("adduser post error");
             return "add-user";
         }
         userService.save(user);
         return "welcome";
     }
 
+    /**
+     * Function addUserForm returns and redirects to the form to add a user.
+     */
     @RequestMapping(value="/adduser", method = RequestMethod.GET)
     public String addUserForm(User user) {
-        System.out.println("adduser get");
         return "add-user";
     }
 
+    /**
+     * Function deletUser finds the User that is up for deletion, deletes him from the service
+     * and redirects you back to the page you were on now missing the user from the list.
+     */
     @RequestMapping(value="/deleteuser/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") long id, Model model) {
         User user = userService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
@@ -53,15 +62,21 @@ public class UserController {
         return "redirect:/";
     }
 
+    /**
+     * Function loginForm, returns the page displaying a form to fill so you can login.
+     */
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String loginForm(User user) {
         return "login";
     }
 
+    /**
+     * Function login, searches for your input in the userService and logs you in setting the loggedinuser
+     * of the HttpSession. Then redirects you back to the welcome page.
+     */
     @RequestMapping(value="/login", method=RequestMethod.POST)
     public String login(@Valid User user, BindingResult result, Model model, HttpSession session) {
         if (result.hasErrors()) {
-            System.out.println("error login");
             return "login";
         }
         User exists = userService.login(user);
@@ -72,21 +87,33 @@ public class UserController {
         return "redirect:/";
     }
 
+    /**
+     * Function logout, simply removes the attribute "loggedinuser" set onto the HttpSession during
+     * login function.
+     */
     @RequestMapping(value="/signout", method=RequestMethod.GET)
     public String logout(@Valid User user, BindingResult result, Model model, HttpSession session) {
         if (result.hasErrors()) {
-            System.out.println("error logout");
             return "redirect:/";
         }
         session.removeAttribute( "loggedinuser");
         return "redirect:/";
     }
 
+    /**
+     * Function signupForm, returns the page holding the form to signup.
+     */
     @RequestMapping(value="/signup", method = RequestMethod.GET)
     public String signupForm(User user) {
         return "signup";
     }
 
+    /**
+     * Function signup, sets the signed up user to the currently logged in user using 
+     * by adding it to the HttpSession as an attribute and saves the newly signed up user to the 
+     * userService.
+     * Then redirects to the welcome page.
+     */
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public String signup(@Valid User user, BindingResult result, Model model, HttpSession session) {
         if (result.hasErrors()) {
