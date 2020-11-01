@@ -43,12 +43,4 @@ public class HomeController {
 		model.addAttribute("comments", commentService.findAll());
 		return "welcome";
 	}
-
-	@RequestMapping("/makecomment")
-	public String makeComment(Model model) {
-		this.commentService.save(new Comment("hæhæ"));
-		model.addAttribute("comments", commentService.findAll());
-		System.out.println("comment saved");
-		return "welcome";
-	}
 }
