@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+<div>Back to <a th:href="@{/}" th:text="boardlist"></a></div>
+<h2 th:text="${board.name}"></h2>
 <div th:object="${topics}">
     <!-- list of topics -->
     <div th:each="topic : ${topics}">
@@ -20,8 +22,6 @@
             <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
         </div>
     </div>
-    <!--<p><a th:href="@{{id}/createtopic(id=${board.id})}">Add topic</a></p>-->
-    <!--<a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}"/>-->
 </div>
 </body>
 </html>

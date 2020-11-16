@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -40,8 +42,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/adduser", method = RequestMethod.GET)
-    public String addUserForm(User user) {
-        System.out.println("adduser get");
+    public String addUserForm(User user, HttpSession session) {
         return "add-user";
     }
 
@@ -60,16 +61,20 @@ public class UserController {
 
     @RequestMapping(value="/login", method=RequestMethod.POST)
     public String login(@Valid User user, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
-            System.out.println("error login");
-            return "login";
-        }
+        List<String> errors = new ArrayList<>();
         User exists = userService.login(user);
-        if (exists != null) {
-            session.setAttribute("loggedinuser", user);
-            return "redirect:/";
+        if (exists == null) {
+            errors.add("User not found");
+        } else {
+            if (exists.getPassword() != user.getPassword()) {
+                errors.add("Incorrect password");
+            } else {
+                session.setAttribute("loggedinuser", user);
+                return "redirect:/";
+            }
         }
-        return "redirect:/";
+        model.addAttribute("errors",errors);
+        return "login";
     }
 
     @RequestMapping(value="/signout", method=RequestMethod.GET)
@@ -89,14 +94,22 @@ public class UserController {
 
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public String signup(@Valid User user, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
+        List<String> errors = new ArrayList<>();
+        // getum baett inn fleiri villum med errors.add("gerdir villu") osfrv
+        if (userService.findById(user.getId()) != null) {
+            System.out.println("Username already exists");
+            errors.add("Username already exists");
+        }
+
+        if (errors.size() == 0) {
+            session.setAttribute("loggedinuser", user);
+            userService.save(user);
+            return "redirect:/";
+        } else {
+            System.out.println("errors");
+            model.addAttribute("errors", errors);
             return "signup";
         }
-        session.setAttribute("loggedinuser", user);
-        userService.save(user);
-        return "redirect:/";
     }
-
-
-
 }
+

@@ -41,14 +41,9 @@ public class HomeController {
 		model.addAttribute("topics",topicService.findAll());
 		model.addAttribute("boards", boardService.findAll());
 		model.addAttribute("comments", commentService.findAll());
-		return "welcome";
-	}
-
-	@RequestMapping("/makecomment")
-	public String makeComment(Model model) {
-		this.commentService.save(new Comment("hæhæ"));
-		model.addAttribute("comments", commentService.findAll());
-		System.out.println("comment saved");
+		for (User u : userService.findAll()) {
+			System.out.println(u.getUsername());
+		}
 		return "welcome";
 	}
 }

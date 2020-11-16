@@ -19,6 +19,10 @@ public class Comment{
 
     public Comment() {
     }
+
+    public Comment(User user) {
+        this.user = user;
+    }
     public Comment(String commentText) {
         this.commentText = commentText;
     }

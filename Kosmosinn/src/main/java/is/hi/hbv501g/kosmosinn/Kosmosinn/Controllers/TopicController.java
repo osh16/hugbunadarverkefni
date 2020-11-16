@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.naming.Binding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -47,7 +49,6 @@ public class TopicController {
             return "add-topic";
         }
         model.addAttribute("topics", topicService.findAll());
-        model.addAttribute("users", userService.findAll());
         User sessionUser = (User) session.getAttribute("loggedinuser");
         Board board = boardService.findById((long) session.getAttribute("currentboardid")).get();
         topic.setUser(sessionUser);
@@ -76,19 +77,25 @@ public class TopicController {
             model.addAttribute("comments", commentService.findAllByTopicId(id));
         }
         model.addAttribute("comment", new Comment());
-
-        System.out.println("==================");
-        System.out.println("id:" + id);
-        System.out.println("topic id:" + topicService.findById(id));
-        System.out.println("==================");
+        Optional<Topic> topic = topicService.findById(id);
+        System.out.println(topic.get().getUser());
+        System.out.println(topic.get().getComments());
+        for (Comment c : topic.get().getComments()) {
+            System.out.println(c.getCommentText());
+            System.out.println(c.getUser());
+            System.out.println(c.getId());
+            System.out.println("!@!@!");
+        }
+        System.out.println(topicService.findById(id));
         return "topic-content";
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
     public String addCommentToTopic(@Valid Comment comment, @PathVariable("id") long id, BindingResult result, Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("loggedin");
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+        System.out.println(sessionUser.getUsername());
         Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
-        comment.setUser(currentUser);
+        comment.setUser(sessionUser);
         comment.setTopic(currentTopic);
         commentService.save(comment);
         return "redirect:/topic/" + session.getAttribute("currenttopicid");

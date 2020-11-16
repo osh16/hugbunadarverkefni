@@ -13,13 +13,13 @@ public class User {
 	@Column(nullable = false, unique = true)
 	public String username;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	public String password;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Topic> topics = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
 	public User(String username, String password)  {

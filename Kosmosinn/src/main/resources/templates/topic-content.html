@@ -6,14 +6,16 @@
 </head>
 <body>
 <div th:object="${topic}">
+    <div>Back to <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${topic.board.name}"></a></div>
     <h2 th:text="${topic.topicName}"></h2>
-    <p th:text="${topic.topicContent}"></p>
+    <div th:text="${topic.user.username}"/></div><br>
+    <div th:text="${topic.topicContent}"></div><br>
     <hr>
 </div>
 
 <div th:object="${comments}">
     <div th:each="comment : ${comments}">
-        <div th:text="${comment.user}"></div><br>
+        <div th:text="${comment.user.username}"></div><br>
         <div th:text="${comment.commentText}"></div>
         <hr>
     </div>
