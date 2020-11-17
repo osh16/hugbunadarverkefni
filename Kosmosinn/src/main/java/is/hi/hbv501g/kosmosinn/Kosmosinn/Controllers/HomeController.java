@@ -44,12 +44,6 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String Home(Model model) {
-<<<<<<< HEAD
-		model.addAttribute("users",userService.findAll());
-		model.addAttribute("topics",topicService.findAll());
-		model.addAttribute("boards", boardService.findAll());
-		model.addAttribute("comments", commentService.findAll());
-=======
 	    // fyrsta keyrsla
 	    if (userService.findByUserame("oskar") == null) {
 	    	User oskar = new User("oskar","oskar","ADMIN");
@@ -62,7 +56,6 @@ public class HomeController {
 		System.out.println(userService.findByUserame("oskar").getPassword());
 		System.out.println(userService.findByUserame("oskar").getRole());
 		model.addAttribute("boards", boardService.findAll());
->>>>>>> b3455506e0572af7094d9dda401abc3d1a96d05e
 		return "welcome";
 	}
 }

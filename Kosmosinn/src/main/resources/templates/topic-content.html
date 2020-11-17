@@ -5,13 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-
 <div th:object="${topic}">
     <div>Back to <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${topic.board.name}"></a></div>
     <h2 th:text="${topic.topicName}"></h2>
     <div th:text="${topic.user.username}"/></div><br>
-    <div th:text="${topic.topicContent}"></div><br>
-    <hr>
+<div th:text="${topic.topicContent}"></div><br>
+<hr>
 </div>
 
 <div th:object="${comments}">
@@ -25,28 +24,6 @@
 <div th:if="${session.loggedinuser != null}">
     <div th:insert="add-comment::add-comment"/>
 </div>
-<<<<<<< HEAD
--->
-<div th:insert="add-comment::add-comment"/>
-
-<!--
-<form action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
-    <textarea th:field="*{commentText}" name="commentText" id="commentText"></textarea>
-    <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span>
-    <input type="submit" value="Comment"/>
-</form>
--->
-<!--
-<form action="#" th:action="@{/board/addboard}" th:object="${board}"  method="post">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" name="name" id="name"/>
-    <label for="description">Description</label>
-    <input type="text" th:field="*{description}" name="description" id="description"/>
-    <input type="submit" value="Add board"/>
-</form>
--->
-=======
->>>>>>> b3455506e0572af7094d9dda401abc3d1a96d05e
 
 </body>
 </html>
