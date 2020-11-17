@@ -28,6 +28,15 @@ public class User {
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Topic> topics = new ArrayList<>();
 
+	/*
+	List<Topic>
+	1. Topic - id, name, subject, List<Comments> ~ comment1, comment2, comment3
+
+	List<long> topicsAuthoredId - long id
+
+	 */
+
+
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
