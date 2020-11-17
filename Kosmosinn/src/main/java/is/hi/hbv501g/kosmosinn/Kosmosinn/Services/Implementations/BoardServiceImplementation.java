@@ -27,7 +27,6 @@ public class BoardServiceImplementation implements BoardService {
     @Override
     public void delete(Board board) {
         repository.delete(board);
-
     }
 
     @Override

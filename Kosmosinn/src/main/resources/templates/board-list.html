@@ -5,13 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Boards</h2>
 <div th:fragment="board-list" th:switch="${boards}" class="board-list">
+    <!-- list of boards -->
+    <div><b>Boards:</b></div>
     <div th:each="board : ${boards}">
         <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/>
-        <p th:text="${board.description}"></p>
+        <div th:text="${board.description}"/>
+        <hr>
     </div>
-    <div th:switch="${session.loggedinuser}">
+
+    <!-- add board -->
+    <div th:switch="${session.loggedinadmin}">
         <div th:case="null"/>
         <div th:case="*">
             <p><a href="/board/addboard">Add board</a></p>

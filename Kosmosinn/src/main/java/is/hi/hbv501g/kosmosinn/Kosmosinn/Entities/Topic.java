@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Topic Entity, an entity for the many topics of Kosmosinn.
+ * A Topic has an id (long), an ArrayList of Comments (Comment Entities),
+ * a designated Board (Board Entitiy), a designated User (User Entity), 
+ * a topicName (String), a topicContent (String) and topicPoints (int) currently not implemented fully.
+ */
 @Entity
 public class Topic{
 
@@ -11,13 +17,13 @@ public class Topic{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
     private Board board;
 
-    @ManyToOne
+    @ManyToOne()
     private User user;
 
     @Column(nullable = false)
