@@ -29,9 +29,6 @@ public class User {
 	private List<Topic> topics = new ArrayList<>();
 
 	/*
-	List<Topic>
-	1. Topic - id, name, subject, List<Comments> ~ comment1, comment2, comment3
-
 	List<long> topicsAuthoredId - long id
 
 	 */

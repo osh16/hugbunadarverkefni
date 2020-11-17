@@ -34,18 +34,7 @@ public class UserController {
     @RequestMapping(value="/userlist", method = RequestMethod.GET)
     public String getUserList(@Valid User user, BindingResult result, Model model, HttpSession session) {
         User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
         boolean isAdmin = userService.isAdmin(currentUser);
-        System.out.println(isAdmin);
-        System.out.println(isAdmin);
-        System.out.println(isAdmin);
-        System.out.println(isAdmin);
-        System.out.println(isAdmin);
         if (!isAdmin) {
             return "redirect:/";
         }

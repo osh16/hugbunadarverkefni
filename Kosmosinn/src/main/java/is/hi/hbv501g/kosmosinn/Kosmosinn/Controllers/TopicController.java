@@ -106,31 +106,22 @@ public class TopicController {
      */
     @RequestMapping(value="{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("loggedinuser");
-        System.out.println("!@!@!@!@");
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println(currentUser.getRole());
-        System.out.println("!@!@!@!@");
-        System.out.println(currentUser.getRole());
+
+        User sessionUser = (User) session.getAttribute("loggedinuser");
         Topic currentTopic = topicService.findById(id).get();
+
+        if (sessionUser != null) {
+            User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
+            model.addAttribute("comment", new Comment());
+        }
         if (currentTopic == null) {
             return "redirect:/";
         }
-
         session.setAttribute("currenttopicid", id);
         model.addAttribute("topic", topicService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid ID")));
 
         if (commentService.findAllByTopicId(id) != null) {
             model.addAttribute("comments", commentService.findAllByTopicId(id));
-        }
-
-        // Only logged in users can comment
-        if (currentUser != null) {
-            model.addAttribute("comment", new Comment());
         }
 
         return "topic-content";
@@ -153,6 +144,5 @@ public class TopicController {
         comment.setTopic(currentTopic);
         commentService.save(comment);
         return "redirect:/topic/" + id;
-
     }
 }

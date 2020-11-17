@@ -3,6 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".edit-text-area").hide();
+
+            $(".edit-comment").click(function() {
+                console.log(this);
+                $(this.parentElement).show()
+                $(this).hide()
+            });
+
+            //$(".cancel-comment").click(function() {
+            //    $(this).("id").hide();
+            //});
+        });
+    </script>
 </head>
 <body>
 <div th:object="${topic}">
@@ -15,8 +31,15 @@
 
 <div th:object="${comments}">
     <div th:each="comment : ${comments}">
-        <div th:text="${comment.user.username}"></div><br>
+        <div th:text="${comment.user.username}"></div>
         <div th:text="${comment.commentText}"></div>
+        <div th:if="${session.loggedinuser}">
+            <div th:id="|c-${comment.id}|" th:if="${comment.user.username} == ${session.loggedinuser.username}">
+                <div class="edit-text-area" th:insert="add-comment::add-comment"/>
+                <div class="edit-comment">edit</div>
+                <div class="delete-comment">delete</div>
+            </div>
+        </div>
         <hr>
     </div>
 </div>
