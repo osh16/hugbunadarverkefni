@@ -22,7 +22,8 @@ public class Board {
     private String description;
 
     @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Topic> topics = new ArrayList<>();
+    //private List<Topic> topics = new ArrayList<>();
+    private List<Long> topicIDs = new ArrayList<>();
 
     public Board() {
     }
@@ -44,8 +45,10 @@ public class Board {
         return description;
     }
 
-    public List<Topic> getTopics() {
-        return topics;
+    //public List<Topic> getTopics() { return topics; }
+
+    public List<Long> getTopicIDs() {
+        return topicIDs;
     }
 
     public void setName(String name) {
@@ -56,7 +59,9 @@ public class Board {
         this.description = description;
     }
 
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
+    //public void setTopics(List<Topic> topics) { this.topics = topics; }
+
+    public void setTopicIDs(List<Long> topicIDs) {
+        this.topicIDs = topicIDs;
     }
 }

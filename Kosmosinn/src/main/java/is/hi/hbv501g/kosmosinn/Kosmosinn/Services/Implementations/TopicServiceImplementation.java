@@ -57,7 +57,8 @@ public class TopicServiceImplementation implements TopicService {
         List<Topic> topics = repository.findAll();
         List<Topic> topicsByBoardId = new ArrayList<Topic>();
         for(Topic t : topics) {
-            if (t.getBoard().getId() == id) {
+            //if (t.getBoard().getId() == id) {
+            if (t.getBoardID() == id) {
                topicsByBoardId.add(t);
             }
         }

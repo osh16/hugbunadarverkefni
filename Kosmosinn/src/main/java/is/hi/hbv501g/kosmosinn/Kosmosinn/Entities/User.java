@@ -14,7 +14,7 @@ import java.util.List;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	public long id;
 
 	@Column(nullable = false, unique = true)
 	public String username;
@@ -26,7 +26,8 @@ public class User {
 	public String role;
 
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-	private List<Topic> topics = new ArrayList<>();
+	//private List<Topic> topics = new ArrayList<>();
+	private List<Long> topicIDs = new ArrayList<>();
 
 	/*
 	List<Topic>
@@ -38,7 +39,8 @@ public class User {
 
 
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-	private List<Comment> comments = new ArrayList<>();
+	//private List<Comment> comments = new ArrayList<>();
+	private List<Long> commentIDs = new ArrayList<>();
 
 	public User(String username, String password, String role)  {
 		this.username = username;
@@ -57,11 +59,16 @@ public class User {
 	public String getPassword() { return password; }
 	public String getRole() { return role; }
 
-	public List<Topic> getTopics() {
-		return topics;
+	//public List<Topic> getTopics() { return topics; }
+	//public List<Comment> getComments() { return comments; }
+
+
+	public List<Long> getTopicIDs() {
+		return topicIDs;
 	}
-	public List<Comment> getComments() {
-		return comments;
+
+	public List<Long> getCommentIDs() {
+		return commentIDs;
 	}
 
 	public void setUsername(String username) {
@@ -71,10 +78,15 @@ public class User {
 		this.password = password;
 	}
 	public void setRole(String role) { this.role = role; }
-	public void setTopics(List<Topic> topics) {
-		this.topics = topics;
+	//public void setTopics(List<Topic> topics) { this.topics = topics; }
+	//public void setComments(List<Comment> comments) { this.comments = comments; }
+
+
+	public void setTopicIDs(List<Long> topicIDs) {
+		this.topicIDs = topicIDs;
 	}
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+
+	public void setCommentIDs(List<Long> commentIDs) {
+		this.commentIDs = commentIDs;
 	}
 }

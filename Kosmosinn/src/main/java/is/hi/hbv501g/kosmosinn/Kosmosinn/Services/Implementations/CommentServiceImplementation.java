@@ -56,7 +56,8 @@ public class CommentServiceImplementation implements CommentService {
         List<Comment> comments = repository.findAll();
         List<Comment> commentsByTopicId = new ArrayList<Comment>();
         for (Comment c : comments) {
-            if (c.getTopic().getId() == id)  {
+            //if (c.getTopicID().getId() == id)  {
+            if (c.getTopicID() == id)  {
                 commentsByTopicId.add(c);
             }
         }

@@ -15,19 +15,20 @@ public class Comment{
     private long id;
 
     @ManyToOne
-    private User user;
+    //private User user;
+    private long userID;
 
     @ManyToOne
-    private Topic topic;
+    //private Topic topic;
+    private long topicID;
 
     private String commentText;
 
     public Comment() {
     }
 
-    public Comment(User user) {
-        this.user = user;
-    }
+    //public Comment(User user) { this.user = user; }
+    public Comment(long userID) { this.userID = userID; }
     public Comment(String commentText) {
         this.commentText = commentText;
     }
@@ -40,23 +41,31 @@ public class Comment{
         return commentText;
     }
 
-    public User getUser() {
-        return user;
+    //public User getUser() { return user; }
+
+    //public Topic getTopic() { return topic; }
+
+    public long getUserID() {
+        return userID;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public long getTopicID() {
+        return topicID;
     }
 
     public void setCommentText(String commentText) {
         this.commentText = commentText;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    //public void setUser(User user) { this.user = user; }
+
+    //public void setTopic(Topic topic) { this.topic = topic; }
+
+    public void setUserID(long userID) {
+        this.userID = userID;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setTopicID(long topicID) {
+        this.topicID = topicID;
     }
 }

@@ -31,6 +31,15 @@ public class UserController {
         this.topicService = topicService;
     }
 
+    @RequestMapping(value="/user/{id}", method = RequestMethod.GET)
+    public String userProfile(@PathVariable("id") long id, Model model) {
+        if (userService.findById(id) != null) {
+            model.addAttribute("user", userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ID")));
+            return "user-profile";
+        }
+        return "redirect:/";
+    }
+
     @RequestMapping(value="/userlist", method = RequestMethod.GET)
     public String getUserList(@Valid User user, BindingResult result, Model model, HttpSession session) {
         User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());

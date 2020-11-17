@@ -9,9 +9,9 @@
     <label for="topicName">Topic Name</label>
     <input type="text" th:field="*{topicName}" name="topicName" id="topicName"/>
     <span th:if="${#fields.hasErrors('topicName')}" th:errors="*{topicName}"></span><br>
-    <label for="topicPoints">Topic Points</label>
+    <!--<label for="topicPoints">Topic Points</label>
     <input type="int" th:value="*{topicPoints}" name="topicPoints" id="topicPoints"/>
-    <span th:if="${#fields.hasErrors('topicPoints')}" th:errors="*{topicPoints}"></span><br>
+    <span th:if="${#fields.hasErrors('topicPoints')}" th:errors="*{topicPoints}"></span><br>-->
     <label for="topicContent">Topic Content</label><br>
     <textarea type="textfield" th:value="*{topicContent}" name="topicContent" id="topicContent"></textarea>
     <span th:if="${#fields.hasErrors('topicContent')}" th:errors="*{topicContent}"></span><br/>

@@ -75,8 +75,9 @@ public class TopicController {
             return "redirect:/board/" + currentBoardId;
         }
 
-        topic.setBoard((Board) boardService.findById(Long.parseLong(currentBoardId)).get());
-        topic.setUser((User) userService.findByUserame(currentUser.getUsername()));
+        topic.setBoardID((long) boardService.findById(Long.parseLong(currentBoardId)).get().getId());
+        //topic.setUser((User) userService.findByUserame(currentUser.getUsername()));
+        topic.setUserID((long) userService.findByUserame(currentUser.getUsername()).getId());
         topicService.save(topic);
         return "redirect:/board/" + currentBoardId;
     }
@@ -85,11 +86,11 @@ public class TopicController {
      * Function deleteTopic reads the PathVariable wich corresponds to a topics ID.
      * It searches the database for this topic and utilizing the TopicService it deletes it.
      * The function redirects you to the.
-     */
+     */ /*
     @RequestMapping(value="deletetopic/{id}", method = RequestMethod.GET)
     public String deleteTopic(@PathVariable("id") long id, Model model, HttpSession session) {
         Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
-        User topicCreator = userService.findByUserame(topic.getUser().getUsername());
+        //User topicCreator = userService.findById(topic.getUser().getUserame());
         User currentUser = (User) session.getAttribute("loggedinuser");
         boolean isAdmin = userService.isAdmin(currentUser);
         String currentBoardId = (String) session.getAttribute("currentboardid");
@@ -98,7 +99,7 @@ public class TopicController {
             topicService.delete(topic);
         }
         return "redirect:/board/" + currentBoardId;
-    }
+    } */
 
     /**
      * Function viewTopicContent, reads the PathVariable id of the topic to view.
@@ -149,8 +150,10 @@ public class TopicController {
             return "redirect:/topic/" + id;
         }
         Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
-        comment.setUser(userService.findByUserame(sessionUser.getUsername()));
-        comment.setTopic(currentTopic);
+        //comment.setUser(userService.findByUserame(sessionUser.getUsername()));
+        //comment.setTopic(currentTopic);
+        comment.setUserID(userService.findByUserame(sessionUser.getUsername()).getId());
+        comment.setTopicID(currentTopic.getId());
         commentService.save(comment);
         return "redirect:/topic/" + id;
 

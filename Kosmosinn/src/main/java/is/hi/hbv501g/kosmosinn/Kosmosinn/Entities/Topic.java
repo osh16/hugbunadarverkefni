@@ -18,13 +18,16 @@ public class Topic{
     private long id;
 
     @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+    //private List<Comment> comments = new ArrayList<>();
+    private List<Long> commentIDs = new ArrayList<>();
 
     @ManyToOne
-    private Board board;
+    //private Board board;
+    private long boardID;
 
     @ManyToOne()
-    private User user;
+    //private User user;
+    private long userID;
 
     @Column(nullable = false)
     private String topicName;
@@ -54,15 +57,12 @@ public class Topic{
         return topicContent;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-    public Board getBoard() {
-        return board;
-    }
-    public User getUser() {
-        return user;
-    }
+    //public List<Comment> getComments() { return comments; }
+    public List<Long> getCommentIDs() { return commentIDs; }
+    //public Board getBoard() { return board; }
+    public long getBoardID() { return boardID; }
+    //public User getUser() { return user; }
+    public long getUserID() { return userID; }
     public void setTopicName(String topicName) {
         this.topicName = topicName;
     }
@@ -72,13 +72,19 @@ public class Topic{
     public void setTopicContent(String topicContent) {
         this.topicContent = topicContent;
     }
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    //public void setComments(List<Comment> comments) { this.comments = comments; }
+    //public void setBoard(Board board) { this.board = board; }
+    //public void setUser(User user) { this.user = user; }
+
+    public void setCommentIDs(List<Long> commentIDs) {
+        this.commentIDs = commentIDs;
     }
-    public void setBoard(Board board) {
-        this.board = board;
+
+    public void setBoardID(long boardID) {
+        this.boardID = boardID;
     }
-    public void setUser(User user) {
-        this.user = user;
+
+    public void setUserID(long userID) {
+        this.userID = userID;
     }
 }
