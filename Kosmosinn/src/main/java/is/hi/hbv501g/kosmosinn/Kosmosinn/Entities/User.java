@@ -22,9 +22,20 @@ public class User {
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
+	private String role;
+
+	// default
 	public User(String username, String password)  {
 		this.username = username;
 		this.password = password;
+		this.role = "user";
+	}
+
+	// stofna med serstoku hlutverki
+	public User(String username, String password, String role)  {
+		this.username = username;
+		this.password = password;
+		this.role = role;
 	}
 
 	public User() {}
@@ -36,6 +47,8 @@ public class User {
 		return username;
 	}
 	public String getPassword() { return password; }
+	public String getRole() { return role; }
+
 	public List<Topic> getTopics() {
 		return topics;
 	}
@@ -49,6 +62,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public void setRole(String role) { this.role = role; }
 	public void setTopics(List<Topic> topics) {
 		this.topics = topics;
 	}

@@ -31,26 +31,48 @@ public class UserController {
         this.topicService = topicService;
     }
 
+    @RequestMapping(value="/userlist", method = RequestMethod.POST)
+    public String getUserList(@Valid User user, BindingResult result, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (!isAdmin) {
+            return "redirect:/";
+        }
+        model.addAttribute("users", userService.findAll());
+        return "user-list";
+
+    }
     @RequestMapping(value="/adduser", method = RequestMethod.POST)
-    public String addUser(@Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            System.out.println("adduser post error");
-            return "add-user";
+    public String addUser(@Valid User user, BindingResult result, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (!isAdmin) {
+            return "redirect:/";
         }
         userService.save(user);
-        return "welcome";
+        return "redirect:/adduser";
     }
 
     @RequestMapping(value="/adduser", method = RequestMethod.GET)
     public String addUserForm(User user, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (!isAdmin) {
+            return "redirect:/";
+        }
         return "add-user";
+
     }
 
     @RequestMapping(value="/deleteuser/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = userService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
-        userService.delete(user);
-        model.addAttribute("users", userService.findAll());
+    public String deleteUser(@PathVariable("id") long id, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (isAdmin) {
+            User user = userService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
+            userService.delete(user);
+            model.addAttribute("users", userService.findAll());
+        }
         return "redirect:/";
     }
 
@@ -62,28 +84,32 @@ public class UserController {
     @RequestMapping(value="/login", method=RequestMethod.POST)
     public String login(@Valid User user, BindingResult result, Model model, HttpSession session) {
         List<String> errors = new ArrayList<>();
-        User exists = userService.login(user);
-        if (exists == null) {
-            errors.add("User not found");
-        } else {
-            if (exists.getPassword() != user.getPassword()) {
-                errors.add("Incorrect password");
-            } else {
+        User exists = userService.findByUserame(user.getUsername());
+        if (exists != null) {
+            if (user.getPassword().equals(exists.getPassword())) {
                 session.setAttribute("loggedinuser", user);
+                if (userService.isAdmin(user)) {
+                    session.setAttribute("loggedinadmin", user);
+                }
                 return "redirect:/";
+            } else {
+                errors.add("Incorrect password");
+                model.addAttribute("errors",errors);
             }
+        } else {
+            errors.add("User not found");
+            model.addAttribute("errors",errors);
         }
-        model.addAttribute("errors",errors);
         return "login";
     }
 
     @RequestMapping(value="/signout", method=RequestMethod.GET)
     public String logout(@Valid User user, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
-            System.out.println("error logout");
-            return "redirect:/";
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        if (currentUser != null) {
+            session.removeAttribute( "loggedinuser");
+            session.removeAttribute("loggedinadmin");
         }
-        session.removeAttribute( "loggedinuser");
         return "redirect:/";
     }
 
@@ -95,8 +121,8 @@ public class UserController {
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public String signup(@Valid User user, BindingResult result, Model model, HttpSession session) {
         List<String> errors = new ArrayList<>();
-        // getum baett inn fleiri villum med errors.add("gerdir villu") osfrv
-        if (userService.findById(user.getId()) != null) {
+        // getum baett inn fleiri villum med errors.add("....") osfrv
+        if (userService.findByUserame(user.getUsername()) != null) {
             System.out.println("Username already exists");
             errors.add("Username already exists");
         }

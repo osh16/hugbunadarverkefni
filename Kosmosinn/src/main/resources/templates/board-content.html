@@ -10,17 +10,18 @@
 <div th:object="${topics}">
     <!-- list of topics -->
     <div th:each="topic : ${topics}">
+        <div th:text="${topic.user.username}"/>
         <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/>
         <div th:text="${topic.topicContent}"/>
         <hr>
     </div>
+</div>
 
-    <!-- add topic -->
-    <div th:switch="${session.loggedinuser}">
-        <div th:case="null"/>
-        <div th:case="*">
-            <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
-        </div>
+<!-- add topic -->
+<div th:switch="${session.loggedinuser}">
+    <div th:case="null"/>
+    <div th:case="*">
+        <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
     </div>
 </div>
 </body>

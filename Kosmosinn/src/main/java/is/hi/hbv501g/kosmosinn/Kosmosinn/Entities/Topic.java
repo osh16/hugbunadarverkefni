@@ -17,7 +17,7 @@ public class Topic{
     @ManyToOne
     private Board board;
 
-    @ManyToOne
+    @ManyToOne()
     private User user;
 
     @Column(nullable = false)

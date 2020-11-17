@@ -15,7 +15,7 @@
     </div>
 
     <!-- add board -->
-    <div th:switch="${session.loggedinuser}">
+    <div th:switch="${session.loggedinadmin}">
         <div th:case="null"/>
         <div th:case="*">
             <p><a href="/board/addboard">Add board</a></p>

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.soap.SOAPBinding;
 import javax.naming.Binding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -39,66 +40,82 @@ public class TopicController {
     }
 
     @RequestMapping(value="createtopic", method = RequestMethod.GET)
-    public String createTopicForm(Topic topic) {
-        //model.addAttribute()
+    public String createTopicForm(Topic topic, HttpSession session) {
+        String currentBoardId = (String) session.getAttribute("currentboardid");
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        if (currentUser.equals(null)) {
+            if (currentBoardId.equals(null)) {
+                return "redirect:/";
+            }
+            return "redirect:/board" + currentBoardId;
+        }
         return "add-topic";
     }
     @RequestMapping(value="createtopic", method = RequestMethod.POST)
     public String createTopic(@Valid Topic topic, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
-            return "add-topic";
+        String currentBoardId = (String) session.getAttribute("currentboardid");
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        if (currentUser.equals(null)) {
+            if (currentBoardId.equals(null)) {
+                return "redirect:/";
+            }
+            return "redirect:/board" + currentBoardId;
         }
-        model.addAttribute("topics", topicService.findAll());
-        User sessionUser = (User) session.getAttribute("loggedinuser");
-        Board board = boardService.findById((long) session.getAttribute("currentboardid")).get();
-        topic.setUser(sessionUser);
-        topic.setBoard(board);
-        topicService.save(topic);
-        Board currentBoard = topic.getBoard();
-        return "redirect:/board/" + currentBoard.getId();
 
+        topic.setBoard((Board) boardService.findById(Long.parseLong(currentBoardId)).get());
+        topic.setUser((User) userService.findByUserame(currentUser.getUsername()));
+        topicService.save(topic);
+        return "redirect:/board" + currentBoardId;
     }
 
     @RequestMapping(value="deletetopic/{id}", method = RequestMethod.GET)
-    public String deleteTopic(@PathVariable("id") long id, Model model) {
+    public String deleteTopic(@PathVariable("id") long id, Model model, HttpSession session) {
         Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
-        topicService.delete(topic);
-        model.addAttribute("topics", topicService.findAll());
-        Comment comment = new Comment();
-        model.addAttribute("comment", comment);
-        return "redirect:/";
+        User topicCreator = userService.findByUserame(topic.getUser().getUsername());
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        boolean isAdmin = userService.isAdmin(currentUser);
+        String currentBoardId = (String) session.getAttribute("currentboardid");
+
+        if (currentUser.equals(topicCreator) || isAdmin) {
+            topicService.delete(topic);
+        }
+        return "redirect:/board/" + currentBoardId;
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        Topic currentTopic = topicService.findById(id).get();
+        if (currentTopic.equals(null)) {
+            return "redirect:/";
+        }
+
         session.setAttribute("currenttopicid", id);
         model.addAttribute("topic", topicService.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid ID")));
-        if (commentService.findAllByTopicId(id) != null) {
+
+        if (!commentService.findAllByTopicId(id).equals(null)) {
             model.addAttribute("comments", commentService.findAllByTopicId(id));
         }
-        model.addAttribute("comment", new Comment());
-        Optional<Topic> topic = topicService.findById(id);
-        System.out.println(topic.get().getUser());
-        System.out.println(topic.get().getComments());
-        for (Comment c : topic.get().getComments()) {
-            System.out.println(c.getCommentText());
-            System.out.println(c.getUser());
-            System.out.println(c.getId());
-            System.out.println("!@!@!");
+
+        // Only logged in users can comment
+        if (currentUser.equals(null)) {
+            model.addAttribute("comment", new Comment());
         }
-        System.out.println(topicService.findById(id));
+
         return "topic-content";
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
     public String addCommentToTopic(@Valid Comment comment, @PathVariable("id") long id, BindingResult result, Model model, HttpSession session) {
         User sessionUser = (User) session.getAttribute("loggedinuser");
-        System.out.println(sessionUser.getUsername());
+        if (sessionUser.equals(null)) {
+            return "redirect:/topic/" + id;
+        }
         Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
         comment.setUser(sessionUser);
         comment.setTopic(currentTopic);
         commentService.save(comment);
-        return "redirect:/topic/" + session.getAttribute("currenttopicid");
+        return "redirect:/topic/" + id;
 
     }
 }

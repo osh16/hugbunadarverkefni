@@ -5,6 +5,7 @@ import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +52,18 @@ public class UserServiceImplementation implements UserService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean isAdmin(User user) {
+		if (user.getRole().equals("admin"))	{
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public User currentUser(HttpSession session) {
+		return (User) session.getAttribute("loggedinuser");
 	}
 }

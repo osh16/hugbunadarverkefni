@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -37,13 +39,12 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String Home(Model model) {
-		model.addAttribute("users",userService.findAll());
-		model.addAttribute("topics",topicService.findAll());
-		model.addAttribute("boards", boardService.findAll());
-		model.addAttribute("comments", commentService.findAll());
-		for (User u : userService.findAll()) {
-			System.out.println(u.getUsername());
+	    // admin notandinn
+	    if (!userService.findByUserame("oskar").equals(null)) {
+	    	User oskar = new User("oskar","oskar","admin");
+	    	userService.save(oskar);
 		}
+		model.addAttribute("boards", boardService.findAll());
 		return "welcome";
 	}
 }

@@ -33,26 +33,32 @@ public class BoardController {
     }
 
     @RequestMapping(value="addboard", method = RequestMethod.GET)
-    public String addBoardForm(Board board) {
+    public String addBoardForm(Board board, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (!isAdmin) {
+            return "redirect:/";
+        }
         return "add-board";
     }
 
     @RequestMapping(value="addboard", method = RequestMethod.POST)
-    public String addBoard(@Valid Board board, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-board";
+    public String addBoard(@Valid Board board, BindingResult result, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedinuser");
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (!isAdmin) {
+            return "redirect:/";
         }
         boardService.save(board);
-        return "redirect:/";
+        return "add-board";
     }
 
     @RequestMapping(value="{id}")
     public String viewBoard(@PathVariable("id") long id, Model model, HttpSession session) {
-        System.out.println(id);
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
         session.setAttribute("currentboardid", id);
 
-        if (topicService.findAllByBoardId(id) != null) {
+        if (!topicService.findAllByBoardId(id).equals(null)) {
             model.addAttribute("topics", topicService.findAllByBoardId(id));
         }
         return "board-content";
