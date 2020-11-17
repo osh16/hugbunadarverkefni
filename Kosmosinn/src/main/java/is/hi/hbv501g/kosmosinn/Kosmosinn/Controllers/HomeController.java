@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-
+/**
+ * This is the controller for the Home page.
+ * The page shows you a login and signup buttons,
+ * a user list and a button to add new users manually,
+ * a list of all boards and, IF you are logged in, a button to add new boards.
+ */
 @Controller
 public class HomeController {
 

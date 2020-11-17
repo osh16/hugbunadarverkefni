@@ -18,6 +18,10 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * This is the controller for the Boards of the project.
+ * Boards are filled with topics.
+ */
 @Controller
 @RequestMapping("/board/")
 public class BoardController {
@@ -32,6 +36,10 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+    /**
+     * Function addBoardForm
+     * Redirects you to the addboard site so you can fill in the form for a new Board.
+     */
     @RequestMapping(value="addboard", method = RequestMethod.GET)
     public String addBoardForm(Board board, HttpSession session) {
         User currentUser = (User) session.getAttribute("loggedinuser");
@@ -42,6 +50,10 @@ public class BoardController {
         return "add-board";
     }
 
+    /**
+     * Function addBoard
+     * Creates a new baord through the boardService and redirects you to the home page.
+     */
     @RequestMapping(value="addboard", method = RequestMethod.POST)
     public String addBoard(@Valid Board board, BindingResult result, Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("loggedinuser");
@@ -53,6 +65,14 @@ public class BoardController {
         return "add-board";
     }
 
+    /**
+     * Function viewBoard()
+     * viewBoard recieves a PathVariable id, wich is the id number of a board.
+     * It searches for said board id and adds it as an attribute to the model.
+     * It sets the HttpSession's currentboardid to the corresponding id.
+     * If it finds topics related to said board it fills the content of the board with said topics.
+     * Returns you to the current viewed board's site.
+     */
     @RequestMapping(value="{id}")
     public String viewBoard(@PathVariable("id") long id, Model model, HttpSession session) {
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
