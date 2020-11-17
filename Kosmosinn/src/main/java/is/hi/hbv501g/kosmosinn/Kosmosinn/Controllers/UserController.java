@@ -31,9 +31,9 @@ public class UserController {
         this.topicService = topicService;
     }
 
-    @RequestMapping(value="/userlist", method = RequestMethod.POST)
+    @RequestMapping(value="/userlist", method = RequestMethod.GET)
     public String getUserList(@Valid User user, BindingResult result, Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("loggedinuser");
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
         boolean isAdmin = userService.isAdmin(currentUser);
         if (!isAdmin) {
             return "redirect:/";
@@ -104,10 +104,7 @@ public class UserController {
         User exists = userService.findByUserame(user.getUsername());
         if (exists != null) {
             if (user.getPassword().equals(exists.getPassword())) {
-                session.setAttribute("loggedinuser", user);
-                if (userService.isAdmin(user)) {
-                    session.setAttribute("loggedinadmin", user);
-                }
+                session.setAttribute("loggedinuser", exists);
                 return "redirect:/";
             } else {
                 errors.add("Incorrect password");
@@ -129,7 +126,6 @@ public class UserController {
         User currentUser = (User) session.getAttribute("loggedinuser");
         if (currentUser != null) {
             session.removeAttribute( "loggedinuser");
-            session.removeAttribute("loggedinadmin");
         }
         return "redirect:/";
     }
@@ -156,10 +152,10 @@ public class UserController {
             System.out.println("Username already exists");
             errors.add("Username already exists");
         }
-
         if (errors.size() == 0) {
+            user.setRole("USER");
+            userService.save(user);
             session.setAttribute("loggedinuser", user);
-            userService.save(new User(user.getUsername(),user.getPassword()));
             return "redirect:/";
         } else {
             System.out.println("errors");

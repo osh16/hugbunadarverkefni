@@ -7,11 +7,5 @@
 <body>
 <div th:insert="login-header::login-header"/>
 <div th:insert="board-list::board-list"/>
-<div th:switch="${session.loggedinadmin}">
-    <div th:case="null"/>
-    <div th:case="*">
-        <div th:insert="user-list::user-list"/>
-    </div>
-</div>
 </body>
 </html>

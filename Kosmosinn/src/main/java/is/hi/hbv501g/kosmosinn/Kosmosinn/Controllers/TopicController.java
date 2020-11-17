@@ -78,7 +78,7 @@ public class TopicController {
         topic.setBoard((Board) boardService.findById(Long.parseLong(currentBoardId)).get());
         topic.setUser((User) userService.findByUserame(currentUser.getUsername()));
         topicService.save(topic);
-        return "redirect:/board" + currentBoardId;
+        return "redirect:/board/" + currentBoardId;
     }
 
     /**
@@ -107,6 +107,15 @@ public class TopicController {
     @RequestMapping(value="{id}", method = RequestMethod.GET)
     public String viewTopicContent(@PathVariable("id") long id, Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("loggedinuser");
+        System.out.println("!@!@!@!@");
+        System.out.println(currentUser.getRole());
+        System.out.println(currentUser.getRole());
+        System.out.println(currentUser.getRole());
+        System.out.println(currentUser.getRole());
+        System.out.println(currentUser.getRole());
+        System.out.println(currentUser.getRole());
+        System.out.println("!@!@!@!@");
+        System.out.println(currentUser.getRole());
         Topic currentTopic = topicService.findById(id).get();
         if (currentTopic == null) {
             return "redirect:/";
@@ -140,7 +149,7 @@ public class TopicController {
             return "redirect:/topic/" + id;
         }
         Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
-        comment.setUser(sessionUser);
+        comment.setUser(userService.findByUserame(sessionUser.getUsername()));
         comment.setTopic(currentTopic);
         commentService.save(comment);
         return "redirect:/topic/" + id;

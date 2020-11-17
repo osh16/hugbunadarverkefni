@@ -22,27 +22,19 @@ public class User {
 	@Column(nullable = false)
 	public String password;
 
+	@Column(nullable = false)
+	public String role;
+
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Topic> topics = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
-	@Column(nullable = false)
-	private String role;
-
-	// default
 	public User(String username, String password, String role)  {
 		this.username = username;
 		this.password = password;
 		this.role = role;
-	}
-
-	// default
-	public User(String username, String password)  {
-		this.username = username;
-		this.password = password;
-		this.role = "user";
 	}
 
 	public User() {}

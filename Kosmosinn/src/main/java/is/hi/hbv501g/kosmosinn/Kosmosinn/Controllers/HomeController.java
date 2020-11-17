@@ -46,14 +46,15 @@ public class HomeController {
 	public String Home(Model model) {
 	    // fyrsta keyrsla
 	    if (userService.findByUserame("oskar") == null) {
-	    	User oskar = new User("oskar","oskar", "admin");
+	    	User oskar = new User("oskar","oskar","ADMIN");
+			userService.save(oskar);
+
 			boardService.save(new Board("frettir um astrad stefansson", "hvad er hann eiginlega ad bralla"));
 			boardService.save(new Board("tonlist", "tala um tonlist"));
 			boardService.save(new Board("rafmyntir", "hver er næsta 1000x"));
-			userService.save(oskar);
-			System.out.println(userService.findByUserame("oskar").getPassword());
-			System.out.println(userService.findByUserame("oskar").getRole());
 		}
+		System.out.println(userService.findByUserame("oskar").getPassword());
+		System.out.println(userService.findByUserame("oskar").getRole());
 		model.addAttribute("boards", boardService.findAll());
 		return "welcome";
 	}
