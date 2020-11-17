@@ -56,7 +56,11 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public boolean isAdmin(User user) {
-		if (user.getRole().equals("admin"))	{
+		System.out.println(user.getId());
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		System.out.println(user.getRole());
+		if (user.getRole() == "admin")	{
 			return true;
 		}
 		return false;

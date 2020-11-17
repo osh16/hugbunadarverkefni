@@ -21,11 +21,8 @@
     </div>
 </div>
 
-<div th:switch="${session.loggedinuser}">
-    <div th:case="null"/>
-    <div th:case="*">
-        <div th:insert="add-comment::add-comment"/>
-    </div>
+<div th:if="${session.loggedinuser != null}">
+    <div th:insert="add-comment::add-comment"/>
 </div>
 
 </body>

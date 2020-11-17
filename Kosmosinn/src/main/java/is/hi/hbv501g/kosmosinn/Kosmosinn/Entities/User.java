@@ -28,20 +28,21 @@ public class User {
 	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
+	@Column(nullable = false)
 	private String role;
+
+	// default
+	public User(String username, String password, String role)  {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
 
 	// default
 	public User(String username, String password)  {
 		this.username = username;
 		this.password = password;
 		this.role = "user";
-	}
-
-	// stofna med serstoku hlutverki
-	public User(String username, String password, String role)  {
-		this.username = username;
-		this.password = password;
-		this.role = role;
 	}
 
 	public User() {}

@@ -78,7 +78,7 @@ public class BoardController {
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
         session.setAttribute("currentboardid", id);
 
-        if (!topicService.findAllByBoardId(id).equals(null)) {
+        if (topicService.findAllByBoardId(id) != null) {
             model.addAttribute("topics", topicService.findAllByBoardId(id));
         }
         return "board-content";

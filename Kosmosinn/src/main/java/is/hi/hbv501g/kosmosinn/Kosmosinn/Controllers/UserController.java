@@ -159,7 +159,7 @@ public class UserController {
 
         if (errors.size() == 0) {
             session.setAttribute("loggedinuser", user);
-            userService.save(user);
+            userService.save(new User(user.getUsername(),user.getPassword()));
             return "redirect:/";
         } else {
             System.out.println("errors");

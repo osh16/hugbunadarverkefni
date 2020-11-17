@@ -44,10 +44,15 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String Home(Model model) {
-	    // admin notandinn
-	    if (!userService.findByUserame("oskar").equals(null)) {
-	    	User oskar = new User("oskar","oskar","admin");
-	    	userService.save(oskar);
+	    // fyrsta keyrsla
+	    if (userService.findByUserame("oskar") == null) {
+	    	User oskar = new User("oskar","oskar", "admin");
+			boardService.save(new Board("frettir um astrad stefansson", "hvad er hann eiginlega ad bralla"));
+			boardService.save(new Board("tonlist", "tala um tonlist"));
+			boardService.save(new Board("rafmyntir", "hver er næsta 1000x"));
+			userService.save(oskar);
+			System.out.println(userService.findByUserame("oskar").getPassword());
+			System.out.println(userService.findByUserame("oskar").getRole());
 		}
 		model.addAttribute("boards", boardService.findAll());
 		return "welcome";
