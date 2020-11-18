@@ -25,19 +25,10 @@ public class User {
 	@Column(nullable = false)
 	public String role;
 
-	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Topic> topics = new ArrayList<>();
 
-	/*
-	List<Topic>
-	1. Topic - id, name, subject, List<Comments> ~ comment1, comment2, comment3
-
-	List<long> topicsAuthoredId - long id
-
-	 */
-
-
-	@OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
 	public User(String username, String password, String role)  {

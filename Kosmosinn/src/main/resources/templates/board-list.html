@@ -7,21 +7,19 @@
 <body>
 <div th:fragment="board-list" th:switch="${boards}" class="board-list">
     <!-- list of boards -->
-    <div><b>Boards:</b></div>
-    <div th:each="board : ${boards}">
-        <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/>
+    <div th:each="board : ${boards}" th:id="|board-${board.id}|">
+        <h3><a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/></h3>
         <div th:text="${board.description}"/>
+        <div th:text="|Topics: ${board.getTopicCount()}|"></div>
+        <div th:if="${session.loggedinuser}">
+            <div th:if="${session.loggedinuser.role == 'ADMIN'}">
+                <!--<a class="edit-board" th:id="|edit-${board.id}|" th:href="@{|/board/${board.id}/edit|}">edit</a>-->
+                <a th:href="@{|/board/${board.id}/edit|}">edit</a>
+                <a th:href="@{|/board/${board.id}/delete|}">delete</a>
+            </div>
+        </div>
         <hr>
     </div>
-
-    <!-- add board -->
-    <div th:switch="${session.loggedinadmin}">
-        <div th:case="null"/>
-        <div th:case="*">
-            <p><a href="/board/addboard">Add board</a></p>
-        </div>
-    </div>
-    <!--<td><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>-->
 </div>
 </body>
 </html>

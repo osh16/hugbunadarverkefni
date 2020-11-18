@@ -12,7 +12,7 @@ public class Comment{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    public long id;
 
     @ManyToOne
     private User user;

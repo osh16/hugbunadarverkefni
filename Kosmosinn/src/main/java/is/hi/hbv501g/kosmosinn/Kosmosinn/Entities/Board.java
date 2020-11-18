@@ -21,7 +21,7 @@ public class Board {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Topic> topics = new ArrayList<>();
 
     public Board() {
@@ -46,6 +46,10 @@ public class Board {
 
     public List<Topic> getTopics() {
         return topics;
+    }
+
+    public int getTopicCount() {
+        return topics.size();
     }
 
     public void setName(String name) {

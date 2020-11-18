@@ -1,6 +1,7 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +18,13 @@ public class Topic{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topic", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
     private Board board;
 
-    @ManyToOne()
+    @ManyToOne
     private User user;
 
     @Column(nullable = false)
@@ -56,6 +57,9 @@ public class Topic{
 
     public List<Comment> getComments() {
         return comments;
+    }
+    public int getCommentCount() {
+        return comments.size();
     }
     public Board getBoard() {
         return board;
