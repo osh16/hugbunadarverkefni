@@ -19,10 +19,12 @@
             });
         });
     </script>
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div th:insert="login-header::login-header"/>
-<div th:insert="board-list::board-list"/>
+<header th:insert="header-poster::header-poster" />
+<nav th:insert="login-header::login-header"/>
+<div class="boardlist" th:insert="board-list::board-list"/>
 
 <div id="teitur">
     <button class="faggot">click lol</button>

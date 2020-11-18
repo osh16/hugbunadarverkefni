@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div th:fragment="login-header" th:switch="${session.loggedinuser}">
-    <div th:case="null">
-        <a th:href="@{/login}">Login</a><br>
+<div class="header" th:fragment="login-header" th:switch="${session.loggedinuser}">
+    <div class="header__newlogin" th:case="null">
+        <a th:href="@{/login}">Login</a>
         <a th:href="@{/signup}">Signup</a>
     </div>
-    <div th:case="*">
+    <div class="header__loggedin" th:case="*" >
         <div th:switch="${session.loggedinuser.role}">
-            <div th:case="'ADMIN'">
-                <a th:text="${session.loggedinuser.username}"></a><br>
+            <div class="header__newlogin" th:case="'ADMIN'">
+                <p th:text="${session.loggedinuser.username}"></a>
                 <a th:href="@{/signout}">Signout</a>
                 <a th:href="@{/userlist}">Userlist</a><br>
             </div>
-            <div th:case="*">
-                <a th:text="${session.loggedinuser.username}"></a><br>
+            <div class="header__newlogin" th:case="*">
+                <p th:text="${session.loggedinuser.username}"></p>
                 <a th:href="@{/signout}">Signout</a>
             </div>
         </div>
     </div>
-<hr>
 </div>
 </body>
 </html>

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link type="stylesheet" href="../static/styles.css">
 </head>
 <body>
-<div th:fragment="board-list" th:switch="${boards}" class="board-list">
+<div class="boards" th:fragment="board-list" th:switch="${boards}">
     <!-- list of boards -->
-    <div><b>Boards:</b></div>
-    <div th:each="board : ${boards}">
+    <div><h2>Boards</h2></div>
+    <div class="board__card" th:each="board : ${boards}">
         <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/>
-        <div th:text="${board.description}"/>
-        <hr>
+        <p th:text="${board.description}"/>
     </div>
 
     <!-- add board -->
