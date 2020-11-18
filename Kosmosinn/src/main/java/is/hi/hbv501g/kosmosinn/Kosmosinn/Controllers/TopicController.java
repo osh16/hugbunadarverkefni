@@ -145,4 +145,34 @@ public class TopicController {
         commentService.save(comment);
         return "redirect:/topic/" + id;
     }
+
+    @RequestMapping(value = "editcomment/{id}", method = RequestMethod.POST)
+    public String editComment(@Valid Comment comment, @PathVariable("id") long id, HttpSession session) {
+        Comment originalComment = (Comment) commentService.findById(id).get();
+        long topicId = originalComment.getTopic().getId();
+        originalComment.setCommentText(comment.getCommentText());
+        commentService.save(originalComment);
+        return "redirect:/topic/" + topicId;
+    }
+
+    @RequestMapping(value = "deletecomment/{id}", method = RequestMethod.GET)
+    public String deleteComment(@PathVariable("id") long id, HttpSession session) {
+        Comment comment = (Comment) commentService.findById(id).get();
+        long topicId = comment.getTopic().getId();
+
+        // ef notandi er ekki skradur inn
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+        if (sessionUser == null) {
+            return "redirect:/topic/" + topicId;
+        }
+
+        User currentUser = userService.findByUserame((sessionUser).getUsername());
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (isAdmin || currentUser == comment.getUser()) {
+            commentService.delete(comment);
+        }
+        return "redirect:/topic/" + topicId;
+    }
+
+
 }
