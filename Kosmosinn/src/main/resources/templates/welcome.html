@@ -3,31 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var click = 0
-            $(".faggot").click(function() {
-                if (click % 2 == 0)
-                    $(".strakanir").text("Hello viktor");
-                else
-                    $(".strakanir").text("Hello teitur");
-                click += 1
-                console.log(this.parentElement);
-                console.log(this.parentElement);
-                $(this.parentElement).hide();
-            });
-        });
-    </script>
 </head>
 <body>
 <div th:insert="login-header::login-header"/>
 <div th:insert="board-list::board-list"/>
-
-<div id="teitur">
-    <button class="faggot">click lol</button>
-    <h1 class="strakanir">hello teitur</h1>
-</div>
-
 </body>
 </html>

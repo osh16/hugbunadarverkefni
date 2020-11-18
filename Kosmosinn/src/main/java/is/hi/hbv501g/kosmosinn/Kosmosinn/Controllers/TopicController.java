@@ -15,8 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.soap.SOAPBinding;
-import javax.naming.Binding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -150,8 +148,13 @@ public class TopicController {
     public String editComment(@Valid Comment comment, @PathVariable("id") long id, HttpSession session) {
         Comment originalComment = (Comment) commentService.findById(id).get();
         long topicId = originalComment.getTopic().getId();
-        originalComment.setCommentText(comment.getCommentText());
-        commentService.save(originalComment);
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
+        boolean isAdmin = userService.isAdmin(currentUser);
+
+        if (isAdmin || currentUser == originalComment.getUser()) {
+            commentService.save(originalComment);
+        }
+
         return "redirect:/topic/" + topicId;
     }
 
@@ -159,15 +162,9 @@ public class TopicController {
     public String deleteComment(@PathVariable("id") long id, HttpSession session) {
         Comment comment = (Comment) commentService.findById(id).get();
         long topicId = comment.getTopic().getId();
-
-        // ef notandi er ekki skradur inn
-        User sessionUser = (User) session.getAttribute("loggedinuser");
-        if (sessionUser == null) {
-            return "redirect:/topic/" + topicId;
-        }
-
-        User currentUser = userService.findByUserame((sessionUser).getUsername());
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
         boolean isAdmin = userService.isAdmin(currentUser);
+
         if (isAdmin || currentUser == comment.getUser()) {
             commentService.delete(comment);
         }

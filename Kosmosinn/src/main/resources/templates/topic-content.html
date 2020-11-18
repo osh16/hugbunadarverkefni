@@ -28,11 +28,11 @@
                 $("#eta-"+id).show();
                 $(this).hide()
             });
-            $(".cancel-comment").click(function() {
-                $(this.previousElementSibling).hide();
-                $("#eta"+$id).show();
-                id = null;
-            });
+            //$(".cancel-comment").click(function() {
+            //    $(this.previousElementSibling).hide();
+            //    $("#eta"+$id).show();
+            //    id = null;
+            //});
         });
     </script>
 </head>
@@ -41,7 +41,7 @@
     <div>Back to <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${topic.board.name}"></a></div>
     <h2 th:text="${topic.topicName}"></h2>
     <div th:text="${topic.user.username}"></div>
-    <div th:text="${topic.topicContent}"></div><br>
+    <div th:text="${topic.topicContent}"></div>
     <hr>
 </div>
 
@@ -51,7 +51,7 @@
             <div th:text="${comment.user.username}"></div>
             <div th:id="|ct-${comment.id}|" th:text="${comment.commentText}"></div>
             <div th:if="${session.loggedinuser}">
-                <div th:if="${comment.user.username} == ${session.loggedinuser.username}">
+                <div th:if="${comment.user.username} == ${session.loggedinuser.username} || ${session.loggedinuser.role == 'ADMIN'}}">
                     <div class="edit-text-area" th:id="|eta-${comment.id}|" th:insert="edit-comment::edit-comment"/>
                     <a class="edit-comment" th:href="|#${comment.id}|" th:id="|ec-${comment.id}|">edit</a>
                     <a class="delete-comment" th:href="@{deletecomment/{id}(id=${comment.id})}" th:id="|d-${comment.id}|">delete</a>
