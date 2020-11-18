@@ -4,16 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var id;
-            var tmp;
-            $(".edit-topic").click(function() {
-                id = this.getAttribute("id").substr(5);
-                $("#topic-"+id).load("topic/" + id + "/edit");
-            });
-        });
-    </script>
+    <script th:src="@{/js/board-content.js}"></script>
 </head>
 <body>
 <div>Back to <a th:href="@{/}" th:text="boardlist"></a></div>
