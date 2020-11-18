@@ -15,8 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-
-import javax.naming.Binding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -86,18 +84,46 @@ public class TopicController {
      * It searches the database for this topic and utilizing the TopicService it deletes it.
      * The function redirects you to the.
      */
-    @RequestMapping(value="deletetopic/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="{id}/delete", method = RequestMethod.GET)
     public String deleteTopic(@PathVariable("id") long id, Model model, HttpSession session) {
         Topic topic = topicService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
+        long currentBoardId = topic.getBoard().getId();
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
         User topicCreator = userService.findByUserame(topic.getUser().getUsername());
-        User currentUser = (User) session.getAttribute("loggedinuser");
         boolean isAdmin = userService.isAdmin(currentUser);
-        String currentBoardId = (String) session.getAttribute("currentboardid");
 
         if (currentUser == topicCreator || isAdmin) {
             topicService.delete(topic);
         }
         return "redirect:/board/" + currentBoardId;
+    }
+
+    @RequestMapping(value="{id}/edit", method = RequestMethod.GET)
+    public String editTopicForm(@PathVariable("id") long id, Model model, HttpSession session) {
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
+        User topicCreator = (User) topicService.findById(id).get().getUser();
+        boolean isAdmin = userService.isAdmin(currentUser);
+        Topic topic = topicService.findById(id).get();
+        if (currentUser == topicCreator || isAdmin) {
+            model.addAttribute("topic", topic);
+            return "edit-topic";
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="{id}/edit", method = RequestMethod.POST)
+    public String editTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
+        Topic originalTopic = topicService.findById(id).get();
+        User topicCreator = (User) originalTopic.getUser();
+        boolean isAdmin = userService.isAdmin(currentUser);
+        if (currentUser == topicCreator || isAdmin) {
+            originalTopic.setTopicName(topic.getTopicName());
+            originalTopic.setTopicContent(topic.getTopicContent());
+            topicService.save(originalTopic);
+            return "redirect:/topic/" + id;
+        }
+        return "redirect:/";
     }
 
     /**
@@ -148,10 +174,21 @@ public class TopicController {
 
     @RequestMapping(value = "editcomment/{id}", method = RequestMethod.POST)
     public String editComment(@Valid Comment comment, @PathVariable("id") long id, HttpSession session) {
+        System.out.println("!@#!@!@");
         Comment originalComment = (Comment) commentService.findById(id).get();
+        System.out.println(originalComment.getTopic());
+        System.out.println(originalComment.getCommentText());
         long topicId = originalComment.getTopic().getId();
-        originalComment.setCommentText(comment.getCommentText());
-        commentService.save(originalComment);
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
+        System.out.println(currentUser.getUsername());
+        boolean isAdmin = userService.isAdmin(currentUser);
+
+        if (isAdmin || currentUser == originalComment.getUser()) {
+            originalComment.setCommentText(comment.getCommentText());
+            commentService.save(originalComment);
+        }
+        System.out.println("!@#!@!@");
+
         return "redirect:/topic/" + topicId;
     }
 
@@ -159,15 +196,9 @@ public class TopicController {
     public String deleteComment(@PathVariable("id") long id, HttpSession session) {
         Comment comment = (Comment) commentService.findById(id).get();
         long topicId = comment.getTopic().getId();
-
-        // ef notandi er ekki skradur inn
-        User sessionUser = (User) session.getAttribute("loggedinuser");
-        if (sessionUser == null) {
-            return "redirect:/topic/" + topicId;
-        }
-
-        User currentUser = userService.findByUserame((sessionUser).getUsername());
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
         boolean isAdmin = userService.isAdmin(currentUser);
+
         if (isAdmin || currentUser == comment.getUser()) {
             commentService.delete(comment);
         }

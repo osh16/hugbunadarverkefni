@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{|/topic/${topic.id}/edit|}" th:object="${topic}"  method="post">
+    <label for="topicName">Topic Name</label>
+    <input type="text" th:field="*{topicName}" name="topicName" id="topicName"/>
+    <span th:if="${#fields.hasErrors('topicName')}" th:errors="*{topicName}"></span><br>
+    <label for="topicContent">Topic Content</label><br>
+    <textarea type="textfield" th:value="*{topicContent}" name="topicContent" id="topicContent"></textarea>
+    <span th:if="${#fields.hasErrors('topicContent')}" th:errors="*{topicContent}"></span><br/>
+    <input type="submit" value="Create Topic"/>
+</form>
+</body>
+</html>

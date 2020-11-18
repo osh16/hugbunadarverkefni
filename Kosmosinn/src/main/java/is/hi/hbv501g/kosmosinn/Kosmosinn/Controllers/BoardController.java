@@ -62,7 +62,7 @@ public class BoardController {
             return "redirect:/";
         }
         boardService.save(board);
-        return "add-board";
+        return "redirect:/";
     }
 
     /**
@@ -83,4 +83,42 @@ public class BoardController {
         }
         return "board-content";
     };
+
+    @RequestMapping(value="{id}/delete")
+    public String deleteBoard(@PathVariable("id") long id, HttpSession session) {
+        User currentUser = userService.findByUserame(((User) session.getAttribute("loggedinuser")).getUsername());
+        boolean isAdmin = userService.isAdmin(currentUser);
+        Board board =  boardService.findById(id).get();
+        if (isAdmin) {
+            boardService.delete(board);
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="{id}/edit", method = RequestMethod.GET)
+    public String editBoardForm(@PathVariable("id") long id, HttpSession session, Model model) {
+        boolean isAdmin = userService.isAdmin(((User) session.getAttribute("loggedinuser")));
+        if (!isAdmin) {
+            return "redirect:/";
+        }
+        Board board = boardService.findById(id).get();
+        model.addAttribute("board", board);
+        return "edit-board";
+    }
+
+    @RequestMapping(value="{id}/edit", method = RequestMethod.POST)
+    public String editBoard(@Valid Board board, @PathVariable("id") long id, HttpSession session, Model model) {
+        boolean isAdmin = userService.isAdmin(((User) session.getAttribute("loggedinuser")));
+        Board originalBoard = boardService.findById(id).get();
+        if (isAdmin) {
+            if (board.getName() != null) {
+               originalBoard.setName(board.getName());
+            }
+            if (board.getDescription() != null) {
+                originalBoard.setDescription(board.getDescription());
+            }
+            boardService.save(originalBoard);
+        }
+        return "redirect:/";
+    }
 }

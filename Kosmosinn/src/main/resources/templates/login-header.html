@@ -16,7 +16,8 @@
             <div class="header__newlogin" th:case="'ADMIN'">
                 <p th:text="${session.loggedinuser.username}"></a>
                 <a th:href="@{/signout}">Signout</a>
-                <a th:href="@{/userlist}">Userlist</a><br>
+                <a th:href="@{/userlist}">Userlist</a>
+                <a th:href="@{/board/addboard}">Add board</a><br>
             </div>
             <div class="header__newlogin" th:case="*">
                 <p th:text="${session.loggedinuser.username}"></p>
