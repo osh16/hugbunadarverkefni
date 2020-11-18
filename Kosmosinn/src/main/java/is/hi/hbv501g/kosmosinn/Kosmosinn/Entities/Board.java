@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Board Entity, an entity for the many boards of Kosmosinn.
+ * A Board has an id (long), a name (String), a description (String)
+ * and includes a ArrayList of Topics. 
+ */
 @Entity
 public class Board {
     @Id
@@ -16,7 +21,7 @@ public class Board {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Topic> topics = new ArrayList<>();
 
     public Board() {

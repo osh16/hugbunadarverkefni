@@ -9,13 +9,16 @@
 <form action="#" th:action="@{/signup}" th:object="${user}"  method="post">
     <label for="username">Username</label>
     <input type="text" name="username" id="username" th:field="*{username}"/>
-    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-
+    <br>
     <label for="password">Password</label>
-    <input type="text" name="password" id="password" th:value="*{password}"/>
-    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+    <input type="password" name="password" id="password" th:value="*{password}"/>
+    <br>
+    <div th:object="${errors}">
+        <div th:each="e: ${errors}" th:text="${e}"></div>
+        <br>
+    </div>
 
-    <input type="submit" value="Login"/>
+    <input type="submit" value="Signup"/>
 </form>
 </body>
 </html>

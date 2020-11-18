@@ -16,9 +16,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-
+/**
+ * This is the controller for the Home page.
+ * The page shows you a login and signup buttons,
+ * a user list and a button to add new users manually,
+ * a list of all boards and, IF you are logged in, a button to add new boards.
+ */
 @Controller
 public class HomeController {
 
@@ -37,18 +44,18 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String Home(Model model) {
-		model.addAttribute("users",userService.findAll());
-		model.addAttribute("topics",topicService.findAll());
-		model.addAttribute("boards", boardService.findAll());
-		model.addAttribute("comments", commentService.findAll());
-		return "welcome";
-	}
+	    // fyrsta keyrsla
+	    if (userService.findByUserame("oskar") == null) {
+	    	User oskar = new User("oskar","oskar","ADMIN");
+			userService.save(oskar);
 
-	@RequestMapping("/makecomment")
-	public String makeComment(Model model) {
-		this.commentService.save(new Comment("hæhæ"));
-		model.addAttribute("comments", commentService.findAll());
-		System.out.println("comment saved");
+			boardService.save(new Board("frettir um astrad stefansson", "hvad er hann eiginlega ad bralla"));
+			boardService.save(new Board("tonlist", "tala um tonlist"));
+			boardService.save(new Board("rafmyntir", "hver er næsta 1000x"));
+		}
+		System.out.println(userService.findByUserame("oskar").getPassword());
+		System.out.println(userService.findByUserame("oskar").getRole());
+		model.addAttribute("boards", boardService.findAll());
 		return "welcome";
 	}
 }
