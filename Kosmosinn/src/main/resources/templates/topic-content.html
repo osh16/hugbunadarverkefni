@@ -38,9 +38,10 @@
 </head>
 <body>
 <div th:object="${topic}">
+    <a th:href="@{/}" th:text="Kosmósinn"></a>
     <div>Back to <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${topic.board.name}"></a></div>
     <h2 th:text="${topic.topicName}"></h2>
-    <div th:text="${topic.user.username}"></div>
+    <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/><br>
     <div th:text="${topic.topicContent}"></div>
     <hr>
 </div>
@@ -48,7 +49,7 @@
 <div th:object="${comments}">
     <div th:each="comment : ${comments}">
         <div th:id="|c-${comment.id}|">
-            <div th:text="${comment.user.username}"></div>
+            <a th:href="@{/user/{id}(id=${comment.user.id})}" th:text="${comment.user.username}"/><br>
             <div th:id="|ct-${comment.id}|" th:text="${comment.commentText}"></div>
             <div th:if="${session.loggedinuser}">
                 <div th:if="${comment.user.username} == ${session.loggedinuser.username} || ${session.loggedinuser.role == 'ADMIN'}}">

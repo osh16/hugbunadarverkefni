@@ -17,5 +17,6 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
     Optional<Topic> findById(long id);
     Board findByBoard(long id);
     User findByUser(long id);
+    List<Topic> findAllByUserId(long id);
 }
 

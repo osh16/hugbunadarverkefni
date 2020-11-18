@@ -10,7 +10,7 @@
 <div th:object="${topics}">
     <!-- list of topics -->
     <div th:each="topic : ${topics}">
-        <div th:text="${topic.user.username}"/>
+        <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/><br>
         <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/>
         <div th:text="${topic.topicContent}"/>
         <hr>
