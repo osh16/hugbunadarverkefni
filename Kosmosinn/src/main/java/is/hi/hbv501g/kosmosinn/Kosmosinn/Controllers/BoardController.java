@@ -94,4 +94,31 @@ public class BoardController {
         }
         return "redirect:/";
     }
+
+    @RequestMapping(value="{id}/edit", method = RequestMethod.GET)
+    public String editBoardForm(@PathVariable("id") long id, HttpSession session, Model model) {
+        boolean isAdmin = userService.isAdmin(((User) session.getAttribute("loggedinuser")));
+        if (!isAdmin) {
+            return "redirect:/";
+        }
+        Board board = boardService.findById(id).get();
+        model.addAttribute("board", board);
+        return "edit-board";
+    }
+
+    @RequestMapping(value="{id}/edit", method = RequestMethod.POST)
+    public String editBoard(@Valid Board board, @PathVariable("id") long id, HttpSession session, Model model) {
+        boolean isAdmin = userService.isAdmin(((User) session.getAttribute("loggedinuser")));
+        Board originalBoard = boardService.findById(id).get();
+        if (isAdmin) {
+            if (board.getName() != null) {
+               originalBoard.setName(board.getName());
+            }
+            if (board.getDescription() != null) {
+                originalBoard.setDescription(board.getDescription());
+            }
+            boardService.save(originalBoard);
+        }
+        return "redirect:/";
+    }
 }

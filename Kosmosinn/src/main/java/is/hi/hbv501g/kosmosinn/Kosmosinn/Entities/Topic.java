@@ -58,6 +58,9 @@ public class Topic{
     public List<Comment> getComments() {
         return comments;
     }
+    public int getCommentCount() {
+        return comments.size();
+    }
     public Board getBoard() {
         return board;
     }

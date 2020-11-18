@@ -48,6 +48,10 @@ public class Board {
         return topics;
     }
 
+    public int getTopicCount() {
+        return topics.size();
+    }
+
     public void setName(String name) {
         this.name = name;
     }
