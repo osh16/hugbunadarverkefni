@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.Instant;
+import java.util.Date;
 
 /**
  * This is the controller for the Home page.
@@ -53,8 +55,6 @@ public class HomeController {
 			boardService.save(new Board("tonlist", "tala um tonlist"));
 			boardService.save(new Board("rafmyntir", "hver er næsta 1000x"));
 		}
-		System.out.println(userService.findByUserame("oskar").getPassword());
-		System.out.println(userService.findByUserame("oskar").getRole());
 		model.addAttribute("boards", boardService.findAll());
 		return "welcome";
 	}

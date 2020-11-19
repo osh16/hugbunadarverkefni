@@ -1,8 +1,13 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * User Entity, an entity for the many users of Kosmosinn.
@@ -31,6 +36,9 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
+	public long userCreated;
+	public long lastOnline;
+
 	public User(String username, String password, String role)  {
 		this.username = username;
 		this.password = password;
@@ -55,6 +63,24 @@ public class User {
 		return comments;
 	}
 
+	public long getUserCreated() {
+		return userCreated;
+	}
+
+	public String getUserCreatedDate() {
+		LocalDateTime ldt = LocalDateTime.ofInstant(Instant.ofEpochSecond(userCreated), ZoneId.systemDefault());
+		return String.format("%d %s, %d at %d:%d", ldt.getDayOfMonth(), ldt.getMonth(), ldt.getYear(), ldt.getHour(), ldt.getMinute());
+	}
+
+	public long getLastOnline() {
+		return lastOnline;
+	}
+
+	public String getLastOnlineDate() {
+		LocalDateTime ldt = LocalDateTime.ofInstant(Instant.ofEpochSecond(lastOnline), ZoneId.systemDefault());
+		return String.format("%d.%d.%d, %d:%d:%d", ldt.getDayOfMonth(), ldt.getDayOfMonth(), ldt.getYear(), ldt.getHour(), ldt.getMinute(), ldt.getSecond());
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -67,5 +93,13 @@ public class User {
 	}
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public void setUserCreated() {
+		this.userCreated = Instant.now().getEpochSecond();
+	}
+
+	public void setLastOnline() {
+		this.lastOnline = Instant.now().getEpochSecond();
 	}
 }

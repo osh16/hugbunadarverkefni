@@ -10,6 +10,18 @@
 <div class="container">
     <div th:insert="login-header::login-header"/>
     <div th:insert="board-list::board-list"/>
+
+    <!-- test drasl -->
+    <div th:if="${session.loggedinuser}">
+        <hr><p>Date test</p>
+        <div th:text="${session.loggedinuser.getUserCreatedDate()}"></div>
+        <div th:text="${session.loggedinuser.userCreated}"></div>
+        <div th:text="${session.loggedinuser.getUserCreated()}"></div>
+        <div th:text="${session.loggedinuser.getLastOnlineDate()}"></div>
+        <div th:text="${session.loggedinuser.lastOnline}"></div>
+        <div th:text="${session.loggedinuser.getLastOnline()}"></div>
+
+    </div>
 </div>
 </body>
 </html>

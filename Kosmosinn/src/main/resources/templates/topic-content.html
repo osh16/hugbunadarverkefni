@@ -11,9 +11,9 @@
         <div>Back to <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${topic.board.name}"></a></div>
         <div class="row" th:object="${topic}">
             <div class="col-sm topic-header">
-                <h2 th:text="${topic.topicName}"></h2>
-                <div th:text="${topic.user.username}"></div>
-                <div th:text="${topic.topicContent}"></div>
+                <h2 th:text="${topic.topicName}"/>
+                <p th:text="${topic.user.username}"/>
+                <p th:text="${topic.topicContent}"/>
             </div>
             <div class="col-sm" th:if="${session.loggedinuser}">
                 <div th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
@@ -25,17 +25,16 @@
 
         <div th:object="${comments}">
             <div class="row" th:each="comment : ${comments}">
-                <div th:id="|c-${comment.id}|">
-                    <div class="col-sm">
-                        <div th:text="${comment.user.username}"></div>
-                        <div th:id="|ct-${comment.id}|" th:text="${comment.commentText}"></div>
-                    </div>
-                    <div class="col-sm" th:if="${session.loggedinuser}">
-                        <div th:if="${comment.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
-                            <div class="edit-text-area" th:id="|eta-${comment.id}|" th:insert="edit-comment::edit-comment"/>
-                            <a class="edit-comment" th:href="|#${comment.id}|" th:id="|ec-${comment.id}|">edit</a>
-                            <a class="delete-comment" th:href="@{deletecomment/{id}(id=${comment.id})}" th:id="|d-${comment.id}|">delete</a>
-                        </div>
+                <div class="col-sm">
+                    <p th:text="${comment.user.username}"/>
+                    <p th:id="|ct-${comment.id}|" th:text="${comment.commentText}"/>
+                    <p th:text="${comment.getCommentCreatedDate()}"/>
+                </div>
+                <div class="col-sm" th:if="${session.loggedinuser}">
+                    <div th:if="${comment.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
+                        <div class="edit-text-area" th:id="|eta-${comment.id}|" th:insert="edit-comment::edit-comment"/>
+                        <a class="edit-comment" th:href="|#${comment.id}|" th:id="|ec-${comment.id}|">edit</a>
+                        <a class="delete-comment" th:href="@{deletecomment/{id}(id=${comment.id})}" th:id="|d-${comment.id}|">delete</a>
                     </div>
                 </div>
             </div>
