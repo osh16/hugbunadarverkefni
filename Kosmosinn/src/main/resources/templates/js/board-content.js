@@ -1,4 +1,4 @@
-<script>
+
     $(document).ready(function() {
         var id;
         var tmp;
@@ -7,4 +7,3 @@
             $("#topic-"+id).load("topic/" + id + "/edit");
         });
     });
-</script>
