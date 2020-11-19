@@ -31,6 +31,9 @@ public class Comment{
 
     private String commentText;
 
+    @Column(nullable = true, length = 64)
+    private String photo;
+
     public Comment() {
     }
 
@@ -55,6 +58,14 @@ public class Comment{
 
     public Topic getTopic() {
         return topic;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getCommentCreatedDate() {
