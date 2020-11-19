@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link type="stylesheet" href="../static/styles.css">
 </head>
 <body>
-<div class="boards" th:fragment="board-list" th:switch="${boards}">
-    <!-- list of boards -->
-    <div class="board__card" th:each="board : ${boards}" th:id="|board-${board.id}|">
-        <h3><a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/></h3>
-        <div th:text="${board.description}"/>
-        <div th:text="|Topics: ${board.getTopicCount()}|"></div>
-        <div th:if="${session.loggedinuser}">
-            <div th:if="${session.loggedinuser.role == 'ADMIN'}">
-                <!--<a class="edit-board" th:id="|edit-${board.id}|" th:href="@{|/board/${board.id}/edit|}">edit</a>-->
-                <a th:href="@{|/board/${board.id}/edit|}">edit</a>
-                <a th:href="@{|/board/${board.id}/delete|}">delete</a>
+<div class="column" th:fragment="board-list" th:switch="${boards}">
+    <div class="row row-cols-2">
+
+        <!-- list of boards -->
+        <div class="col-md-6" th:each="board : ${boards}" th:id="|board-${board.id}|">
+            <div class="board__card py-2 px-lg-2">
+                <h3><a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/></h3>
+                <div th:text="${board.description}"/>
+                <div th:text="|Topics: ${board.getTopicCount()}|"></div>
+                <div th:if="${session.loggedinuser}">
+                    <div th:if="${session.loggedinuser.role == 'ADMIN'}">
+                        <!--<a class="edit-board" th:id="|edit-${board.id}|" th:href="@{|/board/${board.id}/edit|}">edit</a>-->
+                        <a th:href="@{|/board/${board.id}/edit|}">edit</a>
+                        <a th:href="@{|/board/${board.id}/delete|}">delete</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr>
     </div>
 </div>
 </body>

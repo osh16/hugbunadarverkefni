@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<div th:switch="${session.loggedinuser}">
+<div class="container" th:switch="${session.loggedinuser}">
     <div th:case="null"/>
     <div th:case="*">
         <div th:fragment="add-comment" class="add-comment">
-            <form action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
-                <textarea type="text" th:field="*{commentText}" name="commentText" id="commentText"></textarea>
+            <form class="form-group" action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
+                <textarea class="form-control" type="text" th:field="*{commentText}" name="commentText" id="commentText"></textarea>
                 <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span><br>
                 <input type="submit" value="Comment"/>
             </form>

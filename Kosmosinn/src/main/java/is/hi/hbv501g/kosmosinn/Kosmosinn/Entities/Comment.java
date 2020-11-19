@@ -21,6 +21,7 @@ public class Comment{
     private Topic topic;
 
     private String commentText;
+    private Date commentDate;
 
     public Comment() {
     }
