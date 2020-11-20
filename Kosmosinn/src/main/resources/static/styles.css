@@ -20,3 +20,9 @@ body {
     flex-direction: column;
     margin: 0 35px;
 }
+
+.jumbotron {
+    padding: 1rem 1rem;
+    border: solid black;
+    margin: 1rem 0;
+}
