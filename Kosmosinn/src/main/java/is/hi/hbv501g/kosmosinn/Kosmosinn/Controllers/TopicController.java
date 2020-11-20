@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,6 +74,7 @@ public class TopicController {
             return "redirect:/board/" + currentBoardId;
         }
 
+        topic.setTopicCreated();
         topic.setBoard((Board) boardService.findById(Long.parseLong(currentBoardId)).get());
         topic.setUser((User) userService.findByUserame(currentUser.getUsername()));
         topicService.save(topic);
@@ -120,6 +122,7 @@ public class TopicController {
         if (currentUser == topicCreator || isAdmin) {
             originalTopic.setTopicName(topic.getTopicName());
             originalTopic.setTopicContent(topic.getTopicContent());
+            originalTopic.setTopicEdited();
             topicService.save(originalTopic);
             return "redirect:/topic/" + id;
         }
@@ -168,6 +171,7 @@ public class TopicController {
         Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
         comment.setUser(userService.findByUserame(sessionUser.getUsername()));
         comment.setTopic(currentTopic);
+        comment.setCommentCreated();
         commentService.save(comment);
         return "redirect:/topic/" + id;
     }
@@ -185,6 +189,7 @@ public class TopicController {
 
         if (isAdmin || currentUser == originalComment.getUser()) {
             originalComment.setCommentText(comment.getCommentText());
+            originalComment.setCommentEdited();
             commentService.save(originalComment);
         }
         System.out.println("!@#!@!@");

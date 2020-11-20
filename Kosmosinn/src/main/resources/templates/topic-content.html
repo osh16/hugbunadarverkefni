@@ -20,15 +20,19 @@
 </head>
 <body>
     <div class="container justify-content-center">
-        <header th:insert="header-poster::header-poster" />
+        <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
         <div class="jumbotron font-red">
-            <div th:object="${topic}">
-                <div class="topic-header">
-                    <h2 class="display-4" th:text="${topic.topicName}"></h2>
-                    <div class="lead" th:text="${topic.topicContent}"></div>
-                    <hr class="my-4">
-                    <div th:text="${'Created by ' + topic.user.username}"></div>
-                    <a class="btn btn-danger" th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
+            <div class="row" th:object="${topic}">
+                <div class="col-sm topic-header">
+                    <h2 th:text="${topic.topicName}"/>
+                    <p th:text="${topic.user.username}"/>
+                    <p th:text="${topic.topicContent}"/>
+                </div>
+            </div>
+            <div class="col-sm" th:if="${session.loggedinuser}">
+                <div th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
+                    <a th:class="edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
+                    <a th:href="@{|/topic/${topic.id}/delete|}">delete</a>
                 </div>
             </div>
         </div>
@@ -40,16 +44,18 @@
         </div>
     </div>
 
-    <div class="container" th:object="${comments}">
-        <div class="card" th:each="comment : ${comments}">
-            <div class="card-body" th:id="|c-${comment.id}|">
-                <p class="card-text" th:text="${comment.user.username}"></p>
-                <p class="card-title" th:id="|ct-${comment.id}|" th:text="${comment.commentText}"></p>
-                <div th:if="${session.loggedinuser}">
+        <div class="container" th:object="${comments}">
+            <div class="row" th:each="comment : ${comments}">
+                <div class="col-sm">
+                    <p th:text="${comment.user.username}"/>
+                    <p th:id="|ct-${comment.id}|" th:text="${comment.commentText}"/>
+                    <p th:text="${comment.getCommentCreatedDate()}"/>
+                </div>
+                <div class="col-sm" th:if="${session.loggedinuser}">
                     <div th:if="${comment.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
                         <div class="edit-text-area" th:id="|eta-${comment.id}|" th:insert="edit-comment::edit-comment"/>
-                        <a class="edit-comment btn btn-primary" th:href="|#${comment.id}|" th:id="|ec-${comment.id}|" onclick="">edit</a>
-                        <a class="delete-comment btn btn-danger" th:href="@{deletecomment/{id}(id=${comment.id})}" th:id="|d-${comment.id}|">delete</a>
+                        <a class="edit-comment" th:href="|#${comment.id}|" th:id="|ec-${comment.id}|">edit</a>
+                        <a class="delete-comment" th:href="@{deletecomment/{id}(id=${comment.id})}" th:id="|d-${comment.id}|">delete</a>
                     </div>
                 </div>
             </div>

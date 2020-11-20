@@ -1,6 +1,11 @@
 package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Comment Entity, an entity for the many comments of Kosmosinn.
@@ -19,6 +24,10 @@ public class Comment{
 
     @ManyToOne
     private Topic topic;
+
+    private long commentCreated;
+
+    private long commentEdited;
 
     private String commentText;
 
@@ -48,6 +57,16 @@ public class Comment{
         return topic;
     }
 
+    public String getCommentCreatedDate() {
+        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.ofEpochSecond(commentCreated), ZoneId.systemDefault());
+        return String.format("%d.%d.%d, %d:%d:%d", ldt.getDayOfMonth(), ldt.getDayOfMonth(), ldt.getYear(), ldt.getHour(), ldt.getMinute(), ldt.getSecond());
+    }
+
+    public String getCommentEditedDate() {
+        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.ofEpochSecond(commentEdited), ZoneId.systemDefault());
+        return String.format("%d.%d.%d, %d:%d:%d", ldt.getDayOfMonth(), ldt.getDayOfMonth(), ldt.getYear(), ldt.getHour(), ldt.getMinute(), ldt.getSecond());
+    }
+
     public void setCommentText(String commentText) {
         this.commentText = commentText;
     }
@@ -58,5 +77,13 @@ public class Comment{
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public void setCommentCreated() {
+        this.commentCreated = Instant.now().getEpochSecond();
+    }
+
+    public void setCommentEdited() {
+        this.commentEdited = Instant.now().getEpochSecond();
     }
 }

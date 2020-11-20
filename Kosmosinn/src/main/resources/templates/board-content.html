@@ -30,13 +30,15 @@
             <div class="col-md-6" th:each="topic : ${topics}">
                 <div class="board__card py-2 px-lg-2">
                     <h3><a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/></h3>
-                    <div th:text="|by ${topic.user.username}|"/>
-                    <div th:text="|Comments: ${topic.getCommentCount()}|"></div>
-                    <div th:if="${session.loggedinuser}">
-                        <div th:if="${session.loggedinuser.role == 'ADMIN'}">
-                            <a th:class="edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
-                            <a th:href="@{|/topic/${topic.id}/delete|}">delete</a>
-                        </div>
+                    <p th:text="|by ${topic.user.username}|"/>
+                    <p th:text="${topic.getTopicCreatedDate()}"/>
+                    <p th:text="|Comments: ${topic.getCommentCount()}|"/>
+                </div>
+
+                <div class="col-sm" th:if="${session.loggedinuser}">
+                    <div th:if="${session.loggedinuser.role == 'ADMIN'}">
+                        <a th:class="edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
+                        <a th:href="@{|/topic/${topic.id}/delete|}">delete</a>
                     </div>
                 </div>
             </div>
