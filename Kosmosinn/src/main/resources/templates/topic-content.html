@@ -28,7 +28,7 @@
                 <div class="col-sm">
                     <p th:text="${comment.user.username}"/>
                     <p th:id="|ct-${comment.id}|" th:text="${comment.commentText}"/>
-                    <img alt="" th:src="*{'data:image/jpeg;base64,'+{comment.photo}}">
+                    <img alt="" th:src="*{comment.photo}">
                     <p th:text="${comment.getCommentCreatedDate()}"/>
                 </div>
                 <div class="col-sm" th:if="${session.loggedinuser}">
@@ -44,7 +44,7 @@
         <div class="row" th:if="${session.loggedinuser != null}">
             <div th:id="add-comment-box" th:insert="add-comment::add-comment"/>
             <a th:id="add-comment-text" href="#">comment</a>
-            <div>
+            <<div>
                 <label>Upload image: </label>
                 <input type="file" name="image">
             </div>
