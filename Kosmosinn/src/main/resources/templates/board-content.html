@@ -15,6 +15,7 @@
             <div class="row" th:each="topic : ${topics}">
                 <div class="col-sm">
                     <h3><a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/></h3>
+                    <p th:text="${topic.topicPoints}"/>
                     <p th:text="|by ${topic.user.username}|"/>
                     <p th:text="${topic.getTopicCreatedDate()}"/>
                     <p th:text="|Comments: ${topic.getCommentCount()}|"/>

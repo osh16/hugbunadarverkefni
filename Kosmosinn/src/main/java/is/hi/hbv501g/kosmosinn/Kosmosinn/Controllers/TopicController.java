@@ -164,6 +164,32 @@ public class TopicController {
 
         return "topic-content";
     }
+    // EIN ÚTGÁFA?
+    @RequestMapping(value = "{id}/upvote", /*params = "action=upvote",*/ method = RequestMethod.POST)
+    public String upvoteTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
+
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+        if (sessionUser == null) {
+            return "redirect:/topic/" + id;
+        }
+        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
+        topic.setTopicPoints(topic.getTopicPoints()+1);
+        topicService.save(topic);
+        return "redirect:topic/{id}#topicid";
+    }
+    // ÖNNUR ÚTGÁFA
+    @RequestMapping(value = "{id}", params = "action=downvote", method = RequestMethod.POST)
+    public String downvoteTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
+
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+        if (sessionUser == null) {
+            return "redirect:/topic/" + id;
+        }
+        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
+        topic.setTopicPoints(topic.getTopicPoints()-1);
+        topicService.save(topic);
+        return "redirect:/topic/" + id;
+    }
 
     /**
      * Function addCommentToTopic, reads the PathVariable id of the current topic and 
