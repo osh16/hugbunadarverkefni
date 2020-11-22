@@ -12,9 +12,11 @@
     <div th:case="*">
         <div th:fragment="add-comment" class="add-comment">
             <form class="form-group" action="#" th:action="@{/topic/{id}(id=${topic.id})}" th:object="${comment}" method="post">
-                <textarea class="form-control" type="text" th:field="*{commentText}" name="commentText" id="commentText"></textarea>
-                <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span><br>
-                <input type="submit" value="Comment"/>
+                <div class="form-group">
+                    <textarea class="form-control" type="text" th:field="*{commentText}" name="commentText" id="commentText"></textarea>
+                    <span th:if="${#fields.hasErrors('commentText')}" th:errors="*{commentText}"></span><br>
+                    <input class="btn btn-primary" type="submit" value="Comment"/>
+                </div>
             </form>
         </div>
     </div>

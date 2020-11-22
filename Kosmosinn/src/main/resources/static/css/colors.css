@@ -2,6 +2,13 @@
     color: #bd1f1f;
 }
 
+.card-heading {
+    text-decoration: underline #ffd001;
+    text-decoration-color: #ffd001;
+    color: #bd1f1f;
+
+}
+
 .font-blue {
     color: #4061bf;
 }

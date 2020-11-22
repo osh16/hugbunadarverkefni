@@ -19,56 +19,51 @@
     <script th:src="@{/js/topic-content.js}"></script>
 </head>
 <body>
-    <div class="container justify-content-center">
-        <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
-        <div class="jumbotron font-red">
-            <div class="row" th:object="${topic}">
-                <div class="col-sm topic-header">
-                    <h2 th:text="${topic.topicName}"/>
-                    <p th:text="${topic.user.username}"/>
-                    <p th:text="${topic.topicContent}"/>
-                </div>
-            </div>
-            <div class="col-sm" th:if="${session.loggedinuser}">
-                <div th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
-                    <a th:class="edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
-                    <a th:href="@{|/topic/${topic.id}/delete|}">delete</a>
-                </div>
-            </div>
-        </div>
-        <div class="nav" th:if="${session.loggedinuser}">
-            <div class="nav" th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
-                <a class="nav-item" th:class="edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
-                <a th:href="@{|/topic/${topic.id}/delete|}">delete</a>
-            </div>
-        </div>
-    </div>
-
-        <div class="container" th:object="${comments}">
-            <div class="row" th:each="comment : ${comments}">
-                <div class="col-sm">
-                    <p th:text="${comment.user.username}"/>
-                    <p th:id="|ct-${comment.id}|" th:text="${comment.commentText}"/>
-                    <p th:text="${comment.getCommentCreatedDate()}"/>
+    <div class="container">
+        <div class="justify-content-center">
+            <header th:insert="header-poster::header-poster" />
+            <a class="btn btn-danger" th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
+            <div class="jumbotron font-red">
+                <div class="row" th:object="${topic}">
+                    <div class="col-sm topic-header">
+                        <h2 class="display-4" th:text="${topic.topicName}"/>
+                        <p th:text="${'Created by user: ' + topic.user.username}"/>
+                        <p class="lead" th:text="${topic.topicContent}"/>
+                    </div>
                 </div>
                 <div class="col-sm" th:if="${session.loggedinuser}">
-                    <div th:if="${comment.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
-                        <div class="edit-text-area" th:id="|eta-${comment.id}|" th:insert="edit-comment::edit-comment"/>
-                        <a class="edit-comment" th:href="|#${comment.id}|" th:id="|ec-${comment.id}|">edit</a>
-                        <a class="delete-comment" th:href="@{deletecomment/{id}(id=${comment.id})}" th:id="|d-${comment.id}|">delete</a>
+                    <div th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
+                        <p class="lead"></p>
+                        <a th:class="'btn btn-warning btn-lg ' + edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
+                        <a class="btn btn-danger btn-lg" th:href="@{|/topic/${topic.id}/delete|}">delete</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="jumbotron" th:if="${session.loggedinuser != null}">
-            <div th:id="add-comment-box" th:insert="add-comment::add-comment"/>
-            <a th:id="add-comment-text" href="#">comment</a>
-        </div>
-    </div>
-
-    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
-    <script th:src="@{/js/topic-content.js}"></script>
-
+            <div class="jumbotron">
+                <div class=" justify-content-center" th:object="${comments}">
+                    <div class="jumbotron" th:each="comment : ${comments}">
+                        <div class="col-sm">
+                            <p th:text="${'Comment by ' + comment.user.username}"/>
+                            <p th:id="|ct-${comment.id}|" th:text="${comment.commentText}"/>
+                            <p th:text="${'Created at ' + comment.getCommentCreatedDate()}"/>
+                        </div>
+                        <div class="col-sm" th:if="${session.loggedinuser}">
+                            <div th:if="${comment.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
+                                <div class="edit-text-area" th:id="|eta-${comment.id}|" th:insert="edit-comment::edit-comment"/>
+                                <a class="btn btn-warning edit-comment" th:href="|#${comment.id}|" th:id="|ec-${comment.id}|">edit</a>
+                                <a class="btn btn-danger delete-comment" th:href="@{deletecomment/{id}(id=${comment.id})}" th:id="|d-${comment.id}|">delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" th:if="${session.loggedinuser != null}">
+                        <div th:id="add-comment-box" th:insert="add-comment::add-comment"/>
+                        <a class="btn btn-primary" th:id="add-comment-text" href="#">comment</a>
+                    </div>
+                    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+                    <script th:src="@{/js/topic-content.js}"></script>
+                </div>
+                
+            </div>
         </div>
     </body>
 </html>

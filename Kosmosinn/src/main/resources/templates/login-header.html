@@ -9,21 +9,25 @@
 </head>
 <body>
 <div th:fragment="login-header" th:switch="${session.loggedinuser}">
-    <div class="header__newlogin" th:case="null">
-        <a th:href="@{/login}">Login</a>
-        <a th:href="@{/signup}">Signup</a>
+    <div th:case="null">
+        <a class="btn btn-primary" th:href="@{/login}">Login</a>
+        <a class="btn btn-danger" th:href="@{/signup}">Signup</a>
     </div>
-    <div class="header__loggedin" th:case="*" >
+    <div class="container" th:case="*" >
         <div th:switch="${session.loggedinuser.role}">
-            <div class="header__newlogin" th:case="'ADMIN'">
-                <p th:text="${session.loggedinuser.username}"></a>
-                <a th:href="@{/signout}">Signout</a>
-                <a th:href="@{/userlist}">Userlist</a>
-                <a th:href="@{/board/addboard}">Add board</a><br>
+            <div th:case="'ADMIN'">
+                <p class="lead" th:text="${'Halló ADMIN ' + session.loggedinuser.username}"></p>
+                <div class="row ml-1">
+                    <a class="mr-1 btn btn-danger" th:href="@{/signout}">Signout</a>
+                    <a class="mr-1 btn btn-warning" th:href="@{/userlist}">Userlist</a>
+                    <a class="mr-1 btn btn-warning" th:href="@{/board/addboard}">Add board</a>
+                </div>
             </div>
-            <div class="header__newlogin" th:case="*">
-                <p th:text="${'Halló ' + session.loggedinuser.username}"></p>
-                <a th:href="@{/signout}">Signout</a>
+            <div th:case="*">
+                <p class="lead" th:text="${'Halló ' + session.loggedinuser.username}"></p>
+                <div class="row ml-1">
+                    <a class="mr-1 btn btn-danger" th:href="@{/signout}">Signout</a>
+                </div>
             </div>
         </div>
     </div>

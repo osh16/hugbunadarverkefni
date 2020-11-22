@@ -47,9 +47,9 @@ public class HomeController {
 	@RequestMapping("/")
 	public String Home(Model model) {
 	    // fyrsta keyrsla
-	    if (userService.findByUserame("astradur") == null) {
-	    	User astradur = new User("astradur","astradur","ADMIN");
-			userService.save(astradur);
+	    if (userService.findByUserame("oskar") == null) {
+	    	User oskar = new User("oskar","oskar","ADMIN");
+			userService.save(oskar);
 
 			boardService.save(new Board("frettir um astrad stefansson", "hvad er hann eiginlega ad bralla"));
 			boardService.save(new Board("tonlist", "tala um tonlist"));
