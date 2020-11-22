@@ -84,6 +84,7 @@ public class TopicController {
         }
 
         topic.setTopicCreated();
+        topic.setTopicPoints(0);
         topic.setBoard((Board) boardService.findById(Long.parseLong(currentBoardId)).get());
         topic.setUser((User) userService.findByUserame(currentUser.getUsername()));
         topicService.save(topic);
@@ -172,10 +173,15 @@ public class TopicController {
         if (sessionUser == null) {
             return "redirect:/topic/" + id;
         }
+        System.out.println(session.getAttribute("currenttopicid"));
+        System.out.println(session.getAttribute("currenttopicid"));
+
         Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
-        topic.setTopicPoints(topic.getTopicPoints()+1);
-        topicService.save(topic);
-        return "redirect:topic/{id}#topicid";
+        System.out.println(currentTopic.getTopicName());
+        System.out.println(currentTopic.getBoard().getName());
+        topic.setTopicPoints(currentTopic.getTopicPoints()+1);
+        topicService.save(currentTopic);
+        return "redirect:/topic/" + id;
     }
     // ÖNNUR ÚTGÁFA
     @RequestMapping(value = "{id}", params = "action=downvote", method = RequestMethod.POST)

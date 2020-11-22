@@ -15,7 +15,7 @@
                 <p th:text="${topic.topicPoints}"/>
                 <p th:text="${topic.user.username}"/>
                 <p th:text="${topic.topicContent}"/>
-                <form th:action="@{/topic/{id}/upvote}" th:object="${topic}" th:method="post">
+                <form th:action="@{|/topic/${topic.id}/upvote|}" th:object="${topic}" th:method="post">
                     <button th:type="submit" th:name="action" th:value="upvote">Upvote</button>
                     <button th:type="submit" th:name="action" th:value="downvote">Downvote</button>
                 </form>
