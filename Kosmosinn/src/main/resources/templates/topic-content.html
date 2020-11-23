@@ -13,7 +13,7 @@
             <div class="col-sm topic-header">
                 <h2 th:text="${topic.topicName}"/>
                 <p th:text="${topic.topicPoints}"/>
-                <p th:text="${topic.user.username}"/>
+                <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/><br>
                 <p th:text="${topic.topicContent}"/>
                 <form th:action="@{|/topic/${topic.id}|}" th:object="${topic}" th:method="post">
                     <button th:type="submit" th:name="action" th:value="upvote">Upvote</button>
@@ -31,7 +31,7 @@
         <div th:object="${comments}">
             <div class="row" th:each="comment : ${comments}">
                 <div class="col-sm">
-                    <p th:text="${comment.user.username}"/>
+                    <a th:href="@{/user/{id}(id=${comment.user.id})}" th:text="${comment.user.username}"/><br>
                     <p th:id="|ct-${comment.id}|" th:text="${comment.commentText}"/>
                     <!--<img alt="" th:src="*{comment.photo}">-->
                     <p th:text="${comment.getCommentCreatedDate()}"/>
@@ -49,10 +49,10 @@
         <div class="row" th:if="${session.loggedinuser != null}">
             <div th:id="add-comment-box" th:insert="add-comment::add-comment"/>
             <a th:id="add-comment-text" href="#">comment</a>
-            <<div>
+            <!--<div>
                 <label>Upload image: </label>
                 <input type="file" name="image">
-            </div>
+            </div>-->
         </div>
     </div>
 

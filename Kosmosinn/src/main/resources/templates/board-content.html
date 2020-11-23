@@ -16,7 +16,7 @@
                 <div class="col-sm">
                     <h3><a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/></h3>
                     <p th:text="${topic.topicPoints}"/>
-                    <p th:text="|by ${topic.user.username}|"/>
+                    <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/><br>
                     <p th:text="${topic.getTopicCreatedDate()}"/>
                     <p th:text="|Comments: ${topic.getCommentCount()}|"/>
                 </div>
@@ -39,15 +39,5 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script th:src="@{/js/board-content.js}"></script>
-</body>
-</html>
-
-<!-- add topic -->
-<div th:switch="${session.loggedinuser}">
-    <div th:case="null"/>
-    <div th:case="*">
-        <p><a th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a></p>
-    </div>
-</div>
 </body>
 </html>
