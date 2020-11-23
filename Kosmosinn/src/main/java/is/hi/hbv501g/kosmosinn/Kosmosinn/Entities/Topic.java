@@ -2,8 +2,13 @@ package is.hi.hbv501g.kosmosinn.Kosmosinn.Entities;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Topic Entity, an entity for the many topics of Kosmosinn.
@@ -31,7 +36,12 @@ public class Topic{
     private String topicName;
 
     private int topicPoints;
+
     private String topicContent;
+
+    private long topicCreated;
+
+    private long topicEdited;
 
     public Topic() {
     }
@@ -67,6 +77,17 @@ public class Topic{
     public User getUser() {
         return user;
     }
+
+    public String getTopicCreatedDate() {
+        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.ofEpochSecond(topicCreated), ZoneId.systemDefault());
+        return String.format("%d.%d.%d, %d:%d:%d", ldt.getDayOfMonth(), ldt.getDayOfMonth(), ldt.getYear(), ldt.getHour(), ldt.getMinute(), ldt.getSecond());
+    }
+
+    public String getTopicEditedDate() {
+        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.ofEpochSecond(topicEdited), ZoneId.systemDefault());
+        return String.format("%d.%d.%d, %d:%d:%d", ldt.getDayOfMonth(), ldt.getDayOfMonth(), ldt.getYear(), ldt.getHour(), ldt.getMinute(), ldt.getSecond());
+    }
+
     public void setTopicName(String topicName) {
         this.topicName = topicName;
     }
@@ -84,5 +105,13 @@ public class Topic{
     }
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setTopicCreated() {
+        this.topicCreated = Instant.now().getEpochSecond();
+    }
+
+    public void setTopicEdited() {
+        this.topicEdited = Instant.now().getEpochSecond();
     }
 }

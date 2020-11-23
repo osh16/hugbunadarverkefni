@@ -12,12 +12,22 @@ import is.hi.hbv501g.kosmosinn.Kosmosinn.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Path;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +83,8 @@ public class TopicController {
             return "redirect:/board/" + currentBoardId;
         }
 
+        topic.setTopicCreated();
+        topic.setTopicPoints(0);
         topic.setBoard((Board) boardService.findById(Long.parseLong(currentBoardId)).get());
         topic.setUser((User) userService.findByUserame(currentUser.getUsername()));
         topicService.save(topic);
@@ -120,6 +132,7 @@ public class TopicController {
         if (currentUser == topicCreator || isAdmin) {
             originalTopic.setTopicName(topic.getTopicName());
             originalTopic.setTopicContent(topic.getTopicContent());
+            originalTopic.setTopicEdited();
             topicService.save(originalTopic);
             return "redirect:/topic/" + id;
         }
@@ -153,6 +166,70 @@ public class TopicController {
         return "topic-content";
     }
 
+    @RequestMapping(value = "{id}", params = "action=upvote", method = RequestMethod.POST)
+    public String upvoteTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
+        String upvoteHash = sessionUser.getId() + "x" + id;
+        String downvoteHash = sessionUser.getId() + "z" + id;
+
+        if (sessionUser == null) {
+            return "redirect:/topic/" + id;
+        }
+
+        if (session.getAttribute(upvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()-1);
+            topicService.save(currentTopic);
+            session.removeAttribute(upvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        if (session.getAttribute(downvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()+2);
+            topicService.save(currentTopic);
+            session.setAttribute(upvoteHash,upvoteHash);
+            session.removeAttribute(downvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        session.setAttribute(upvoteHash, upvoteHash);
+        currentTopic.setTopicPoints(currentTopic.getTopicPoints()+1);
+        topicService.save(currentTopic);
+        return "redirect:/topic/" + id;
+    }
+
+    @RequestMapping(value = "{id}", params = "action=downvote", method = RequestMethod.POST)
+    public String downvoteTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
+        String upvoteHash = sessionUser.getId() + "x" + id;
+        String downvoteHash = sessionUser.getId() + "z" + id;
+
+        if (sessionUser == null) {
+            return "redirect:/topic/" + id;
+        }
+
+        if (session.getAttribute(downvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()+1);
+            topicService.save(currentTopic);
+            session.removeAttribute(downvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        if (session.getAttribute(upvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()-2);
+            topicService.save(currentTopic);
+            session.setAttribute(downvoteHash,downvoteHash);
+            session.removeAttribute(upvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        session.setAttribute(downvoteHash, downvoteHash);
+        currentTopic.setTopicPoints(currentTopic.getTopicPoints()-1);
+        topicService.save(currentTopic);
+        return "redirect:/topic/" + id;
+    }
+
     /**
      * Function addCommentToTopic, reads the PathVariable id of the current topic and 
      * the input of the "Comment" form beneath the topic. The function sets the current user as an owner of the topic,
@@ -160,15 +237,30 @@ public class TopicController {
      * It then redirects you again to the current site you have been viewing now with the new comment.
      */
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
-    public String addCommentToTopic(@Valid Comment comment, @PathVariable("id") long id, BindingResult result, Model model, HttpSession session) {
+    public String addCommentToTopic(@Valid Comment comment, @RequestParam("image") MultipartFile file, @PathVariable("id") long id, BindingResult result, Model model, HttpSession session) {
         User sessionUser = (User) session.getAttribute("loggedinuser");
         if (sessionUser == null) {
             return "redirect:/topic/" + id;
         }
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        /*if(fileName.contains(".."))
+        {
+            System.out.println("not a a valid file");
+        }
+        try {
+            comment.setPhoto(Base64.getEncoder().encodeToString(file.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
         Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
         comment.setUser(userService.findByUserame(sessionUser.getUsername()));
         comment.setTopic(currentTopic);
+        comment.setCommentCreated();
+        comment.setPhoto(fileName);
         commentService.save(comment);
+
+
         return "redirect:/topic/" + id;
     }
 
@@ -185,6 +277,7 @@ public class TopicController {
 
         if (isAdmin || currentUser == originalComment.getUser()) {
             originalComment.setCommentText(comment.getCommentText());
+            originalComment.setCommentEdited();
             commentService.save(originalComment);
         }
         System.out.println("!@#!@!@");

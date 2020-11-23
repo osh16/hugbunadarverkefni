@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class UserController {
         if (!isAdmin) {
             return "redirect:/";
         }
+        user.setUserCreated();
         userService.save(user);
         return "redirect:/adduser";
     }
@@ -111,8 +113,11 @@ public class UserController {
     public String login(@Valid User user, BindingResult result, Model model, HttpSession session) {
         List<String> errors = new ArrayList<>();
         User exists = userService.findByUserame(user.getUsername());
+
         if (exists != null) {
             if (user.getPassword().equals(exists.getPassword())) {
+                exists.setLastOnline();
+                userService.save(exists);
                 session.setAttribute("loggedinuser", exists);
                 return "redirect:/";
             } else {
@@ -132,8 +137,11 @@ public class UserController {
      */
     @RequestMapping(value="/signout", method=RequestMethod.GET)
     public String logout(@Valid User user, BindingResult result, Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("loggedinuser");
-        if (currentUser != null) {
+        User sessionUser = (User) session.getAttribute("loggedinuser");
+        if (sessionUser != null) {
+            User currentUser = userService.findByUserame(sessionUser.getUsername());
+            currentUser.setLastOnline();
+            userService.save(currentUser);
             session.removeAttribute( "loggedinuser");
         }
         return "redirect:/";
@@ -163,6 +171,7 @@ public class UserController {
         }
         if (errors.size() == 0) {
             user.setRole("USER");
+            user.setUserCreated();
             userService.save(user);
             session.setAttribute("loggedinuser", user);
             return "redirect:/";
