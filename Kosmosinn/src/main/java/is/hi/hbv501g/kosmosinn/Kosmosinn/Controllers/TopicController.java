@@ -165,35 +165,68 @@ public class TopicController {
 
         return "topic-content";
     }
-    // EIN ÚTGÁFA?
-    @RequestMapping(value = "{id}/upvote", /*params = "action=upvote",*/ method = RequestMethod.POST)
-    public String upvoteTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
 
+    @RequestMapping(value = "{id}", params = "action=upvote", method = RequestMethod.POST)
+    public String upvoteTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
         User sessionUser = (User) session.getAttribute("loggedinuser");
+        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
+        String upvoteHash = sessionUser.getId() + "x" + id;
+        String downvoteHash = sessionUser.getId() + "z" + id;
+
         if (sessionUser == null) {
             return "redirect:/topic/" + id;
         }
-        System.out.println(session.getAttribute("currenttopicid"));
-        System.out.println(session.getAttribute("currenttopicid"));
 
-        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
-        System.out.println(currentTopic.getTopicName());
-        System.out.println(currentTopic.getBoard().getName());
-        topic.setTopicPoints(currentTopic.getTopicPoints()+1);
+        if (session.getAttribute(upvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()-1);
+            topicService.save(currentTopic);
+            session.removeAttribute(upvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        if (session.getAttribute(downvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()+2);
+            topicService.save(currentTopic);
+            session.setAttribute(upvoteHash,upvoteHash);
+            session.removeAttribute(downvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        session.setAttribute(upvoteHash, upvoteHash);
+        currentTopic.setTopicPoints(currentTopic.getTopicPoints()+1);
         topicService.save(currentTopic);
         return "redirect:/topic/" + id;
     }
-    // ÖNNUR ÚTGÁFA
+
     @RequestMapping(value = "{id}", params = "action=downvote", method = RequestMethod.POST)
     public String downvoteTopic(@Valid Topic topic, @PathVariable("id") long id, Model model, HttpSession session) {
-
         User sessionUser = (User) session.getAttribute("loggedinuser");
+        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
+        String upvoteHash = sessionUser.getId() + "x" + id;
+        String downvoteHash = sessionUser.getId() + "z" + id;
+
         if (sessionUser == null) {
             return "redirect:/topic/" + id;
         }
-        Topic currentTopic = (Topic) topicService.findById((long) session.getAttribute("currenttopicid")).get();
-        topic.setTopicPoints(topic.getTopicPoints()-1);
-        topicService.save(topic);
+
+        if (session.getAttribute(downvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()+1);
+            topicService.save(currentTopic);
+            session.removeAttribute(downvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        if (session.getAttribute(upvoteHash) != null) {
+            currentTopic.setTopicPoints(currentTopic.getTopicPoints()-2);
+            topicService.save(currentTopic);
+            session.setAttribute(downvoteHash,downvoteHash);
+            session.removeAttribute(upvoteHash);
+            return "redirect:/topic/" + id;
+        }
+
+        session.setAttribute(downvoteHash, downvoteHash);
+        currentTopic.setTopicPoints(currentTopic.getTopicPoints()-1);
+        topicService.save(currentTopic);
         return "redirect:/topic/" + id;
     }
 
