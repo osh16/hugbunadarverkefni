@@ -14,4 +14,5 @@ public interface CommentService {
     Topic findByTopic(long id);
     User findByUser(long id);// thread creator
     List<Comment> findAllByTopicId(long id);
+    List<Comment> findAllByUserId(long id);
 }

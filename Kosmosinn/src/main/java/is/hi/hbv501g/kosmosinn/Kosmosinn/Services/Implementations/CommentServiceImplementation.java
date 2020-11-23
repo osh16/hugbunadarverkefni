@@ -62,4 +62,16 @@ public class CommentServiceImplementation implements CommentService {
         }
         return commentsByTopicId;
     }
+
+    @Override
+    public List<Comment> findAllByUserId(long id) {
+        List<Comment> comments = repository.findAll();
+        List<Comment> commentsByUserId = new ArrayList<Comment>();
+        for(Comment c : comments) {
+            if (c.getUser().getId() == id) {
+                commentsByUserId.add(c);
+            }
+        }
+        return commentsByUserId;
+    }
 }
