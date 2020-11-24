@@ -237,12 +237,12 @@ public class TopicController {
      * It then redirects you again to the current site you have been viewing now with the new comment.
      */
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
-    public String addCommentToTopic(@Valid Comment comment, @RequestParam("image") MultipartFile file, @PathVariable("id") long id, BindingResult result, Model model, HttpSession session) {
+    public String addCommentToTopic(@Valid Comment comment, @PathVariable("id") long id, BindingResult result, Model model, HttpSession session) {
         User sessionUser = (User) session.getAttribute("loggedinuser");
         if (sessionUser == null) {
             return "redirect:/topic/" + id;
         }
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        //String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         /*if(fileName.contains(".."))
         {
             System.out.println("not a a valid file");
@@ -257,9 +257,7 @@ public class TopicController {
         comment.setUser(userService.findByUserame(sessionUser.getUsername()));
         comment.setTopic(currentTopic);
         comment.setCommentCreated();
-        comment.setPhoto(fileName);
         commentService.save(comment);
-
 
         return "redirect:/topic/" + id;
     }

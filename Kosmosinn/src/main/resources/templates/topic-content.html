@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container">
+        <a th:href="@{/}" th:text="Kosmósinn"></a>
         <div>Back to <a th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${topic.board.name}"></a></div>
         <div class="row" th:object="${topic}">
             <div class="col-sm topic-header">
