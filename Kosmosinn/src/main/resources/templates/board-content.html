@@ -30,7 +30,7 @@
                 <button th:type="submit" th:name="action" th:value="popular">Popular</button>
                 <button th:type="submit" th:name="action" th:value="normal">Normal?</button>
             </form>
-            <div class="row justify-content-center" th:object="${topics}">
+            <div class="row row-cols-1 justify-content-center" th:object="${topics}">
                 <!-- list of topics -->
                 <div class="col" th:each="topic : ${topics}">
                     <div class="my-2 card border border-dark">
