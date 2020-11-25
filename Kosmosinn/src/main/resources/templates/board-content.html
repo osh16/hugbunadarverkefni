@@ -25,9 +25,9 @@
                 <hr class="my-4">
                 <a class="btn btn-danger back-red" th:href="@{/}" th:text="'Back to '+ boardlist"></a>
             </div>
-            <form th:action="@{|/board/${board.id}|}" th:object="${board}" th:method="get">
-                <button th:type="submit" th:name="sort" th:value="popular">Popular</button>
-                <button th:type="submit" th:name="sort" th:value="new">New</button>
+            <form class="form" th:action="@{|/board/${board.id}|}" th:object="${board}" th:method="get">
+                <button class="btn btn-warning" th:type="submit" th:name="sort" th:value="popular">Popular</button>
+                <button class="btn btn-warning" th:type="submit" th:name="sort" th:value="new">New</button>
             </form>
             <div class="row row-cols-1 justify-content-center" th:object="${topics}">
                 <!-- list of topics -->
