@@ -30,16 +30,16 @@
                 <div class="col-md-6" th:each="topic : ${topics}">
                     <div class="my-2 card border border-dark">
                         <div class="card-body">
-                            <h3 class="card-title card-heading font-weight-bold"><a class="card-heading" th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/></h3>
-                            <p th:text="${topic.topicContent}"/>
+                            <h3 class="card-title card-heading font-weight-bold"><a class="card-heading" th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"></a></h3>
+                            <p th:text="${topic.topicContent}"></p>
                             <div>
                                 <div class="row">
-                                    <p class="col m-0 card-text">Created by <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/></p>
-                                    <p class="col m-0 card-text" th:text="${topic.getTopicCreatedDate()}"/>
+                                    <p class="col m-0 card-text">Created by <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"></a></p>
+                                    <p class="col m-0 card-text" th:text="${topic.getTopicCreatedDate()}"></p>
                                 </div>
                                 <div class="row">
-                                    <p class="col m-0 card-text" th:text="|Comments: ${topic.getCommentCount()}|"/>
-                                    <p class="col m-0 card-text" th:text="${'Total points: ' + topic.topicPoints}"/>
+                                    <p class="col m-0 card-text" th:text="|Comments: ${topic.getCommentCount()}|"></p>
+                                    <p class="col m-0 card-text" th:text="${'Total points: ' + topic.topicPoints}"></p>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
             </div>
             <!-- add topic -->
             <div class="mt-3" th:switch="${session.loggedinuser}">
-                <div th:case="null"/>
+                <div th:case="null"><p th:text="${session.loggedinuser}"></p></div>
                 <div th:case="*">
                     <a class="btn btn-danger back-red" th:href="@{/topic/createtopic}" th:object="${board}">Add topic</a>
                 </div>

@@ -17,8 +17,7 @@
     <body>
         <div class="container">
             <header th:insert="header-poster::header-poster" />
-            <div class="jumbotron container">
-                <div>Back to <a th:href="@{/}" th:text="boardlist"></a></div>
+            <div class="jumbotron container">                
                 <h3 class="display-4 font-red">Topics created</h3>
                 <div th:object="${topics}">
                     <div th:each="topic : ${topics}">
@@ -36,6 +35,7 @@
                         <hr>
                     </div>
                 </div>
+                <a class="btn btn-danger back-red" th:href="@{/}" th:text="'Back to '+ boardlist"></a>
             </div>
         </div>
     </body>
