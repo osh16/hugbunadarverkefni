@@ -18,8 +18,8 @@
                     <p class="card-text" th:text="|Topics: ${board.getTopicCount()}|"></p>
                     <div class="card-text" th:if="${session.loggedinuser}">
                         <!--<a class="edit-board" th:id="|edit-${board.id}|" th:href="@{|/board/${board.id}/edit|}">edit</a>-->
-                        <a class="btn btn-primary" th:if="${session.loggedinuser == 'ADMIN'}" th:href="@{|/board/${board.id}/edit|}">edit</a>
-                        <a class="btn btn-danger" th:if="${session.loggedinuser == 'ADMIN'}" th:href="@{|/board/${board.id}/delete|}">delete</a>
+                        <a class="btn btn-primary" th:if="${session.loggedinuser.role == 'ADMIN'}" th:href="@{|/board/${board.id}/edit|}">edit</a>
+                        <a class="btn btn-danger" th:if="${session.loggedinuser.role == 'ADMIN'}" th:href="@{|/board/${board.id}/delete|}">delete</a>
                     </div>
                 </div>
             </div>
