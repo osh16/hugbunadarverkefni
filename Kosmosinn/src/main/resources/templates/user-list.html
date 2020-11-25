@@ -14,15 +14,21 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">username</th>
-                <th scope="col">action</th>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col">Total topics</th>
+                <th scope="col">Total comments</th>
+                <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
             <tr scope="row" th:each="user : ${users}">
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+                <td th:text="${user.topics.size()}"></td>
+                <td th:text="${user.comments.size()}"></td>
                 <td><a th:href="@{/deleteuser/{id}(id=${user.id})}">Delete</a></td>
             </tr>
             </tbody>
