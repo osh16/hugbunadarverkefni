@@ -107,7 +107,7 @@ public class BoardController {
         }
         return "board-content";
     }
-
+/*
     @RequestMapping(value="{id}", params="normal", method = RequestMethod.GET)
     public String viewBoardbyNormal(@PathVariable("id") long id, Model model, HttpSession session) {
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
@@ -117,7 +117,7 @@ public class BoardController {
             model.addAttribute("topics", topicService.findAllByBoardId(id));
         }
         return "board-content";
-    }
+    }*/
 
     @RequestMapping(value="{id}/delete")
     public String deleteBoard(@PathVariable("id") long id, HttpSession session) {
