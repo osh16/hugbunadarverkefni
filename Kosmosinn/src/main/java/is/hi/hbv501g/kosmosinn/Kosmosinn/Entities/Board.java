@@ -19,7 +19,7 @@ public class Board {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(length=100000)
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", orphanRemoval = true, cascade = CascadeType.ALL)

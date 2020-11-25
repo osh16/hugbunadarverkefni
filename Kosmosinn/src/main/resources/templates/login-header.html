@@ -16,7 +16,7 @@
             <div th:case="*" >
                 <div th:switch="${session.loggedinuser.role}">
                     <div th:case="'ADMIN'">
-                        <p class="lead" th:text="${'Halló ADMIN ' + session.loggedinuser.username}"></p>
+                        <p class="lead ml-1" th:text="${'Halló ADMIN ' + session.loggedinuser.username}"></p>
                         <div class="row ml-1">
                             <a class="mr-1 btn btn-danger" th:href="@{/signout}">Signout</a>
                             <a class="mr-1 btn btn-warning" th:href="@{/userlist}">Userlist</a>

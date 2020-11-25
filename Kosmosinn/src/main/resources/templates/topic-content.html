@@ -22,7 +22,8 @@
     <div class="container">
         <div class="justify-content-center">
             <header th:insert="header-poster::header-poster" />
-            <a class="btn btn-danger" th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
+            <div th:insert="login-header::login-header"/>
+            <a class="mt-2 ml-1 btn btn-danger" th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
             <div class="jumbotron font-red">
                 <div class="row" th:object="${topic}">
                     <div class="col-sm topic-header">
@@ -37,8 +38,8 @@
                         <button class="mt-2 btn btn-success" style="height: 48px; width: 48px;" th:type="submit" th:name="action" th:value="upvote">&uarr;	</button>
                         <button class="mt-2 btn btn-danger" style="height: 48px; width: 48px;" th:type="submit" th:name="action" th:value="downvote">&darr;	</button>
                     </form>
-                    <div th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
-                        <p class="lead"></p>
+                    <div class="mt-2 col" th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
+                        
                         <a th:class="'btn btn-warning btn-lg ' + edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
                         <a class="btn btn-danger btn-lg" th:href="@{|/topic/${topic.id}/delete|}">delete</a>
                     </div>

@@ -37,7 +37,7 @@ public class Topic{
 
     private int topicPoints;
 
-    @Column(length=10000)
+    @Column(length=100000)
     private String topicContent;
 
     private long topicCreated;

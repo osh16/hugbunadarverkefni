@@ -17,6 +17,7 @@
     <body>
         <div class="container">
             <header th:insert="header-poster::header-poster" />
+            <div th:insert="login-header::login-header"/>
             <div class="jumbotron container">                
                 <h3 class="display-4 font-red">Topics created</h3>
                 <div th:object="${topics}">
@@ -31,8 +32,8 @@
                 <h3 class="display-4 font-red">Comments added</h3>
                 <div th:object="${comments}">
                     <div th:each="comment : ${comments}">
-                        <div th:text="${comment.topic.topicName}"/>
-                        <p th:if="${#bools.isTrue(#strings.length(comment.commentText) &gt 50)}" th:text="${comment.commentText.substring(0,200) + '...'}"></p>
+                        <a th:href="@{/topic/{id}(id=${comment.topic.id})}" th:text="${comment.topic.topicName}"/>
+                        <p th:if="${#bools.isTrue(#strings.length(comment.commentText) &gt 50)}" th:text="${comment.commentText.substring(0,500) + '...'}"></p>
                         <p th:if="${#bools.isFalse(#strings.length(comment.commentText) &gt 50)}" th:text="${comment.commentText}"></p>
                         <hr>
                     </div>
