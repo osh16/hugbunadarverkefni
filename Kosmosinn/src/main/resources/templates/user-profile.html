@@ -22,7 +22,8 @@
                 <div th:object="${topics}">
                     <div th:each="topic : ${topics}">
                         <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/>
-                        <div th:text="${topic.topicContent}"/>
+                        <p th:if="${#bools.isTrue(#strings.length(topic.topicContent) &gt 50)}" th:text="${topic.topicContent.substring(0,200) + '...'}"></p>
+                        <p th:if="${#bools.isFalse(#strings.length(topic.topicContent) &gt 50)}" th:text="${topic.topicContent}"></p>
                         <hr>
                     </div>
                 </div>
@@ -31,7 +32,8 @@
                 <div th:object="${comments}">
                     <div th:each="comment : ${comments}">
                         <div th:text="${comment.topic.topicName}"/>
-                        <div th:text="${comment.commentText}"/>
+                        <p th:if="${#bools.isTrue(#strings.length(comment.commentText) &gt 50)}" th:text="${comment.commentText.substring(0,200) + '...'}"></p>
+                        <p th:if="${#bools.isFalse(#strings.length(comment.commentText) &gt 50)}" th:text="${comment.commentText}"></p>
                         <hr>
                     </div>
                 </div>

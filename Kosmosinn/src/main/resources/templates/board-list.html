@@ -8,9 +8,9 @@
 </head>
 <body>
 <div class="column mt-3" th:fragment="board-list" th:switch="${boards}">
-    <div class="row row-cols-2">
+    <div class="row row-cols-1">
         <!-- list of boards -->
-        <div class="col-md-6" th:each="board : ${boards}" th:id="|board-${board.id}|">
+        <div class="col" th:each="board : ${boards}" th:id="|board-${board.id}|">
             <div class="card py-2 px-lg-2 mb-3 border border-dark">
                 <div class="card-body p-2">
                     <h3 class="card-title font-weight-bold"><a class="card-title card-heading" th:href="@{/board/{id}(id=${board.id})}" th:text="${board.name}" th:object="${board}"/></h3>
