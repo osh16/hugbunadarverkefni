@@ -27,8 +27,9 @@
                 <div class="row" th:object="${topic}">
                     <div class="col-sm topic-header">
                         <h2 class="display-4 font-weight-bold" th:text="${topic.topicName}"/>
-                        <p>Created by <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/></p>
+                        <p class="mb-3">Created by <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/></p>
                         <p class="lead" th:text="${topic.topicContent}"/>
+                        <p class="m-0" th:text="${'Total points: ' + topic.topicPoints}"/>
                     </div>
                 </div>
                 <div th:if="${session.loggedinuser}">

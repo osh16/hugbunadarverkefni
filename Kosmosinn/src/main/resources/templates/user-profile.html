@@ -18,13 +18,24 @@
         <div class="container">
             <header th:insert="header-poster::header-poster" />
             <div class="jumbotron container">
-                <h2 class="display-3 font-red">Þetta er svæðið hjá</h2>
-                <h1 class="display-1 font-red" th:text="${user.username}"></h1>
-                <blockquote class="blockquote">
-                    <p class="m-0 lead">Shhhh... Það er samt ekkert að sjá hér strax</p>
-                    <cite class="m-0 blockquote-footer">Einhver Admin</cite>
-                </blockquote>
-                <a class="btn btn-danger back-red" th:href="@{/}" th:text="'Back to '+ boardlist"></a>
+                <div>Back to <a th:href="@{/}" th:text="boardlist"></a></div>
+                <h3 class="display-4 font-red">Topics created</h3>
+                <div th:object="${topics}">
+                    <div th:each="topic : ${topics}">
+                        <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/>
+                        <div th:text="${topic.topicContent}"/>
+                        <hr>
+                    </div>
+                </div>
+
+                <h3 class="display-4 font-red">Comments added</h3>
+                <div th:object="${comments}">
+                    <div th:each="comment : ${comments}">
+                        <div th:text="${comment.topic.topicName}"/>
+                        <div th:text="${comment.commentText}"/>
+                        <hr>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

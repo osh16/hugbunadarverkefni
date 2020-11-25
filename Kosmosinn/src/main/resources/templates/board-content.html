@@ -33,9 +33,14 @@
                             <h3 class="card-title card-heading font-weight-bold"><a class="card-heading" th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.topicName}"/></h3>
                             <p th:text="${topic.topicContent}"/>
                             <div>
-                                <a class="m-0 card-text" th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/>
-                                <p class="m-0 card-text" th:text="${topic.getTopicCreatedDate()}"/>
-                                <p class="m-0 card-text" th:text="|Comments: ${topic.getCommentCount()}|"/>
+                                <div class="row">
+                                    <p class="col m-0 card-text">Created by <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/></p>
+                                    <p class="col m-0 card-text" th:text="${topic.getTopicCreatedDate()}"/>
+                                </div>
+                                <div class="row">
+                                    <p class="col m-0 card-text" th:text="|Comments: ${topic.getCommentCount()}|"/>
+                                    <p class="col m-0 card-text" th:text="${'Total points: ' + topic.topicPoints}"/>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm" th:if="${session.loggedinuser}">

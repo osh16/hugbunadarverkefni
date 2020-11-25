@@ -31,6 +31,9 @@ public class Comment{
 
     private String commentText;
 
+    //@Column(nullable = true, length = 64)
+    //private String photo;
+
     public Comment() {
     }
 
