@@ -39,6 +39,12 @@ public class User {
 	public long userCreated;
 	public long lastOnline;
 
+	public User(String username, String password)  {
+		this.username = username;
+		this.password = password;
+		this.role = "USER";
+	}
+
 	public User(String username, String password, String role)  {
 		this.username = username;
 		this.password = password;
