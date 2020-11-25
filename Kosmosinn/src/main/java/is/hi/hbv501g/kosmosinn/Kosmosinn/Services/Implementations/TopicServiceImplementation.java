@@ -56,6 +56,29 @@ public class TopicServiceImplementation implements TopicService {
     }
 
     @Override
+    public List<Topic> findByPopularTopicsByBoard(long id) {
+        List<Topic> topics = repository.findByOrderByTopicPointsDesc();
+        List<Topic> popularTopics = new ArrayList<>();
+        for (Topic t : topics) {
+            if (t.getBoard().getId() == id) {
+                popularTopics.add(t);
+            }
+        }
+        return popularTopics;
+    }
+
+    @Override
+    public List<Topic> findByNewTopicsByBoard(long id) {
+        List<Topic> topics = repository.findByOrderByTopicCreatedDesc();
+        List<Topic> newTopics = new ArrayList<>();
+        for (Topic t : topics) {
+            if (t.getBoard().getId() == id) {
+                newTopics.add(t);
+            }
+        }
+        return newTopics;
+    }
+    @Override
     public List<Topic> findAllByBoardId(long id) {
         List<Topic> topics = repository.findAll();
         List<Topic> topicsByBoardId = new ArrayList<Topic>();
@@ -78,4 +101,10 @@ public class TopicServiceImplementation implements TopicService {
         }
         return topicsByUserId;
     }
+
+    @Override
+    public List<Topic> findByOrderByTopicPointsDesc() { return repository.findByOrderByTopicPointsDesc(); }
+
+    @Override
+    public List<Topic> findByOrderByTopicCreatedDesc() { return repository.findByOrderByTopicCreatedDesc(); }
 }
