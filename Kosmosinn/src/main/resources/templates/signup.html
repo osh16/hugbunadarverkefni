@@ -17,20 +17,22 @@
 <body>
     <div class="container justify-content-center">
         <header th:insert="header-poster::header-poster" />
-        <div class="row justify-content-md-center">
-            <form class="form-signin col-lg-4" action="#" th:action="@{/signup}" th:object="${user}"  method="post">
-                <h2 class="form-signin-heading">Signup for an account</h2>
-                <label class="sr-only" for="username">Username</label>
-                <input class="form-control" type="text" name="username" id="username" th:field="*{username}"/>
-                <label class="sr-only" for="password">Password</label>
-                <input class="form-control" type="password" name="password" id="password" th:value="*{password}"/>
+        <div class="container row justify-content-md-center">
+            <div class="jumbotron col-5 align-self-center">
+                <form class="form-signin" action="#" th:action="@{/signup}" th:object="${user}"  method="post">
+                    <h2 class="form-signin-heading">Signup for an account</h2>
+                    <label class="sr-only" for="username">Username</label>
+                    <input class="form-control" type="text" name="username" id="username" th:field="*{username}"/>
+                    <label class="sr-only" for="password">Password</label>
+                    <input class="form-control" type="password" name="password" id="password" th:value="*{password}"/>
+
+                    <div th:object="${errors}">
+                        <div th:each="e: ${errors}" th:text="${e}"></div>
+                    </div>
                 
-                <div th:object="${errors}">
-                    <div th:each="e: ${errors}" th:text="${e}"></div>
-                </div>
-            
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Signup</button>
-            </form>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Signup</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
