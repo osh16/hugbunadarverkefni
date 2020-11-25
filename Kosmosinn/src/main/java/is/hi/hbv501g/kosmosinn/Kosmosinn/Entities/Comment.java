@@ -29,6 +29,7 @@ public class Comment{
 
     private long commentEdited;
 
+    @Column(length=10000)
     private String commentText;
 
     //@Column(nullable = true, length = 64)
