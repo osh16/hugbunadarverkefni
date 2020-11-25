@@ -72,8 +72,9 @@ public class UserController {
             return "redirect:/";
         }
         user.setUserCreated();
+        user.setRole("USER");
         userService.save(user);
-        return "redirect:/adduser";
+        return "redirect:/userlist";
     }
 
     /**
@@ -101,6 +102,7 @@ public class UserController {
             User user = userService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID"));
             userService.delete(user);
             model.addAttribute("users", userService.findAll());
+            return "redirect:/userlist";
         }
         return "redirect:/";
     }
