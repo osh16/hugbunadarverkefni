@@ -78,10 +78,8 @@ public class BoardController {
     public String viewBoard(@RequestParam(name="sort", required = false) String sort, @PathVariable("id") long id, Model model, HttpSession session) {
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
         session.setAttribute("currentboardid", id);
-
         if (topicService.findAllByBoardId(id) != null) {
             if (sort == null) {
-                System.out.println("new");
                 model.addAttribute("topics", topicService.findByNewTopicsByBoard(id));
             }
             else if (sort.equals("new")) {
@@ -92,48 +90,10 @@ public class BoardController {
                 System.out.println("poplar");
                 model.addAttribute("topics", topicService.findByPopularTopicsByBoard(id));
             }
-            else {
-                System.out.println("else");
-                model.addAttribute("topics", topicService.findAllByBoardId(id));
-            }
         }
         return "board-content";
     }
 
-    @RequestMapping(value="{id}", params="new", method = RequestMethod.GET)
-    public String viewBoardbyNew(@RequestParam(name="sort") String sort, @PathVariable("id") long id, Model model, HttpSession session) {
-        model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
-        session.setAttribute("currentboardid", id);
-        System.out.println("   NEWWW");
-        if (topicService.findByNewTopicsByBoard(id) != null) {
-            System.out.println("   NEWWW");
-            model.addAttribute("topics",topicService.findByNewTopicsByBoard(id));
-        }
-        return "board-content";
-    }
-
-    @RequestMapping(value="{id}", params="popular", method = RequestMethod.GET)
-    public String viewBoardbyPopular(@PathVariable("id") long id, Model model, HttpSession session) {
-        model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
-        session.setAttribute("currentboardid", id);
-        System.out.println("   POPP");
-        if (topicService.findByPopularTopicsByBoard(id) != null) {
-            System.out.println("   POPP");
-            model.addAttribute("topics",topicService.findByPopularTopicsByBoard(id));
-        }
-        return "board-content";
-    }
-
-    @RequestMapping(value="{id}", params="normal", method = RequestMethod.GET)
-    public String viewBoardbyNormal(@PathVariable("id") long id, Model model, HttpSession session) {
-        model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
-        session.setAttribute("currentboardid", id);
-
-        if (topicService.findAllByBoardId(id) != null) {
-            model.addAttribute("topics", topicService.findAllByBoardId(id));
-        }
-        return "board-content";
-    }
 
     @RequestMapping(value="{id}/delete")
     public String deleteBoard(@PathVariable("id") long id, HttpSession session) {
