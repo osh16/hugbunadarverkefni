@@ -36,9 +36,9 @@
                         <p class="card-text" th:text="|Comments: ${topic.getCommentCount()}|"/>
                     </div>
                     <div class="col-sm" th:if="${session.loggedinuser}">
-                        <div th:if="${session.loggedinuser.role == 'ADMIN'}">
-                            <a th:class="edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
-                            <a th:href="@{|/topic/${topic.id}/delete|}">delete</a>
+                        <div class="card-text mb-3" th:if="${session.loggedinuser.role == 'ADMIN'}">
+                            <a th:class="edit-topic + ' btn btn-primary'" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
+                            <a class="btn btn-danger" th:href="@{|/topic/${topic.id}/delete|}">delete</a>
                         </div>
                     </div>
                 </div>
