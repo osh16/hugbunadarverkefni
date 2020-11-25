@@ -32,6 +32,10 @@
                         <p class="m-0" th:text="${'Total points: ' + topic.topicPoints}"/>
                     </div>
                 </div>
+                <form th:action="@{|/topic/${topic.id}|}" th:object="${topic}" th:method="post">
+                    <button th:type="submit" th:name="action" th:value="upvote">Upvote</button>
+                    <button th:type="submit" th:name="action" th:value="downvote">Downvote</button>
+                </form>
                 <div th:if="${session.loggedinuser}">
                     <div th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
                         <p class="lead"></p>
