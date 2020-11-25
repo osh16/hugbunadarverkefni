@@ -16,21 +16,21 @@
 </head>
 <body>
     <div class="container">
-    <header th:insert="header-poster::header-poster" />
-    <div class="row justify-content-md-center">
-        <form class="form-signin" action="#" th:action="@{/login}" th:object="${user}"  method="post">
-            <h2 class="form-signin-heading">Login to your account</h2>
-            <label class="sr-only" for="inputUsername">Username</label>
-            <input placeholder="Username" class="form-control" type="text" name="username" id="username" th:field="*{username}"/>
-            <label class="sr-only" for="inputPassword">Password</label>
-            <input placeholder="Password" class="form-control" type="password" name="password" id="password" th:value="*{password}"/>
+        <header th:insert="header-poster::header-poster" />
+        <div class="row justify-content-md-center">
+            <form class="form-signin" action="#" th:action="@{/login}" th:object="${user}"  method="post">
+                <h2 class="form-signin-heading">Login to your account</h2>
+                <label class="sr-only" for="inputUsername">Username</label>
+                <input placeholder="Username" class="form-control" type="text" name="username" id="username" th:field="*{username}"/>
+                <label class="sr-only" for="inputPassword">Password</label>
+                <input placeholder="Password" class="form-control" type="password" name="password" id="password" th:value="*{password}"/>
             
-            <div th:object="${errors}">
-                <div th:each="e: ${errors}" th:text="${e}"></div>
-            </div>
-        
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        </form>
+                <div th:if="${errors}" th:object="${errors}">
+                    <p th:each="e: ${errors}" th:text="${e}"></p>
+                </div>
+                
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            </form>
         </div>
     </div>
 </body>

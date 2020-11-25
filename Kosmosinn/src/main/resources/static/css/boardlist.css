@@ -26,12 +26,6 @@
     background-color: whitesmoke;
 }
 
-.board__card p{
-    font-size: 18px;
-    color: #bd1f1f ;
-    margin: 5px;
-}
-
 .board__card a {
     text-decoration: underline;
     text-decoration-color: #ffd001;
