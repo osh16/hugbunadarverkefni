@@ -78,7 +78,6 @@ public class BoardController {
     public String viewBoard(@RequestParam(name="sort", required = false) String sort, @PathVariable("id") long id, Model model, HttpSession session) {
         model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
         session.setAttribute("currentboardid", id);
-
         if (topicService.findAllByBoardId(id) != null) {
             if (sort == null) {
                 model.addAttribute("topics", topicService.findByNewTopicsByBoard(id));
