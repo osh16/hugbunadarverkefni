@@ -32,11 +32,11 @@
                         <p class="m-0" th:text="${'Total points: ' + topic.topicPoints}"/>
                     </div>
                 </div>
-                <form th:action="@{|/topic/${topic.id}|}" th:object="${topic}" th:method="post">
-                    <button th:type="submit" th:name="action" th:value="upvote">Upvote</button>
-                    <button th:type="submit" th:name="action" th:value="downvote">Downvote</button>
-                </form>
-                <div th:if="${session.loggedinuser}">
+                <div class="row" th:if="${session.loggedinuser}">
+                    <form class="form mt-2 mr-1 ml-2" th:action="@{|/topic/${topic.id}|}" th:object="${topic}" th:if="${topic.user.username != session.loggedinuser.username}" th:method="post">
+                        <button class="mt-2 btn btn-success" style="height: 48px; width: 48px;" th:type="submit" th:name="action" th:value="upvote">&uarr;	</button>
+                        <button class="mt-2 btn btn-danger" style="height: 48px; width: 48px;" th:type="submit" th:name="action" th:value="downvote">&darr;	</button>
+                    </form>
                     <div th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
                         <p class="lead"></p>
                         <a th:class="'btn btn-warning btn-lg ' + edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>

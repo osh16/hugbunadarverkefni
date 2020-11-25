@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -73,6 +74,26 @@ public class BoardController {
      * If it finds topics related to said board it fills the content of the board with said topics.
      * Returns you to the current viewed board's site.
      */
+    @RequestMapping(value="{id}")
+    public String viewBoard(@RequestParam(name="sort", required = false) String sort, @PathVariable("id") long id, Model model, HttpSession session) {
+        model.addAttribute("board", boardService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid ID")));
+        session.setAttribute("currentboardid", id);
+
+        if (topicService.findAllByBoardId(id) != null) {
+            if (sort == null) {
+                model.addAttribute("topics", topicService.findByNewTopicsByBoard(id));
+            }
+            else if (sort.equals("new")) {
+                System.out.println("new");
+                model.addAttribute("topics", topicService.findByNewTopicsByBoard(id));
+            }
+            else if (sort.equals("popular")) {
+                System.out.println("poplar");
+                model.addAttribute("topics", topicService.findByPopularTopicsByBoard(id));
+            }
+        }
+        return "board-content";
+    }
 
 
     @RequestMapping(value="{id}/delete")
