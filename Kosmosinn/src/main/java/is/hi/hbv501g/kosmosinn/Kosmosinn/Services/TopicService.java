@@ -12,7 +12,11 @@ public interface TopicService {
     List<Topic> findAll();
     Optional<Topic> findById(long id);
     Board findByBoard(long id);
+    List<Topic> findByPopularTopicsByBoard(long id);
+    List<Topic> findByNewTopicsByBoard(long id);
     User findByUser(long id);// thread creator
     List<Topic> findAllByBoardId(long id);
     List<Topic> findAllByUserId(long id);
+    List<Topic> findByOrderByTopicPointsDesc();
+    List<Topic> findByOrderByTopicCreatedDesc();
 }
