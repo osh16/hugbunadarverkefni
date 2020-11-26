@@ -25,7 +25,7 @@
             <tbody>
             <tr scope="row" th:each="user : ${users}">
                 <td th:text="${user.id}"></td>
-                <td th:text="${user.username}"></td>
+                <td><a th:text="${user.username}" th:href="@{/user/{id}(id=${user.id})}"/></td>
                 <td th:text="${user.role}"></td>
                 <td th:text="${user.topics.size()}"></td>
                 <td th:text="${user.comments.size()}"></td>

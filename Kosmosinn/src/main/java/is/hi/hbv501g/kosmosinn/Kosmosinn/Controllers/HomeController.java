@@ -43,7 +43,7 @@ public class HomeController {
 		this.boardService = boardService;
 		this.commentService = commentService;
 	}
-
+    // test comment, ~teg6
 	@RequestMapping("/")
 	public String Home(Model model) {
 	    // fyrsta keyrsla
