@@ -15,18 +15,22 @@
             </div>
             <div th:case="*" >
                 <div th:switch="${session.loggedinuser.role}">
-                    <div th:case="'ADMIN'">
-                        <p class="lead ml-1" th:text="${'Halló ADMIN ' + session.loggedinuser.username}"></p>
-                        <div class="row ml-1">
+                    <div class="container row justify-content-between mr-0 pr-0" th:case="'ADMIN'">
+                        <div class="row align-items-center ml-1">
                             <a class="mr-1 btn btn-danger" th:href="@{/signout}">Signout</a>
                             <a class="mr-1 btn btn-warning" th:href="@{/userlist}">Userlist</a>
                             <a class="mr-1 btn btn-warning" th:href="@{/board/addboard}">Add board</a>
                         </div>
+                        <div class="jumbotron p-1">
+                            <h5 th:text="${'Admin ' + session.loggedinuser.username}"></h5>
+                        </div>
                     </div>
-                    <div th:case="*">
-                        <p class="lead" th:text="${'Halló ' + session.loggedinuser.username}"></p>
-                        <div class="row ml-1">
+                    <div class="container row justify-content-between" th:case="*">                        
+                        <div class="row align-items-center ml-1">
                             <a class="mr-1 btn btn-danger" th:href="@{/signout}">Signout</a>
+                        </div>
+                        <div class="jumbotron p-1">
+                            <h5 th:text="${'User ' + session.loggedinuser.username}"></h5>
                         </div>
                     </div>
                 </div>

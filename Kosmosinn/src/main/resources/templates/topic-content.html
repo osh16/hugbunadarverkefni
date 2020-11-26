@@ -23,23 +23,22 @@
         <div class="justify-content-center">
             <header th:insert="header-poster::header-poster" />
             <div th:insert="login-header::login-header"/>
-            <a class="mt-2 ml-1 btn btn-danger" th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
             <div class="jumbotron font-red">
                 <div class="row" th:object="${topic}">
                     <div class="col-sm topic-header">
                         <h2 class="display-4 font-weight-bold" th:text="${topic.topicName}"/>
                         <p class="mb-3">Created by <a th:href="@{/user/{id}(id=${topic.user.id})}" th:text="${topic.user.username}"/></p>
-                        <p class="lead" th:text="${topic.topicContent}"/>
+                        <p class="lead" th:text="${topic.topicContent}"/><hr>
                         <p class="m-0" th:text="${'Total points: ' + topic.topicPoints}"/>
                     </div>
                 </div>
-                <div class="row" th:if="${session.loggedinuser}">
-                    <form class="form mt-2 mr-1 ml-2" th:action="@{|/topic/${topic.id}|}" th:object="${topic}" th:if="${topic.user.username != session.loggedinuser.username}" th:method="post">
+                <div class="row ml-1" th:if="${session.loggedinuser}">
+                    <a class="pt-2 mt-2 btn btn-danger" th:href="@{/board/{id}(id=${topic.board.id})}" th:text="${'Back to ' + topic.board.name}"></a>
+                    <form class="form mr-1 ml-1" th:action="@{|/topic/${topic.id}|}" th:object="${topic}" th:if="${topic.user.username != session.loggedinuser.username}" th:method="post">
                         <button class="mt-2 btn btn-success" style="height: 48px; width: 48px;" th:type="submit" th:name="action" th:value="upvote">&uarr;	</button>
                         <button class="mt-2 btn btn-danger" style="height: 48px; width: 48px;" th:type="submit" th:name="action" th:value="downvote">&darr;	</button>
                     </form>
                     <div class="mt-2 col" th:if="${topic.user.username == session.loggedinuser.username} OR ${session.loggedinuser.role == 'ADMIN'}">
-                        
                         <a th:class="'btn btn-warning btn-lg ' + edit-topic" th:id="|edit-${topic.id}|" th:href="@{|/topic/${topic.id}/edit|}">edit</a>
                         <a class="btn btn-danger btn-lg" th:href="@{|/topic/${topic.id}/delete|}">delete</a>
                     </div>

@@ -51,9 +51,10 @@ public class HomeController {
 	    	User oskar = new User("oskar","oskar","ADMIN");
 			userService.save(oskar);
 
-			boardService.save(new Board("frettir um astrad stefansson", "hvad er hann eiginlega ad bralla"));
-			boardService.save(new Board("tonlist", "tala um tonlist"));
-			boardService.save(new Board("rafmyntir", "hver er næsta 1000x"));
+			boardService.save(new Board("Fréttir af Matt Damon", "Matthew Paige Damon (f. 8. október 1970), best þekktur sem Matt Damon, er bandarískur leikari og handritshöfundur. Hann er af ensku, skosku, sænsku og finnsku ætterni. Hann stundaði enskunám í Harvard-háskóla á árunum 1988 - 1992 en útskrifaðist ekki. Hann og Ben Affleck eru æskuvinir."));
+			boardService.save(new Board("Íslensk Tónlist", "Eigum við eitthvað að ræða nýju plötuna hans Bubba? Halló!"));
+			boardService.save(new Board("Rafmyntir", "Hver er næsta 1000x"));
+			boardService.save(new Board("hacker_board", "here_we_are_the_hackers_of_the_world_hue_hue_hue"));
 		}
 		model.addAttribute("boards", boardService.findAll());
 		return "welcome";
